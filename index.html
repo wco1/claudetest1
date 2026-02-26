@@ -2,188 +2,114 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mini Flask API</title>
+  <title>wco1/claudetest1</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
+      margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: #0f172a;
       color: #e2e8f0;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
+      padding: 40px 20px;
     }
+    h1 { font-size: 1.4rem; margin-bottom: 4px; }
+    .sub { color: #64748b; font-size: 0.85rem; margin-bottom: 36px; }
 
-    .card {
+    .endpoint {
       background: #1e293b;
-      border-radius: 16px;
-      padding: 40px;
-      width: 100%;
-      max-width: 520px;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 16px;
+      max-width: 560px;
     }
-
-    h1 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 6px;
-      color: #f8fafc;
-    }
-
-    .subtitle {
-      font-size: 0.875rem;
-      color: #94a3b8;
-      margin-bottom: 32px;
-    }
-
-    .status-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 28px;
-      font-size: 0.85rem;
-      color: #94a3b8;
-    }
-
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #22c55e;
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
-    }
-
-    .buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-bottom: 28px;
-    }
-
-    button {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: #334155;
-      border: 1px solid #475569;
-      color: #e2e8f0;
-      padding: 14px 18px;
-      border-radius: 10px;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-
-    button:hover {
-      background: #3b4f6b;
-      border-color: #6366f1;
-      color: #fff;
-    }
-
-    button .method {
-      font-size: 0.75rem;
-      font-weight: 700;
+    .top { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+    .badge {
       background: #6366f1;
-      color: white;
-      padding: 2px 8px;
-      border-radius: 4px;
-      margin-right: 10px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 3px 10px;
+      border-radius: 6px;
     }
+    .path { font-family: monospace; font-size: 1rem; color: #7dd3fc; }
 
-    button .label {
-      flex: 1;
-      text-align: left;
-    }
-
-    button .arrow { color: #94a3b8; font-size: 1rem; }
-
-    .response-box {
-      background: #0f172a;
-      border-radius: 10px;
-      padding: 16px;
-      font-family: "Fira Code", "Cascadia Code", monospace;
-      font-size: 0.85rem;
-      color: #7dd3fc;
-      min-height: 80px;
-      white-space: pre;
-      border: 1px solid #1e3a5f;
-      transition: opacity 0.2s;
-    }
-
-    .response-box.empty { color: #475569; }
-
-    .note {
-      margin-top: 20px;
-      font-size: 0.78rem;
-      color: #64748b;
+    pre {
       background: #0f172a;
       border-radius: 8px;
-      padding: 12px 14px;
-      border-left: 3px solid #6366f1;
+      padding: 14px 16px;
+      font-family: monospace;
+      font-size: 0.88rem;
+      color: #86efac;
+      margin: 0;
     }
 
-    .note code {
-      background: #1e293b;
-      padding: 1px 5px;
-      border-radius: 4px;
-      color: #a5b4fc;
+    .files {
+      max-width: 560px;
+      margin-top: 36px;
     }
+    .files h2 { font-size: 1rem; margin-bottom: 12px; color: #94a3b8; }
+    .file {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid #1e293b;
+      font-size: 0.9rem;
+    }
+    .file:last-child { border: none; }
+    .icon { font-size: 1.1rem; }
+    .fname { color: #e2e8f0; }
+    .fdesc { color: #64748b; font-size: 0.8rem; margin-left: auto; }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Mini Flask API</h1>
-    <p class="subtitle">Тестовый проект — wco1/claudetest1</p>
 
-    <div class="status-row">
-      <div class="dot"></div>
-      <span>Flask запущен на <strong>localhost:5000</strong></span>
+  <h1>wco1 / claudetest1</h1>
+  <p class="sub">Мини Flask API — что возвращают эндпоинты</p>
+
+  <div class="endpoint">
+    <div class="top">
+      <span class="badge">GET</span>
+      <span class="path">/</span>
     </div>
+    <pre>{
+  "message": "Hello, World!",
+  "status": "ok"
+}</pre>
+  </div>
 
-    <div class="buttons">
-      <button onclick="call('/')">
-        <span class="method">GET</span>
-        <span class="label">/</span>
-        <span class="arrow">→</span>
-      </button>
-      <button onclick="call('/health')">
-        <span class="method">GET</span>
-        <span class="label">/health</span>
-        <span class="arrow">→</span>
-      </button>
+  <div class="endpoint">
+    <div class="top">
+      <span class="badge">GET</span>
+      <span class="path">/health</span>
     </div>
+    <pre>{
+  "status": "healthy"
+}</pre>
+  </div>
 
-    <div class="response-box empty" id="response">// Нажми кнопку выше, чтобы вызвать эндпоинт</div>
-
-    <div class="note">
-      Перед использованием запусти сервер:<br/>
-      <code>pip install flask</code> &nbsp;→&nbsp; <code>python app.py</code>
+  <div class="files">
+    <h2>Файлы в проекте</h2>
+    <div class="file">
+      <span class="icon">🐍</span>
+      <span class="fname">app.py</span>
+      <span class="fdesc">Flask-приложение, 2 эндпоинта</span>
+    </div>
+    <div class="file">
+      <span class="icon">📋</span>
+      <span class="fname">requirements.txt</span>
+      <span class="fdesc">Зависимости (flask)</span>
+    </div>
+    <div class="file">
+      <span class="icon">🧪</span>
+      <span class="fname">test_app.py</span>
+      <span class="fdesc">Тесты для API</span>
+    </div>
+    <div class="file">
+      <span class="icon">🌐</span>
+      <span class="fname">index.html</span>
+      <span class="fdesc">Эта страница</span>
     </div>
   </div>
 
-  <script>
-    async function call(path) {
-      const box = document.getElementById("response");
-      box.classList.remove("empty");
-      box.textContent = "// Загрузка...";
-      try {
-        const res = await fetch("http://localhost:5000" + path);
-        const data = await res.json();
-        box.textContent = JSON.stringify(data, null, 2);
-      } catch (e) {
-        box.style.color = "#f87171";
-        box.textContent = "// Не удалось подключиться.\n// Убедись, что Flask запущен:\n// python app.py";
-      }
-    }
-  </script>
 </body>
 </html>
