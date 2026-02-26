@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ugcgo.ai — AI-Powered UGC Marketplace</title>
+    <meta name="description" content="The marketplace where brands hire AI-powered UGC creators to make viral short-form video content for TikTok, Reels, and Shorts.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav__container">
+            <a href="#" class="nav__logo">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" class="nav__logo-icon">
+                    <rect width="32" height="32" rx="8" fill="var(--accent)"/>
+                    <path d="M8 12L16 8L24 12V20L16 24L8 20V12Z" fill="var(--bg-primary)" stroke="var(--bg-primary)" stroke-width="1.5"/>
+                    <path d="M16 8V24M8 12L24 20M24 12L8 20" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                <span>ugcgo<span class="accent">.ai</span></span>
+            </a>
+            <div class="nav__links">
+                <a href="#features" class="nav__link">Platform</a>
+                <a href="#how-it-works" class="nav__link">How It Works</a>
+                <a href="#creators" class="nav__link">Creators</a>
+                <a href="#brands" class="nav__link">Brands</a>
+                <a href="#pricing" class="nav__link">Pricing</a>
+            </div>
+            <div class="nav__actions">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <svg class="theme-toggle__icon theme-toggle__icon--dark" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <circle cx="10" cy="10" r="4" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M10 2V4M10 16V18M18 10H16M4 10H2M15.66 4.34L14.24 5.76M5.76 14.24L4.34 15.66M15.66 15.66L14.24 14.24M5.76 5.76L4.34 4.34" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                    <svg class="theme-toggle__icon theme-toggle__icon--light" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.003 8.003 0 1010.586 10.586z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <a href="#waitlist" class="nav__cta">Get Early Access</a>
+                <button class="nav__burger" id="navBurger" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="nav__mobile" id="navMobile">
+            <a href="#features" class="nav__mobile-link">Platform</a>
+            <a href="#how-it-works" class="nav__mobile-link">How It Works</a>
+            <a href="#creators" class="nav__mobile-link">Creators</a>
+            <a href="#brands" class="nav__mobile-link">Brands</a>
+            <a href="#pricing" class="nav__mobile-link">Pricing</a>
+            <a href="#waitlist" class="nav__mobile-cta">Get Early Access</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <canvas id="particleCanvas" class="hero__particles"></canvas>
+        <div class="hero__gradient"></div>
+        <div class="hero__content">
+            <div class="hero__badge reveal-up">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <circle cx="8" cy="8" r="3" fill="var(--accent)"/>
+                    <circle cx="8" cy="8" r="6" stroke="var(--accent)" stroke-width="1" opacity="0.4"/>
+                    <circle cx="8" cy="8" r="7.5" stroke="var(--accent)" stroke-width="0.5" opacity="0.2"/>
+                </svg>
+                <span>Now in Private Beta</span>
+            </div>
+            <h1 class="hero__title reveal-up">
+                <span class="glitch" data-text="The Future of">The Future of</span>
+                <br>
+                <span class="hero__title--accent">UGC is AI.</span>
+            </h1>
+            <p class="hero__subtitle reveal-up">
+                The marketplace where brands hire AI-powered creators to produce
+                viral short-form video at 10x speed and 1/10th the cost.
+            </p>
+            <div class="hero__actions reveal-up">
+                <a href="#waitlist" class="btn btn--primary">
+                    <span>Join the Waitlist</span>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+                <a href="#how-it-works" class="btn btn--ghost">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M8 7L13 10L8 13V7Z" fill="currentColor"/>
+                    </svg>
+                    <span>See How It Works</span>
+                </a>
+            </div>
+            <div class="hero__stats reveal-up">
+                <div class="hero__stat">
+                    <span class="hero__stat-number" data-count="500">0</span><span class="accent">+</span>
+                    <span class="hero__stat-label">Creators</span>
+                </div>
+                <div class="hero__stat-divider"></div>
+                <div class="hero__stat">
+                    <span class="hero__stat-number" data-count="10">0</span><span class="accent">x</span>
+                    <span class="hero__stat-label">Faster Production</span>
+                </div>
+                <div class="hero__stat-divider"></div>
+                <div class="hero__stat">
+                    <span class="hero__stat-number" data-count="85">0</span><span class="accent">%</span>
+                    <span class="hero__stat-label">Cost Reduction</span>
+                </div>
+            </div>
+        </div>
+        <!-- Floating Video Cards -->
+        <div class="hero__cards reveal-up">
+            <div class="video-card video-card--1">
+                <div class="video-card__inner">
+                    <div class="video-card__shimmer"></div>
+                    <div class="video-card__content">
+                        <svg class="video-card__play" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                            <circle cx="20" cy="20" r="20" fill="rgba(232,255,89,0.15)"/>
+                            <path d="M16 13L28 20L16 27V13Z" fill="var(--accent)"/>
+                        </svg>
+                        <div class="video-card__meta">
+                            <span class="video-card__views">2.4M views</span>
+                            <span class="video-card__platform">TikTok</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="video-card video-card--2">
+                <div class="video-card__inner">
+                    <div class="video-card__shimmer"></div>
+                    <div class="video-card__content">
+                        <svg class="video-card__play" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                            <circle cx="20" cy="20" r="20" fill="rgba(232,255,89,0.15)"/>
+                            <path d="M16 13L28 20L16 27V13Z" fill="var(--accent)"/>
+                        </svg>
+                        <div class="video-card__meta">
+                            <span class="video-card__views">890K views</span>
+                            <span class="video-card__platform">Reels</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="video-card video-card--3">
+                <div class="video-card__inner">
+                    <div class="video-card__shimmer"></div>
+                    <div class="video-card__content">
+                        <svg class="video-card__play" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                            <circle cx="20" cy="20" r="20" fill="rgba(232,255,89,0.15)"/>
+                            <path d="M16 13L28 20L16 27V13Z" fill="var(--accent)"/>
+                        </svg>
+                        <div class="video-card__meta">
+                            <span class="video-card__views">1.1M views</span>
+                            <span class="video-card__platform">Shorts</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero__scroll">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <rect x="7" y="2" width="10" height="18" rx="5" stroke="var(--text-secondary)" stroke-width="1.5"/>
+                <circle cx="12" cy="8" r="1.5" fill="var(--accent)" class="scroll-dot"/>
+            </svg>
+            <span>Scroll to explore</span>
+        </div>
+    </section>
+
+    <!-- Logos/Trust Bar -->
+    <section class="trust-bar reveal-up">
+        <div class="container">
+            <p class="trust-bar__label">Trusted by forward-thinking brands</p>
+            <div class="trust-bar__logos">
+                <div class="trust-bar__logo">
+                    <svg width="120" height="32" viewBox="0 0 120 32" fill="none">
+                        <rect x="4" y="8" width="16" height="16" rx="4" stroke="var(--text-tertiary)" stroke-width="1.5"/>
+                        <text x="28" y="21" fill="var(--text-tertiary)" font-family="Inter" font-weight="600" font-size="14">Shopify</text>
+                    </svg>
+                </div>
+                <div class="trust-bar__logo">
+                    <svg width="100" height="32" viewBox="0 0 100 32" fill="none">
+                        <circle cx="12" cy="16" r="8" stroke="var(--text-tertiary)" stroke-width="1.5"/>
+                        <text x="28" y="21" fill="var(--text-tertiary)" font-family="Inter" font-weight="600" font-size="14">Vercel</text>
+                    </svg>
+                </div>
+                <div class="trust-bar__logo">
+                    <svg width="110" height="32" viewBox="0 0 110 32" fill="none">
+                        <path d="M4 16L12 8L20 16L12 24Z" stroke="var(--text-tertiary)" stroke-width="1.5"/>
+                        <text x="28" y="21" fill="var(--text-tertiary)" font-family="Inter" font-weight="600" font-size="14">Notion</text>
+                    </svg>
+                </div>
+                <div class="trust-bar__logo">
+                    <svg width="100" height="32" viewBox="0 0 100 32" fill="none">
+                        <path d="M4 24L12 8L20 24" stroke="var(--text-tertiary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <text x="28" y="21" fill="var(--text-tertiary)" font-family="Inter" font-weight="600" font-size="14">Linear</text>
+                    </svg>
+                </div>
+                <div class="trust-bar__logo">
+                    <svg width="110" height="32" viewBox="0 0 110 32" fill="none">
+                        <rect x="4" y="10" width="12" height="12" rx="2" stroke="var(--text-tertiary)" stroke-width="1.5"/>
+                        <rect x="8" y="14" width="4" height="4" fill="var(--text-tertiary)"/>
+                        <text x="24" y="21" fill="var(--text-tertiary)" font-family="Inter" font-weight="600" font-size="14">Stripe</text>
+                    </svg>
+                </div>
+                <div class="trust-bar__logo">
+                    <svg width="120" height="32" viewBox="0 0 120 32" fill="none">
+                        <circle cx="12" cy="16" r="6" stroke="var(--text-tertiary)" stroke-width="1.5"/>
+                        <circle cx="12" cy="16" r="2" fill="var(--text-tertiary)"/>
+                        <text x="24" y="21" fill="var(--text-tertiary)" font-family="Inter" font-weight="600" font-size="14">Revolut</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header reveal-up">
+                <span class="section-label">Platform</span>
+                <h2 class="section-title">One platform.<br><span class="accent">Infinite content.</span></h2>
+                <p class="section-subtitle">Everything you need to produce, manage, and scale AI-powered UGC — from brief to viral video.</p>
+            </div>
+            <div class="features__grid">
+                <!-- Feature 1 -->
+                <div class="feature-card feature-card--large reveal-up">
+                    <div class="feature-card__icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect x="4" y="4" width="40" height="40" rx="12" stroke="var(--accent)" stroke-width="2"/>
+                            <path d="M16 18C16 16.8954 16.8954 16 18 16H22C23.1046 16 24 16.8954 24 18V30C24 31.1046 23.1046 32 22 32H18C16.8954 32 16 31.1046 16 30V18Z" fill="var(--accent)" opacity="0.3"/>
+                            <path d="M26 22C26 20.8954 26.8954 20 28 20H30C31.1046 20 32 20.8954 32 22V30C32 31.1046 31.1046 32 30 32H28C26.8954 32 26 31.1046 26 30V22Z" fill="var(--accent)" opacity="0.6"/>
+                            <circle cx="34" cy="14" r="4" fill="var(--accent)"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-card__title">AI-Powered Matching</h3>
+                    <p class="feature-card__desc">Our algorithm matches brands with the perfect creators based on niche, style, performance history, and content type. No more scrolling through portfolios.</p>
+                    <div class="feature-card__visual">
+                        <svg viewBox="0 0 400 200" fill="none" class="feature-card__svg">
+                            <line x1="50" y1="100" x2="200" y2="50" stroke="var(--accent)" stroke-width="2" opacity="0.3" class="svg-line-animate"/>
+                            <line x1="50" y1="100" x2="200" y2="100" stroke="var(--accent)" stroke-width="2" opacity="0.5" class="svg-line-animate"/>
+                            <line x1="50" y1="100" x2="200" y2="150" stroke="var(--accent)" stroke-width="2" opacity="0.3" class="svg-line-animate"/>
+                            <line x1="200" y1="50" x2="350" y2="100" stroke="var(--accent)" stroke-width="2" opacity="0.3" class="svg-line-animate"/>
+                            <line x1="200" y1="100" x2="350" y2="100" stroke="var(--accent)" stroke-width="2" opacity="0.5" class="svg-line-animate"/>
+                            <line x1="200" y1="150" x2="350" y2="100" stroke="var(--accent)" stroke-width="2" opacity="0.3" class="svg-line-animate"/>
+                            <circle cx="50" cy="100" r="20" fill="var(--bg-secondary)" stroke="var(--accent)" stroke-width="2"/>
+                            <text x="50" y="105" text-anchor="middle" fill="var(--accent)" font-size="14" font-weight="700">B</text>
+                            <circle cx="200" cy="50" r="16" fill="var(--bg-secondary)" stroke="var(--accent)" stroke-width="1.5" opacity="0.6"/>
+                            <circle cx="200" cy="100" r="16" fill="var(--accent)" opacity="0.2" stroke="var(--accent)" stroke-width="2"/>
+                            <circle cx="200" cy="150" r="16" fill="var(--bg-secondary)" stroke="var(--accent)" stroke-width="1.5" opacity="0.6"/>
+                            <text x="200" y="55" text-anchor="middle" fill="var(--text-secondary)" font-size="11">C1</text>
+                            <text x="200" y="105" text-anchor="middle" fill="var(--accent)" font-size="11" font-weight="700">C2</text>
+                            <text x="200" y="155" text-anchor="middle" fill="var(--text-secondary)" font-size="11">C3</text>
+                            <circle cx="350" cy="100" r="20" fill="var(--accent)" opacity="0.15" stroke="var(--accent)" stroke-width="2"/>
+                            <text x="350" y="97" text-anchor="middle" fill="var(--accent)" font-size="10" font-weight="700">MATCH</text>
+                            <text x="350" y="109" text-anchor="middle" fill="var(--accent)" font-size="8">98%</text>
+                            <circle cx="125" cy="75" r="4" fill="var(--accent)" class="pulse-dot"/>
+                            <circle cx="275" cy="75" r="4" fill="var(--accent)" class="pulse-dot" style="animation-delay: 0.5s"/>
+                        </svg>
+                    </div>
+                </div>
+                <!-- Feature 2 -->
+                <div class="feature-card reveal-up">
+                    <div class="feature-card__icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect x="8" y="6" width="20" height="36" rx="4" stroke="var(--accent)" stroke-width="2"/>
+                            <rect x="12" y="10" width="12" height="20" rx="2" fill="var(--accent)" opacity="0.2"/>
+                            <path d="M14 34H22" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"/>
+                            <path d="M32 16L38 12V28L32 24V16Z" fill="var(--accent)" opacity="0.4"/>
+                            <circle cx="36" cy="36" r="8" stroke="var(--accent)" stroke-width="1.5"/>
+                            <path d="M33 36L35 38L39 34" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-card__title">9:16 Native</h3>
+                    <p class="feature-card__desc">Built for vertical video from day one. Every tool, preview, and export is optimized for TikTok, Reels, and Shorts.</p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="feature-card reveal-up">
+                    <div class="feature-card__icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <path d="M24 6L42 16V32L24 42L6 32V16L24 6Z" stroke="var(--accent)" stroke-width="2"/>
+                            <path d="M24 6V42M6 16L42 32M42 16L6 32" stroke="var(--accent)" stroke-width="1" opacity="0.3"/>
+                            <circle cx="24" cy="24" r="6" fill="var(--accent)" opacity="0.3"/>
+                            <circle cx="24" cy="24" r="3" fill="var(--accent)"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-card__title">Built-in AI Tools</h3>
+                    <p class="feature-card__desc">Creators get access to Kling, Runway, HeyGen and more — integrated directly into the workflow. No extra subscriptions.</p>
+                </div>
+                <!-- Feature 4 -->
+                <div class="feature-card reveal-up">
+                    <div class="feature-card__icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <path d="M8 36L16 24L24 28L32 16L40 20" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M8 36L16 24L24 28L32 16L40 20V36H8Z" fill="var(--accent)" opacity="0.1"/>
+                            <circle cx="40" cy="20" r="4" fill="var(--accent)" opacity="0.4"/>
+                            <circle cx="40" cy="20" r="2" fill="var(--accent)"/>
+                            <path d="M36 10L40 8L44 10" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-card__title">Performance Bonuses</h3>
+                    <p class="feature-card__desc">Creators earn flat fees plus view-based bonuses. More views = more money. Aligned incentives drive better content.</p>
+                </div>
+                <!-- Feature 5 -->
+                <div class="feature-card reveal-up">
+                    <div class="feature-card__icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect x="6" y="12" width="36" height="24" rx="4" stroke="var(--accent)" stroke-width="2"/>
+                            <path d="M6 20H42" stroke="var(--accent)" stroke-width="1.5"/>
+                            <rect x="10" y="24" width="12" height="4" rx="1" fill="var(--accent)" opacity="0.3"/>
+                            <rect x="10" y="30" width="8" height="2" rx="1" fill="var(--accent)" opacity="0.2"/>
+                            <circle cx="36" cy="28" r="4" stroke="var(--accent)" stroke-width="1.5"/>
+                            <path d="M34 28L35.5 29.5L38 27" stroke="var(--accent)" stroke-width="1" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-card__title">Instant Payments</h3>
+                    <p class="feature-card__desc">No chasing invoices. The platform handles contracts, escrow, and payouts automatically. Get paid the moment content is approved.</p>
+                </div>
+                <!-- Feature 6 - Large -->
+                <div class="feature-card feature-card--large reveal-up">
+                    <div class="feature-card__icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <path d="M12 8H36C38.2091 8 40 9.79086 40 12V36C40 38.2091 38.2091 40 36 40H12C9.79086 40 8 38.2091 8 36V12C8 9.79086 9.79086 8 12 8Z" stroke="var(--accent)" stroke-width="2"/>
+                            <path d="M18 20L22 24L18 28" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M26 28H32" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-card__title">Full Campaign Dashboard</h3>
+                    <p class="feature-card__desc">Track every campaign from brief to delivery. Real-time analytics, revision management, and performance metrics — all in one place. Built for scale.</p>
+                    <div class="feature-card__visual">
+                        <svg viewBox="0 0 400 180" fill="none" class="feature-card__svg">
+                            <!-- Dashboard mockup -->
+                            <rect x="20" y="10" width="360" height="160" rx="8" fill="var(--bg-secondary)" stroke="var(--border-color)" stroke-width="1"/>
+                            <rect x="20" y="10" width="360" height="30" rx="8" fill="var(--bg-tertiary)"/>
+                            <rect x="20" y="38" width="360" height="2" fill="var(--border-color)"/>
+                            <circle cx="36" cy="25" r="5" fill="#ff5f57"/>
+                            <circle cx="52" cy="25" r="5" fill="#febc2e"/>
+                            <circle cx="68" cy="25" r="5" fill="#28c840"/>
+                            <!-- Bars chart -->
+                            <rect x="40" y="120" width="24" height="30" rx="2" fill="var(--accent)" opacity="0.3" class="bar-animate" style="--delay: 0"/>
+                            <rect x="72" y="100" width="24" height="50" rx="2" fill="var(--accent)" opacity="0.4" class="bar-animate" style="--delay: 1"/>
+                            <rect x="104" y="80" width="24" height="70" rx="2" fill="var(--accent)" opacity="0.6" class="bar-animate" style="--delay: 2"/>
+                            <rect x="136" y="60" width="24" height="90" rx="2" fill="var(--accent)" opacity="0.8" class="bar-animate" style="--delay: 3"/>
+                            <rect x="168" y="50" width="24" height="100" rx="2" fill="var(--accent)" class="bar-animate" style="--delay: 4"/>
+                            <!-- Stats -->
+                            <rect x="220" y="55" width="140" height="40" rx="6" fill="var(--bg-tertiary)" stroke="var(--border-color)" stroke-width="1"/>
+                            <text x="235" y="72" fill="var(--text-secondary)" font-size="8" font-family="Inter">Total Views</text>
+                            <text x="235" y="88" fill="var(--accent)" font-size="14" font-weight="700" font-family="Inter">24.8M</text>
+                            <rect x="220" y="105" width="140" height="40" rx="6" fill="var(--bg-tertiary)" stroke="var(--border-color)" stroke-width="1"/>
+                            <text x="235" y="122" fill="var(--text-secondary)" font-size="8" font-family="Inter">Conversion Rate</text>
+                            <text x="235" y="138" fill="var(--accent)" font-size="14" font-weight="700" font-family="Inter">4.2%</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-header reveal-up">
+                <span class="section-label">Process</span>
+                <h2 class="section-title">From brief to viral<br><span class="accent">in 48 hours.</span></h2>
+                <p class="section-subtitle">Three steps. No creative agencies. No weeks of back-and-forth.</p>
+            </div>
+            <div class="steps">
+                <div class="step reveal-up">
+                    <div class="step__number">01</div>
+                    <div class="step__connector">
+                        <svg width="100%" height="4" class="step__line">
+                            <line x1="0" y1="2" x2="100%" y2="2" stroke="var(--accent)" stroke-width="2" stroke-dasharray="8 4" class="svg-dash-animate"/>
+                        </svg>
+                    </div>
+                    <div class="step__content">
+                        <div class="step__icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                                <rect x="6" y="6" width="28" height="28" rx="6" stroke="var(--accent)" stroke-width="2"/>
+                                <path d="M14 14H26M14 20H22M14 26H18" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="step__title">Submit a Brief</h3>
+                        <p class="step__desc">Tell us what you need: product, audience, platform, vibe. Our AI pre-fills creative direction so your brief is agency-quality in minutes.</p>
+                    </div>
+                </div>
+                <div class="step reveal-up">
+                    <div class="step__number">02</div>
+                    <div class="step__connector">
+                        <svg width="100%" height="4" class="step__line">
+                            <line x1="0" y1="2" x2="100%" y2="2" stroke="var(--accent)" stroke-width="2" stroke-dasharray="8 4" class="svg-dash-animate"/>
+                        </svg>
+                    </div>
+                    <div class="step__content">
+                        <div class="step__icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                                <circle cx="14" cy="16" r="6" stroke="var(--accent)" stroke-width="2"/>
+                                <circle cx="26" cy="16" r="6" stroke="var(--accent)" stroke-width="2"/>
+                                <path d="M8 32C8 28 10 26 14 26C16 26 18 26 20 28C22 26 24 26 26 26C30 26 32 28 32 32" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/>
+                                <circle cx="32" cy="10" r="4" fill="var(--accent)" opacity="0.3"/>
+                                <path d="M30 10H34M32 8V12" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="step__title">AI Matches Creators</h3>
+                        <p class="step__desc">Within hours, our algorithm selects the top AI creators for your brief. Review profiles, past performance, and style — then approve.</p>
+                    </div>
+                </div>
+                <div class="step reveal-up">
+                    <div class="step__number">03</div>
+                    <div class="step__connector"></div>
+                    <div class="step__content">
+                        <div class="step__icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                                <path d="M6 12L20 6L34 12V22C34 28 28 34 20 36C12 34 6 28 6 22V12Z" stroke="var(--accent)" stroke-width="2"/>
+                                <path d="M14 20L18 24L26 16" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="step__title">Get Viral Content</h3>
+                        <p class="step__desc">Receive polished, platform-native video content. Approve, request revisions, or publish directly. Pay on approval — bonuses kick in when views roll in.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Big Stats Section -->
+    <section class="big-stats">
+        <div class="container">
+            <div class="big-stats__grid">
+                <div class="big-stat reveal-up">
+                    <svg class="big-stat__bg" viewBox="0 0 200 200" fill="none">
+                        <circle cx="100" cy="100" r="80" stroke="var(--accent)" stroke-width="0.5" opacity="0.2" class="orbit-circle"/>
+                        <circle cx="100" cy="100" r="60" stroke="var(--accent)" stroke-width="0.5" opacity="0.15" class="orbit-circle" style="animation-direction: reverse"/>
+                    </svg>
+                    <span class="big-stat__number"><span data-count="2400">0</span>+</span>
+                    <span class="big-stat__label">Videos Created</span>
+                </div>
+                <div class="big-stat reveal-up">
+                    <svg class="big-stat__bg" viewBox="0 0 200 200" fill="none">
+                        <circle cx="100" cy="100" r="80" stroke="var(--accent)" stroke-width="0.5" opacity="0.2" class="orbit-circle"/>
+                        <circle cx="100" cy="100" r="60" stroke="var(--accent)" stroke-width="0.5" opacity="0.15" class="orbit-circle" style="animation-direction: reverse"/>
+                    </svg>
+                    <span class="big-stat__number">$<span data-count="2">0</span>M+</span>
+                    <span class="big-stat__label">Creator Earnings</span>
+                </div>
+                <div class="big-stat reveal-up">
+                    <svg class="big-stat__bg" viewBox="0 0 200 200" fill="none">
+                        <circle cx="100" cy="100" r="80" stroke="var(--accent)" stroke-width="0.5" opacity="0.2" class="orbit-circle"/>
+                        <circle cx="100" cy="100" r="60" stroke="var(--accent)" stroke-width="0.5" opacity="0.15" class="orbit-circle" style="animation-direction: reverse"/>
+                    </svg>
+                    <span class="big-stat__number"><span data-count="180">0</span>M+</span>
+                    <span class="big-stat__label">Total Views Generated</span>
+                </div>
+                <div class="big-stat reveal-up">
+                    <svg class="big-stat__bg" viewBox="0 0 200 200" fill="none">
+                        <circle cx="100" cy="100" r="80" stroke="var(--accent)" stroke-width="0.5" opacity="0.2" class="orbit-circle"/>
+                        <circle cx="100" cy="100" r="60" stroke="var(--accent)" stroke-width="0.5" opacity="0.15" class="orbit-circle" style="animation-direction: reverse"/>
+                    </svg>
+                    <span class="big-stat__number"><span data-count="48">0</span>h</span>
+                    <span class="big-stat__label">Avg. Delivery Time</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- For Creators Section -->
+    <section class="audience-section" id="creators">
+        <div class="container">
+            <div class="audience-section__inner">
+                <div class="audience-section__text reveal-up">
+                    <span class="section-label">For Creators</span>
+                    <h2 class="section-title">Your AI skills<br><span class="accent">deserve to get paid.</span></h2>
+                    <p class="section-subtitle">You already know how to use Kling, Runway, HeyGen. Now turn that skill into a real income stream with brands that pay premium rates.</p>
+                    <ul class="audience-section__list">
+                        <li>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="10" stroke="var(--accent)" stroke-width="1.5"/>
+                                <path d="M8 12L11 15L16 9" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Flat fee + performance bonuses on every project</span>
+                        </li>
+                        <li>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="10" stroke="var(--accent)" stroke-width="1.5"/>
+                                <path d="M8 12L11 15L16 9" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Access to premium AI tools at no cost</span>
+                        </li>
+                        <li>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="10" stroke="var(--accent)" stroke-width="1.5"/>
+                                <path d="M8 12L11 15L16 9" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Build your portfolio with real brand campaigns</span>
+                        </li>
+                        <li>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="10" stroke="var(--accent)" stroke-width="1.5"/>
+                                <path d="M8 12L11 15L16 9" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Get paid within 24 hours of content approval</span>
+                        </li>
+                    </ul>
+                    <a href="#waitlist" class="btn btn--primary">
+                        <span>Apply as Creator</span>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="audience-section__visual reveal-up">
+                    <div class="creator-card">
+                        <div class="creator-card__header">
+                            <div class="creator-card__avatar">
+                                <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                                    <rect width="48" height="48" rx="12" fill="var(--accent)" opacity="0.15"/>
+                                    <circle cx="24" cy="18" r="8" stroke="var(--accent)" stroke-width="1.5"/>
+                                    <path d="M10 42C10 34 16 30 24 30C32 30 38 34 38 42" stroke="var(--accent)" stroke-width="1.5"/>
+                                </svg>
+                            </div>
+                            <div class="creator-card__info">
+                                <span class="creator-card__name">Alex Rivera</span>
+                                <span class="creator-card__role">AI Video Creator</span>
+                            </div>
+                            <div class="creator-card__badge">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M8 1L10 5.5L15 6.2L11.5 9.5L12.3 14.5L8 12.2L3.7 14.5L4.5 9.5L1 6.2L6 5.5L8 1Z" fill="var(--accent)"/>
+                                </svg>
+                                <span>Top Creator</span>
+                            </div>
+                        </div>
+                        <div class="creator-card__stats">
+                            <div class="creator-card__stat">
+                                <span class="creator-card__stat-val">142</span>
+                                <span class="creator-card__stat-lbl">Videos</span>
+                            </div>
+                            <div class="creator-card__stat">
+                                <span class="creator-card__stat-val">18.4M</span>
+                                <span class="creator-card__stat-lbl">Views</span>
+                            </div>
+                            <div class="creator-card__stat">
+                                <span class="creator-card__stat-val">$24K</span>
+                                <span class="creator-card__stat-lbl">Earned</span>
+                            </div>
+                        </div>
+                        <div class="creator-card__graph">
+                            <svg viewBox="0 0 300 80" fill="none" class="creator-card__chart">
+                                <defs>
+                                    <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.3"/>
+                                        <stop offset="100%" stop-color="var(--accent)" stop-opacity="0"/>
+                                    </linearGradient>
+                                </defs>
+                                <path d="M0 60 Q30 55 60 50 T120 35 T180 25 T240 15 T300 5" stroke="var(--accent)" stroke-width="2" fill="none" class="chart-line-animate"/>
+                                <path d="M0 60 Q30 55 60 50 T120 35 T180 25 T240 15 T300 5 V80 H0 Z" fill="url(#chartGrad)" class="chart-area-animate"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- For Brands Section -->
+    <section class="audience-section audience-section--reverse" id="brands">
+        <div class="container">
+            <div class="audience-section__inner">
+                <div class="audience-section__text reveal-up">
+                    <span class="section-label">For Brands</span>
+                    <h2 class="section-title">Scale your content.<br><span class="accent">Not your team.</span></h2>
+                    <p class="section-subtitle">Stop hiring freelancers who ghost you. Get matched with AI-native creators who deliver fast, high-performing video content on demand.</p>
+                    <ul class="audience-section__list">
+                        <li>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="10" stroke="var(--accent)" stroke-width="1.5"/>
+                                <path d="M8 12L11 15L16 9" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>10x faster than traditional UGC production</span>
+                        </li>
+                        <li>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="10" stroke="var(--accent)" stroke-width="1.5"/>
+                                <path d="M8 12L11 15L16 9" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Pay for performance — aligned incentives</span>
+                        </li>
+                        <li>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="10" stroke="var(--accent)" stroke-width="1.5"/>
+                                <path d="M8 12L11 15L16 9" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Full rights to all content, no licensing headaches</span>
+                        </li>
+                        <li>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="10" stroke="var(--accent)" stroke-width="1.5"/>
+                                <path d="M8 12L11 15L16 9" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Real-time campaign analytics and ROI tracking</span>
+                        </li>
+                    </ul>
+                    <a href="#waitlist" class="btn btn--primary">
+                        <span>Start a Campaign</span>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="audience-section__visual reveal-up">
+                    <div class="brand-dashboard">
+                        <div class="brand-dashboard__header">
+                            <span class="brand-dashboard__title">Campaign Overview</span>
+                            <span class="brand-dashboard__status">
+                                <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><circle cx="4" cy="4" r="4" fill="#28c840"/></svg>
+                                Live
+                            </span>
+                        </div>
+                        <div class="brand-dashboard__metrics">
+                            <div class="brand-dashboard__metric">
+                                <span class="brand-dashboard__metric-val">$0.12</span>
+                                <span class="brand-dashboard__metric-lbl">Cost per View</span>
+                                <span class="brand-dashboard__metric-change positive">-42%</span>
+                            </div>
+                            <div class="brand-dashboard__metric">
+                                <span class="brand-dashboard__metric-val">3.8%</span>
+                                <span class="brand-dashboard__metric-lbl">Engagement Rate</span>
+                                <span class="brand-dashboard__metric-change positive">+28%</span>
+                            </div>
+                            <div class="brand-dashboard__metric">
+                                <span class="brand-dashboard__metric-val">12</span>
+                                <span class="brand-dashboard__metric-lbl">Videos Live</span>
+                                <span class="brand-dashboard__metric-change">On Track</span>
+                            </div>
+                        </div>
+                        <div class="brand-dashboard__chart">
+                            <svg viewBox="0 0 300 100" fill="none">
+                                <defs>
+                                    <linearGradient id="brandGrad" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.2"/>
+                                        <stop offset="100%" stop-color="var(--accent)" stop-opacity="0"/>
+                                    </linearGradient>
+                                </defs>
+                                <path d="M0 80 C20 75 40 70 60 65 C80 60 100 45 120 40 C140 35 160 30 180 28 C200 26 220 22 240 18 C260 14 280 10 300 5" stroke="var(--accent)" stroke-width="2" fill="none" class="chart-line-animate"/>
+                                <path d="M0 80 C20 75 40 70 60 65 C80 60 100 45 120 40 C140 35 160 30 180 28 C200 26 220 22 240 18 C260 14 280 10 300 5 V100 H0 Z" fill="url(#brandGrad)" class="chart-area-animate"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-header reveal-up">
+                <span class="section-label">Pricing</span>
+                <h2 class="section-title">Simple pricing.<br><span class="accent">Serious results.</span></h2>
+                <p class="section-subtitle">No subscriptions. No hidden fees. Pay per campaign.</p>
+            </div>
+            <div class="pricing__grid">
+                <div class="pricing-card reveal-up">
+                    <div class="pricing-card__header">
+                        <span class="pricing-card__name">Starter</span>
+                        <span class="pricing-card__desc">Perfect for testing the waters</span>
+                    </div>
+                    <div class="pricing-card__price">
+                        <span class="pricing-card__amount">$499</span>
+                        <span class="pricing-card__period">per campaign</span>
+                    </div>
+                    <ul class="pricing-card__features">
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            3 UGC videos
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            1 creator match
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            1 round of revisions
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            Basic analytics
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            Full content rights
+                        </li>
+                    </ul>
+                    <a href="#waitlist" class="btn btn--ghost btn--full">Get Started</a>
+                </div>
+                <div class="pricing-card pricing-card--featured reveal-up">
+                    <div class="pricing-card__badge">Most Popular</div>
+                    <div class="pricing-card__header">
+                        <span class="pricing-card__name">Growth</span>
+                        <span class="pricing-card__desc">For brands ready to scale</span>
+                    </div>
+                    <div class="pricing-card__price">
+                        <span class="pricing-card__amount">$1,499</span>
+                        <span class="pricing-card__period">per campaign</span>
+                    </div>
+                    <ul class="pricing-card__features">
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            10 UGC videos
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            3 creator matches
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            Unlimited revisions
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            Advanced analytics + A/B testing
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            Priority creator matching
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            Dedicated account manager
+                        </li>
+                    </ul>
+                    <a href="#waitlist" class="btn btn--primary btn--full">Get Started</a>
+                </div>
+                <div class="pricing-card reveal-up">
+                    <div class="pricing-card__header">
+                        <span class="pricing-card__name">Enterprise</span>
+                        <span class="pricing-card__desc">Custom solutions for big teams</span>
+                    </div>
+                    <div class="pricing-card__price">
+                        <span class="pricing-card__amount">Custom</span>
+                        <span class="pricing-card__period">tailored to you</span>
+                    </div>
+                    <ul class="pricing-card__features">
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            Unlimited videos
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            Dedicated creator team
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            White-label options
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            API access
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            Custom integrations
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            SLA guarantee
+                        </li>
+                    </ul>
+                    <a href="#waitlist" class="btn btn--ghost btn--full">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header reveal-up">
+                <span class="section-label">Testimonials</span>
+                <h2 class="section-title">Don't take our word.<br><span class="accent">Take theirs.</span></h2>
+            </div>
+            <div class="testimonials__grid">
+                <div class="testimonial-card reveal-up">
+                    <div class="testimonial-card__stars">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--accent)"><path d="M8 1L10 5.5L15 6.2L11.5 9.5L12.3 14.5L8 12.2L3.7 14.5L4.5 9.5L1 6.2L6 5.5Z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--accent)"><path d="M8 1L10 5.5L15 6.2L11.5 9.5L12.3 14.5L8 12.2L3.7 14.5L4.5 9.5L1 6.2L6 5.5Z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--accent)"><path d="M8 1L10 5.5L15 6.2L11.5 9.5L12.3 14.5L8 12.2L3.7 14.5L4.5 9.5L1 6.2L6 5.5Z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--accent)"><path d="M8 1L10 5.5L15 6.2L11.5 9.5L12.3 14.5L8 12.2L3.7 14.5L4.5 9.5L1 6.2L6 5.5Z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--accent)"><path d="M8 1L10 5.5L15 6.2L11.5 9.5L12.3 14.5L8 12.2L3.7 14.5L4.5 9.5L1 6.2L6 5.5Z"/></svg>
+                    </div>
+                    <p class="testimonial-card__text">"We replaced our entire freelance video team with ugcgo creators. 10x the output, half the cost. The AI matching is scarily good."</p>
+                    <div class="testimonial-card__author">
+                        <div class="testimonial-card__avatar">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                                <rect width="40" height="40" rx="10" fill="var(--accent)" opacity="0.1"/>
+                                <circle cx="20" cy="15" r="6" stroke="var(--accent)" stroke-width="1.2"/>
+                                <path d="M8 36C8 29 13 26 20 26C27 26 32 29 32 36" stroke="var(--accent)" stroke-width="1.2"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="testimonial-card__name">Sarah Chen</span>
+                            <span class="testimonial-card__role">Head of Growth, Luminary</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal-up">
+                    <div class="testimonial-card__stars">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--accent)"><path d="M8 1L10 5.5L15 6.2L11.5 9.5L12.3 14.5L8 12.2L3.7 14.5L4.5 9.5L1 6.2L6 5.5Z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--accent)"><path d="M8 1L10 5.5L15 6.2L11.5 9.5L12.3 14.5L8 12.2L3.7 14.5L4.5 9.5L1 6.2L6 5.5Z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--accent)"><path d="M8 1L10 5.5L15 6.2L11.5 9.5L12.3 14.5L8 12.2L3.7 14.5L4.5 9.5L1 6.2L6 5.5Z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--accent)"><path d="M8 1L10 5.5L15 6.2L11.5 9.5L12.3 14.5L8 12.2L3.7 14.5L4.5 9.5L1 6.2L6 5.5Z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--accent)"><path d="M8 1L10 5.5L15 6.2L11.5 9.5L12.3 14.5L8 12.2L3.7 14.5L4.5 9.5L1 6.2L6 5.5Z"/></svg>
+                    </div>
+                    <p class="testimonial-card__text">"Made $8K in my first month. The AI tools they provide are insane — I can produce content 5x faster than before. This platform is a game-changer for creators."</p>
+                    <div class="testimonial-card__author">
+                        <div class="testimonial-card__avatar">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                                <rect width="40" height="40" rx="10" fill="var(--accent)" opacity="0.1"/>
+                                <circle cx="20" cy="15" r="6" stroke="var(--accent)" stroke-width="1.2"/>
+                                <path d="M8 36C8 29 13 26 20 26C27 26 32 29 32 36" stroke="var(--accent)" stroke-width="1.2"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="testimonial-card__name">Marcus Johnson</span>
+                            <span class="testimonial-card__role">AI Creator, Top 10</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal-up">
+                    <div class="testimonial-card__stars">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--accent)"><path d="M8 1L10 5.5L15 6.2L11.5 9.5L12.3 14.5L8 12.2L3.7 14.5L4.5 9.5L1 6.2L6 5.5Z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--accent)"><path d="M8 1L10 5.5L15 6.2L11.5 9.5L12.3 14.5L8 12.2L3.7 14.5L4.5 9.5L1 6.2L6 5.5Z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--accent)"><path d="M8 1L10 5.5L15 6.2L11.5 9.5L12.3 14.5L8 12.2L3.7 14.5L4.5 9.5L1 6.2L6 5.5Z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--accent)"><path d="M8 1L10 5.5L15 6.2L11.5 9.5L12.3 14.5L8 12.2L3.7 14.5L4.5 9.5L1 6.2L6 5.5Z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--accent)"><path d="M8 1L10 5.5L15 6.2L11.5 9.5L12.3 14.5L8 12.2L3.7 14.5L4.5 9.5L1 6.2L6 5.5Z"/></svg>
+                    </div>
+                    <p class="testimonial-card__text">"The ROI is insane. We're getting 3-4x ROAS on TikTok ads using ugcgo content. Their creators understand what converts — it's not just pretty videos."</p>
+                    <div class="testimonial-card__author">
+                        <div class="testimonial-card__avatar">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                                <rect width="40" height="40" rx="10" fill="var(--accent)" opacity="0.1"/>
+                                <circle cx="20" cy="15" r="6" stroke="var(--accent)" stroke-width="1.2"/>
+                                <path d="M8 36C8 29 13 26 20 26C27 26 32 29 32 36" stroke="var(--accent)" stroke-width="1.2"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="testimonial-card__name">Emma Rodriguez</span>
+                            <span class="testimonial-card__role">CMO, NovaSkin</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA / Waitlist -->
+    <section class="final-cta" id="waitlist">
+        <div class="container">
+            <div class="final-cta__inner reveal-up">
+                <div class="final-cta__bg">
+                    <svg viewBox="0 0 800 400" fill="none" class="final-cta__svg">
+                        <circle cx="400" cy="200" r="150" stroke="var(--accent)" stroke-width="0.5" opacity="0.2" class="orbit-circle"/>
+                        <circle cx="400" cy="200" r="200" stroke="var(--accent)" stroke-width="0.5" opacity="0.15" class="orbit-circle" style="animation-direction: reverse; animation-duration: 25s"/>
+                        <circle cx="400" cy="200" r="250" stroke="var(--accent)" stroke-width="0.5" opacity="0.1" class="orbit-circle" style="animation-duration: 35s"/>
+                        <circle cx="400" cy="200" r="4" fill="var(--accent)" opacity="0.6" class="orbit-dot" style="--orbit-r: 150"/>
+                        <circle cx="400" cy="200" r="3" fill="var(--accent)" opacity="0.4" class="orbit-dot" style="--orbit-r: 200; animation-direction: reverse; animation-duration: 10s"/>
+                        <circle cx="400" cy="200" r="2" fill="var(--accent)" opacity="0.3" class="orbit-dot" style="--orbit-r: 250; animation-duration: 14s"/>
+                    </svg>
+                </div>
+                <span class="section-label">Join the Future</span>
+                <h2 class="final-cta__title">The future of UGC is here.<br><span class="accent">Are you in?</span></h2>
+                <p class="final-cta__subtitle">Join 500+ brands and creators already on the waitlist. Early access members get priority matching and exclusive rates.</p>
+                <form class="waitlist-form" id="waitlistForm">
+                    <div class="waitlist-form__group">
+                        <input type="email" placeholder="Enter your email" class="waitlist-form__input" required>
+                        <select class="waitlist-form__select">
+                            <option value="brand">I'm a Brand</option>
+                            <option value="creator">I'm a Creator</option>
+                        </select>
+                        <button type="submit" class="btn btn--primary waitlist-form__btn">
+                            <span>Join Waitlist</span>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <p class="waitlist-form__note">No spam. Unsubscribe anytime. We respect your inbox.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__top">
+                <div class="footer__brand">
+                    <a href="#" class="nav__logo">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" class="nav__logo-icon">
+                            <rect width="32" height="32" rx="8" fill="var(--accent)"/>
+                            <path d="M8 12L16 8L24 12V20L16 24L8 20V12Z" fill="var(--bg-primary)" stroke="var(--bg-primary)" stroke-width="1.5"/>
+                            <path d="M16 8V24M8 12L24 20M24 12L8 20" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        <span>ugcgo<span class="accent">.ai</span></span>
+                    </a>
+                    <p class="footer__tagline">The AI-powered UGC marketplace.<br>Where brands meet the future of content.</p>
+                </div>
+                <div class="footer__links">
+                    <div class="footer__col">
+                        <span class="footer__col-title">Platform</span>
+                        <a href="#features">Features</a>
+                        <a href="#how-it-works">How It Works</a>
+                        <a href="#pricing">Pricing</a>
+                        <a href="#waitlist">Join Waitlist</a>
+                    </div>
+                    <div class="footer__col">
+                        <span class="footer__col-title">Company</span>
+                        <a href="#">About</a>
+                        <a href="#">Blog</a>
+                        <a href="#">Careers</a>
+                        <a href="#">Contact</a>
+                    </div>
+                    <div class="footer__col">
+                        <span class="footer__col-title">Legal</span>
+                        <a href="#">Privacy</a>
+                        <a href="#">Terms</a>
+                        <a href="#">Cookies</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <span class="footer__copy">&copy; 2026 ugcgo.ai. All rights reserved.</span>
+                <div class="footer__socials">
+                    <a href="#" aria-label="Twitter/X">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M3 3L8.5 10.5L3 17H4.5L9.2 11.4L13 17H17.5L11.6 9L16.7 3H15.2L10.9 8.1L7.5 3H3ZM5 4.5H6.8L15.5 15.5H13.7L5 4.5Z" fill="currentColor"/>
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="LinkedIn">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <rect x="2" y="2" width="16" height="16" rx="3" stroke="currentColor" stroke-width="1.5"/>
+                            <circle cx="6.5" cy="7" r="1.2" fill="currentColor"/>
+                            <path d="M5.5 9H7.5V14H5.5V9Z" fill="currentColor"/>
+                            <path d="M9 9H11V9.8C11.5 9.2 12.2 8.8 13 8.8C14.7 8.8 15 10 15 11.5V14H13V11.8C13 11.2 12.8 10.8 12.2 10.8C11.5 10.8 11 11.3 11 12V14H9V9Z" fill="currentColor"/>
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="TikTok">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M13.5 2V8.5C13.5 11.5 11 14 8 14C5 14 2.5 11.5 2.5 8.5C2.5 5.5 5 3 8 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                            <path d="M13.5 2C13.5 4 15 6 17.5 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="Instagram">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <rect x="2" y="2" width="16" height="16" rx="4" stroke="currentColor" stroke-width="1.5"/>
+                            <circle cx="10" cy="10" r="4" stroke="currentColor" stroke-width="1.5"/>
+                            <circle cx="14.5" cy="5.5" r="1" fill="currentColor"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
