@@ -1,0 +1,3296 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ugcgo.ai — AI-Powered UGC Marketplace</title>
+    <meta name="description" content="The marketplace where brands hire AI-powered UGC creators to make viral short-form video content for TikTok, Reels, and Shorts.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>/* ============================================
+   ugcgo.ai — Premium Landing Page Styles
+   ============================================ */
+
+/* --- CSS Variables / Theme System --- */
+:root {
+    --accent: #e8ff59;
+    --accent-hover: #d4eb45;
+    --accent-rgb: 232, 255, 89;
+
+    /* Font */
+    --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-display: 'Space Grotesk', 'Inter', sans-serif;
+
+    /* Sizing */
+    --container-max: 1200px;
+    --nav-height: 72px;
+    --section-padding: 120px;
+    --border-radius: 16px;
+    --border-radius-sm: 8px;
+    --border-radius-xs: 4px;
+}
+
+/* Dark Theme (default) */
+[data-theme="dark"] {
+    --bg-primary: #000000;
+    --bg-secondary: #0a0a0a;
+    --bg-tertiary: #111111;
+    --bg-card: #0d0d0d;
+    --bg-card-hover: #141414;
+
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0a0;
+    --text-tertiary: #555555;
+
+    --border-color: #1a1a1a;
+    --border-color-hover: #2a2a2a;
+
+    --glass-bg: rgba(10, 10, 10, 0.8);
+    --glass-border: rgba(255, 255, 255, 0.06);
+
+    --shadow-card: 0 0 0 1px rgba(255,255,255,0.04), 0 8px 40px rgba(0,0,0,0.4);
+    --shadow-card-hover: 0 0 0 1px rgba(232,255,89,0.1), 0 16px 60px rgba(0,0,0,0.5);
+    --shadow-glow: 0 0 60px rgba(232,255,89,0.08);
+}
+
+/* Light Theme */
+[data-theme="light"] {
+    --bg-primary: #fafafa;
+    --bg-secondary: #f0f0f0;
+    --bg-tertiary: #e8e8e8;
+    --bg-card: #ffffff;
+    --bg-card-hover: #f8f8f8;
+
+    --text-primary: #0a0a0a;
+    --text-secondary: #666666;
+    --text-tertiary: #999999;
+
+    --border-color: #e0e0e0;
+    --border-color-hover: #d0d0d0;
+
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    --glass-border: rgba(0, 0, 0, 0.06);
+
+    --accent: #1a1a1a;
+    --accent-hover: #333333;
+    --accent-rgb: 26, 26, 26;
+
+    --shadow-card: 0 0 0 1px rgba(0,0,0,0.05), 0 8px 40px rgba(0,0,0,0.06);
+    --shadow-card-hover: 0 0 0 1px rgba(0,0,0,0.1), 0 16px 60px rgba(0,0,0,0.1);
+    --shadow-glow: 0 0 60px rgba(0,0,0,0.04);
+}
+
+[data-theme="light"] .hero__title--accent,
+[data-theme="light"] .accent {
+    color: #7ab800;
+}
+
+[data-theme="light"] .btn--primary {
+    background: #1a1a1a;
+    color: #e8ff59;
+}
+
+[data-theme="light"] .pricing-card--featured {
+    border-color: #1a1a1a;
+    background: #1a1a1a;
+    color: #ffffff;
+}
+
+[data-theme="light"] .pricing-card--featured .pricing-card__name,
+[data-theme="light"] .pricing-card--featured .pricing-card__amount {
+    color: #ffffff;
+}
+
+[data-theme="light"] .pricing-card--featured .pricing-card__desc,
+[data-theme="light"] .pricing-card--featured .pricing-card__period,
+[data-theme="light"] .pricing-card--featured .pricing-card__features li {
+    color: #cccccc;
+}
+
+[data-theme="light"] .pricing-card--featured .pricing-card__features svg path {
+    stroke: #e8ff59;
+}
+
+[data-theme="light"] .pricing-card--featured .btn--primary {
+    background: #e8ff59;
+    color: #1a1a1a;
+}
+
+[data-theme="light"] .pricing-card--featured .pricing-card__badge {
+    background: #e8ff59;
+    color: #1a1a1a;
+}
+
+[data-theme="light"] .video-card__inner {
+    background: #e0e0e0;
+}
+
+[data-theme="light"] .nav {
+    background: rgba(250, 250, 250, 0.85);
+}
+
+[data-theme="light"] .final-cta__inner {
+    background: #1a1a1a;
+    color: #ffffff;
+}
+
+[data-theme="light"] .final-cta__inner .section-label {
+    color: #e8ff59;
+    border-color: rgba(232, 255, 89, 0.3);
+}
+
+[data-theme="light"] .final-cta__title {
+    color: #ffffff;
+}
+
+[data-theme="light"] .final-cta__title .accent {
+    color: #e8ff59;
+}
+
+[data-theme="light"] .final-cta__subtitle {
+    color: #aaaaaa;
+}
+
+[data-theme="light"] .waitlist-form__input {
+    background: #2a2a2a;
+    border-color: #333333;
+    color: #ffffff;
+}
+
+[data-theme="light"] .waitlist-form__select {
+    background: #2a2a2a;
+    border-color: #333333;
+    color: #ffffff;
+}
+
+[data-theme="light"] .waitlist-form__btn {
+    background: #e8ff59;
+    color: #1a1a1a;
+}
+
+[data-theme="light"] .waitlist-form__note {
+    color: #888888;
+}
+
+/* --- Reset & Base --- */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: var(--font-primary);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+    transition: background 0.4s ease, color 0.4s ease;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.2s ease;
+}
+
+img { max-width: 100%; display: block; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+input, select { font-family: inherit; }
+
+.container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.accent {
+    color: var(--accent);
+}
+
+/* --- Navigation --- */
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--nav-height);
+    z-index: 1000;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.nav--scrolled {
+    box-shadow: 0 4px 30px rgba(0,0,0,0.2);
+}
+
+.nav__container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 24px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav__logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.nav__links {
+    display: flex;
+    gap: 32px;
+}
+
+.nav__link {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: color 0.2s ease;
+    position: relative;
+}
+
+.nav__link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--accent);
+    transition: width 0.3s ease;
+}
+
+.nav__link:hover {
+    color: var(--text-primary);
+}
+
+.nav__link:hover::after {
+    width: 100%;
+}
+
+.nav__actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.nav__cta {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 24px;
+    background: var(--accent);
+    color: #000000;
+    border-radius: 100px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nav__cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(var(--accent-rgb), 0.3);
+}
+
+/* Theme Toggle */
+.theme-toggle {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+}
+
+.theme-toggle:hover {
+    color: var(--text-primary);
+    border-color: var(--border-color-hover);
+}
+
+[data-theme="dark"] .theme-toggle__icon--light { display: none; }
+[data-theme="light"] .theme-toggle__icon--dark { display: none; }
+
+/* Mobile Menu */
+.nav__burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    padding: 4px;
+}
+
+.nav__burger span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--text-primary);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.nav__burger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.nav__burger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.nav__burger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+.nav__mobile {
+    display: none;
+    position: absolute;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 24px;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.nav__mobile.active {
+    display: flex;
+}
+
+.nav__mobile-link {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    padding: 8px 0;
+}
+
+.nav__mobile-cta {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 14px 28px;
+    background: var(--accent);
+    color: #000000;
+    border-radius: 100px;
+    text-align: center;
+    margin-top: 8px;
+}
+
+/* --- Buttons --- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 14px 28px;
+    border-radius: 100px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn--primary {
+    background: var(--accent);
+    color: #000000;
+}
+
+.btn--primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(var(--accent-rgb), 0.3);
+}
+
+.btn--ghost {
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.btn--ghost:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.btn--full {
+    width: 100%;
+    justify-content: center;
+}
+
+/* --- Hero Section --- */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: calc(var(--nav-height) + 40px) 24px 60px;
+    overflow: hidden;
+}
+
+.hero__particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.hero__gradient {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(var(--accent-rgb), 0.06) 0%, transparent 70%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.hero__content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.hero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    border-radius: 100px;
+    border: 1px solid rgba(var(--accent-rgb), 0.2);
+    background: rgba(var(--accent-rgb), 0.05);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent);
+    margin-bottom: 32px;
+    letter-spacing: 0.5px;
+}
+
+.hero__title {
+    font-family: var(--font-display);
+    font-size: clamp(48px, 8vw, 96px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -3px;
+    margin-bottom: 24px;
+}
+
+.hero__title--accent {
+    color: var(--accent);
+    display: inline-block;
+}
+
+.hero__subtitle {
+    font-size: clamp(16px, 2vw, 20px);
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto 40px;
+    line-height: 1.7;
+}
+
+.hero__actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 64px;
+}
+
+.hero__stats {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+}
+
+.hero__stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hero__stat-number {
+    font-family: var(--font-display);
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -1px;
+}
+
+.hero__stat-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+
+.hero__stat-divider {
+    width: 1px;
+    height: 40px;
+    background: var(--border-color);
+}
+
+/* Floating Video Cards */
+.hero__cards {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 60px;
+    perspective: 1000px;
+}
+
+.video-card {
+    width: 160px;
+    height: 284px;
+    border-radius: 16px;
+    overflow: hidden;
+    animation: float 6s ease-in-out infinite;
+    transition: transform 0.3s ease;
+}
+
+.video-card:hover {
+    transform: scale(1.05);
+}
+
+.video-card--1 { animation-delay: 0s; }
+.video-card--2 { animation-delay: 1s; }
+.video-card--3 { animation-delay: 2s; }
+
+.video-card__inner {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 100%);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.video-card__shimmer {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent 40%,
+        rgba(var(--accent-rgb), 0.03) 45%,
+        rgba(var(--accent-rgb), 0.06) 50%,
+        rgba(var(--accent-rgb), 0.03) 55%,
+        transparent 60%
+    );
+    animation: shimmer 4s ease-in-out infinite;
+}
+
+.video-card__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.video-card__play {
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+}
+
+.video-card:hover .video-card__play {
+    opacity: 1;
+}
+
+.video-card__meta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.video-card__views {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.video-card__platform {
+    font-size: 11px;
+    color: var(--accent);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Scroll indicator */
+.hero__scroll {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-tertiary);
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    z-index: 2;
+}
+
+.scroll-dot {
+    animation: scrollBounce 2s ease-in-out infinite;
+}
+
+/* Glitch Effect */
+.glitch {
+    position: relative;
+    display: inline-block;
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+
+.glitch::before {
+    color: #ff0040;
+    animation: glitch1 4s infinite;
+}
+
+.glitch::after {
+    color: #00ffff;
+    animation: glitch2 4s infinite;
+}
+
+/* --- Trust Bar --- */
+.trust-bar {
+    padding: 60px 0;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.trust-bar__label {
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 32px;
+}
+
+.trust-bar__logos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: wrap;
+    opacity: 0.6;
+}
+
+.trust-bar__logo {
+    transition: opacity 0.2s ease;
+}
+
+.trust-bar__logo:hover {
+    opacity: 1;
+}
+
+/* --- Section Shared Styles --- */
+.section-header {
+    text-align: center;
+    margin-bottom: 72px;
+}
+
+.section-label {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--accent);
+    border: 1px solid rgba(var(--accent-rgb), 0.2);
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+}
+
+.section-title {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -2px;
+}
+
+.section-subtitle {
+    font-size: 18px;
+    color: var(--text-secondary);
+    max-width: 560px;
+    margin: 20px auto 0;
+    line-height: 1.7;
+}
+
+/* --- Features Section --- */
+.features {
+    padding: var(--section-padding) 0;
+}
+
+.features__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.feature-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 40px 32px;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(var(--accent-rgb), 0.3), transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.feature-card:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--border-color-hover);
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-4px);
+}
+
+.feature-card:hover::before {
+    opacity: 1;
+}
+
+.feature-card--large {
+    grid-column: span 2;
+}
+
+.feature-card__icon {
+    margin-bottom: 24px;
+}
+
+.feature-card__title {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+}
+
+.feature-card__desc {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+.feature-card__visual {
+    margin-top: 32px;
+    border-radius: var(--border-radius-sm);
+    overflow: hidden;
+}
+
+.feature-card__svg {
+    width: 100%;
+    height: auto;
+}
+
+/* --- How It Works --- */
+.how-it-works {
+    padding: var(--section-padding) 0;
+    background: var(--bg-secondary);
+}
+
+.steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+}
+
+.step {
+    position: relative;
+    text-align: center;
+}
+
+.step__number {
+    font-family: var(--font-display);
+    font-size: 80px;
+    font-weight: 800;
+    color: var(--accent);
+    opacity: 0.1;
+    line-height: 1;
+    margin-bottom: -20px;
+}
+
+.step__connector {
+    height: 4px;
+    margin: 20px 0;
+    position: relative;
+}
+
+.step__line {
+    overflow: visible;
+}
+
+.step__content {
+    padding: 0 16px;
+}
+
+.step__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    border-radius: 20px;
+    background: rgba(var(--accent-rgb), 0.08);
+    border: 1px solid rgba(var(--accent-rgb), 0.15);
+    margin-bottom: 24px;
+}
+
+.step__title {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+}
+
+.step__desc {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+/* --- Big Stats --- */
+.big-stats {
+    padding: var(--section-padding) 0;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.big-stats__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+}
+
+.big-stat {
+    text-align: center;
+    position: relative;
+    padding: 40px 20px;
+}
+
+.big-stat__bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    opacity: 0.5;
+}
+
+.big-stat__number {
+    display: block;
+    font-family: var(--font-display);
+    font-size: clamp(40px, 5vw, 56px);
+    font-weight: 800;
+    letter-spacing: -2px;
+    position: relative;
+    z-index: 1;
+    color: var(--accent);
+}
+
+.big-stat__label {
+    display: block;
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-top: 8px;
+    position: relative;
+    z-index: 1;
+}
+
+/* --- Audience Sections (Creators & Brands) --- */
+.audience-section {
+    padding: var(--section-padding) 0;
+}
+
+.audience-section__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+}
+
+.audience-section--reverse .audience-section__inner {
+    direction: rtl;
+}
+
+.audience-section--reverse .audience-section__inner > * {
+    direction: ltr;
+}
+
+.audience-section__text .section-title {
+    text-align: left;
+}
+
+.audience-section__text .section-subtitle {
+    margin-left: 0;
+    text-align: left;
+}
+
+.audience-section__list {
+    list-style: none;
+    margin: 32px 0 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.audience-section__list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    color: var(--text-secondary);
+}
+
+.audience-section__list li svg {
+    flex-shrink: 0;
+}
+
+/* Creator Card */
+.creator-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 32px;
+    box-shadow: var(--shadow-card);
+}
+
+.creator-card__header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.creator-card__info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.creator-card__name {
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.creator-card__role {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.creator-card__badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent);
+    padding: 6px 12px;
+    border-radius: 100px;
+    background: rgba(var(--accent-rgb), 0.1);
+}
+
+.creator-card__stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    padding: 20px 0;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 24px;
+}
+
+.creator-card__stat {
+    text-align: center;
+}
+
+.creator-card__stat-val {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.creator-card__stat-lbl {
+    display: block;
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+}
+
+.creator-card__graph {
+    height: 80px;
+}
+
+.creator-card__chart {
+    width: 100%;
+    height: 100%;
+}
+
+/* Brand Dashboard Card */
+.brand-dashboard {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 32px;
+    box-shadow: var(--shadow-card);
+}
+
+.brand-dashboard__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.brand-dashboard__title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.brand-dashboard__status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.brand-dashboard__metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.brand-dashboard__metric {
+    padding: 16px;
+    background: var(--bg-secondary);
+    border-radius: var(--border-radius-sm);
+    border: 1px solid var(--border-color);
+}
+
+.brand-dashboard__metric-val {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.brand-dashboard__metric-lbl {
+    display: block;
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+
+.brand-dashboard__metric-change {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    margin-top: 8px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(var(--accent-rgb), 0.08);
+}
+
+.brand-dashboard__metric-change.positive {
+    color: #28c840;
+    background: rgba(40, 200, 64, 0.1);
+}
+
+.brand-dashboard__chart {
+    height: 100px;
+    border-radius: var(--border-radius-sm);
+    overflow: hidden;
+}
+
+.brand-dashboard__chart svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* --- Pricing --- */
+.pricing {
+    padding: var(--section-padding) 0;
+    background: var(--bg-secondary);
+}
+
+.pricing__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    align-items: start;
+}
+
+.pricing-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 40px 32px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.pricing-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card-hover);
+}
+
+.pricing-card--featured {
+    border-color: var(--accent);
+    background: rgba(var(--accent-rgb), 0.03);
+    transform: scale(1.02);
+}
+
+.pricing-card--featured:hover {
+    transform: scale(1.02) translateY(-4px);
+}
+
+.pricing-card__badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent);
+    color: #000000;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 4px 16px;
+    border-radius: 100px;
+    white-space: nowrap;
+}
+
+.pricing-card__header {
+    margin-bottom: 24px;
+}
+
+.pricing-card__name {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.pricing-card__desc {
+    display: block;
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+
+.pricing-card__price {
+    margin-bottom: 32px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.pricing-card__amount {
+    font-family: var(--font-display);
+    font-size: 48px;
+    font-weight: 800;
+    letter-spacing: -2px;
+}
+
+.pricing-card__period {
+    display: block;
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+
+.pricing-card__features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 32px;
+}
+
+.pricing-card__features li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.pricing-card__features li svg {
+    flex-shrink: 0;
+}
+
+/* --- Testimonials --- */
+.testimonials {
+    padding: var(--section-padding) 0;
+}
+
+.testimonials__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.testimonial-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 32px;
+    transition: all 0.3s ease;
+}
+
+.testimonial-card:hover {
+    border-color: var(--border-color-hover);
+    box-shadow: var(--shadow-card);
+    transform: translateY(-4px);
+}
+
+.testimonial-card__stars {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 20px;
+}
+
+.testimonial-card__text {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 24px;
+    font-style: italic;
+}
+
+.testimonial-card__author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.testimonial-card__name {
+    display: block;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.testimonial-card__role {
+    display: block;
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+/* --- Final CTA --- */
+.final-cta {
+    padding: var(--section-padding) 0;
+}
+
+.final-cta__inner {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    padding: 80px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.final-cta__bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+}
+
+.final-cta__svg {
+    width: 100%;
+    height: 100%;
+}
+
+.final-cta__title {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -2px;
+    margin-top: 16px;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.final-cta__subtitle {
+    font-size: 18px;
+    color: var(--text-secondary);
+    max-width: 500px;
+    margin: 0 auto 40px;
+    line-height: 1.7;
+    position: relative;
+    z-index: 1;
+}
+
+.final-cta .section-label {
+    position: relative;
+    z-index: 1;
+}
+
+/* Waitlist Form */
+.waitlist-form {
+    position: relative;
+    z-index: 1;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.waitlist-form__group {
+    display: flex;
+    gap: 8px;
+    padding: 6px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 100px;
+}
+
+.waitlist-form__input {
+    flex: 1;
+    padding: 12px 20px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-primary);
+    font-size: 15px;
+    min-width: 0;
+}
+
+.waitlist-form__input::placeholder {
+    color: var(--text-tertiary);
+}
+
+.waitlist-form__select {
+    padding: 12px 16px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 100px;
+    color: var(--text-primary);
+    font-size: 14px;
+    cursor: pointer;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.waitlist-form__btn {
+    padding: 12px 24px;
+    border-radius: 100px;
+    white-space: nowrap;
+}
+
+.waitlist-form__note {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    margin-top: 16px;
+}
+
+/* --- Footer --- */
+.footer {
+    padding: 60px 0 40px;
+    border-top: 1px solid var(--border-color);
+}
+
+.footer__top {
+    display: flex;
+    justify-content: space-between;
+    gap: 60px;
+    margin-bottom: 48px;
+}
+
+.footer__brand {
+    max-width: 300px;
+}
+
+.footer__tagline {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-top: 16px;
+    line-height: 1.7;
+}
+
+.footer__links {
+    display: flex;
+    gap: 60px;
+}
+
+.footer__col {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footer__col-title {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.footer__col a {
+    font-size: 14px;
+    color: var(--text-secondary);
+    transition: color 0.2s ease;
+}
+
+.footer__col a:hover {
+    color: var(--text-primary);
+}
+
+.footer__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 32px;
+    border-top: 1px solid var(--border-color);
+}
+
+.footer__copy {
+    font-size: 13px;
+    color: var(--text-tertiary);
+}
+
+.footer__socials {
+    display: flex;
+    gap: 16px;
+}
+
+.footer__socials a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    transition: all 0.2s ease;
+}
+
+.footer__socials a:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+}
+
+@keyframes shimmer {
+    0% { transform: translate(-50%, -50%) rotate(45deg); }
+    100% { transform: translate(50%, 50%) rotate(45deg); }
+}
+
+@keyframes scrollBounce {
+    0%, 100% { transform: translateY(0); opacity: 1; }
+    50% { transform: translateY(8px); opacity: 0.3; }
+}
+
+@keyframes glitch1 {
+    0%, 93%, 100% { opacity: 0; transform: translate(0); }
+    94% { opacity: 0.6; transform: translate(-2px, -1px); }
+    95% { opacity: 0; }
+    96% { opacity: 0.5; transform: translate(2px, 1px); }
+    97% { opacity: 0; }
+}
+
+@keyframes glitch2 {
+    0%, 93%, 100% { opacity: 0; transform: translate(0); }
+    94.5% { opacity: 0.5; transform: translate(1px, 2px); }
+    95.5% { opacity: 0; }
+    96.5% { opacity: 0.4; transform: translate(-1px, -2px); }
+    97.5% { opacity: 0; }
+}
+
+@keyframes pulse-dot {
+    0%, 100% { opacity: 0.3; r: 3; }
+    50% { opacity: 1; r: 5; }
+}
+
+.pulse-dot {
+    animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes orbit {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.orbit-circle {
+    transform-origin: center;
+    animation: orbit 20s linear infinite;
+}
+
+@keyframes orbit-dot-move {
+    from { transform: rotate(0deg) translateX(var(--orbit-r, 150px)) rotate(0deg); }
+    to { transform: rotate(360deg) translateX(var(--orbit-r, 150px)) rotate(-360deg); }
+}
+
+.orbit-dot {
+    transform-origin: 400px 200px;
+    animation: orbit 8s linear infinite;
+}
+
+@keyframes svg-dash {
+    to { stroke-dashoffset: -24; }
+}
+
+.svg-dash-animate {
+    animation: svg-dash 1s linear infinite;
+}
+
+@keyframes bar-grow {
+    from { transform: scaleY(0); }
+    to { transform: scaleY(1); }
+}
+
+.bar-animate {
+    transform-origin: bottom;
+    animation: bar-grow 0.8s ease-out forwards;
+    animation-delay: calc(var(--delay, 0) * 0.15s);
+}
+
+@keyframes chart-draw {
+    from { stroke-dashoffset: 600; }
+    to { stroke-dashoffset: 0; }
+}
+
+.chart-line-animate {
+    stroke-dasharray: 600;
+    stroke-dashoffset: 600;
+    animation: chart-draw 2s ease-out forwards;
+}
+
+.chart-area-animate {
+    opacity: 0;
+    animation: fadeIn 0.5s ease-out 1.5s forwards;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+/* SVG Line animations */
+@keyframes line-pulse {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 0.7; }
+}
+
+.svg-line-animate {
+    animation: line-pulse 3s ease-in-out infinite;
+    animation-delay: calc(var(--delay, 0) * 0.3s);
+}
+
+/* --- Reveal Animations --- */
+.reveal-up {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-up.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 1024px) {
+    :root {
+        --section-padding: 80px;
+    }
+
+    .features__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .feature-card--large {
+        grid-column: span 2;
+    }
+
+    .pricing__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .pricing-card:last-child {
+        grid-column: span 2;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .testimonials__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .testimonial-card:last-child {
+        grid-column: span 2;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .big-stats__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --section-padding: 64px;
+    }
+
+    .nav__links {
+        display: none;
+    }
+
+    .nav__burger {
+        display: flex;
+    }
+
+    .nav__cta {
+        display: none;
+    }
+
+    .hero__title {
+        letter-spacing: -2px;
+    }
+
+    .hero__cards {
+        gap: 12px;
+    }
+
+    .video-card {
+        width: 120px;
+        height: 213px;
+    }
+
+    .hero__stats {
+        gap: 24px;
+    }
+
+    .hero__stat-number {
+        font-size: 28px;
+    }
+
+    .features__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .feature-card--large {
+        grid-column: span 1;
+    }
+
+    .steps {
+        grid-template-columns: 1fr;
+        gap: 48px;
+    }
+
+    .step__connector {
+        display: none;
+    }
+
+    .audience-section__inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+    }
+
+    .audience-section--reverse .audience-section__inner {
+        direction: ltr;
+    }
+
+    .audience-section__text .section-title {
+        text-align: center;
+    }
+
+    .audience-section__text .section-subtitle {
+        text-align: center;
+        margin: 20px auto 0;
+    }
+
+    .audience-section__list {
+        align-items: flex-start;
+    }
+
+    .audience-section__text {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .pricing__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pricing-card:last-child {
+        grid-column: span 1;
+        max-width: none;
+    }
+
+    .pricing-card--featured {
+        transform: none;
+    }
+
+    .pricing-card--featured:hover {
+        transform: translateY(-4px);
+    }
+
+    .testimonials__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .testimonial-card:last-child {
+        grid-column: span 1;
+        max-width: none;
+    }
+
+    .big-stats__grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    .footer__top {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .footer__links {
+        flex-wrap: wrap;
+        gap: 40px;
+    }
+
+    .footer__bottom {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+    }
+
+    .waitlist-form__group {
+        flex-direction: column;
+        border-radius: var(--border-radius);
+        padding: 12px;
+    }
+
+    .waitlist-form__input {
+        padding: 14px 16px;
+    }
+
+    .waitlist-form__select {
+        padding: 14px 16px;
+    }
+
+    .waitlist-form__btn {
+        padding: 14px 24px;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--accent);
+        color: #000000;
+        font-size: 15px;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+    }
+
+    .brand-dashboard__metrics {
+        grid-template-columns: 1fr;
+    }
+
+    .final-cta__inner {
+        padding: 48px 24px;
+    }
+
+    .trust-bar__logos {
+        gap: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero__stat-divider {
+        display: none;
+    }
+
+    .hero__stats {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .big-stats__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .video-card {
+        width: 100px;
+        height: 178px;
+    }
+
+    .video-card__play {
+        transform: scale(0.8);
+    }
+
+    .creator-card__stats {
+        gap: 8px;
+    }
+
+    .creator-card__stat-val {
+        font-size: 20px;
+    }
+}
+
+/* --- Utility: Smooth theme transitions --- */
+.nav,
+.feature-card,
+.pricing-card,
+.testimonial-card,
+.creator-card,
+.brand-dashboard,
+.final-cta__inner,
+.step__icon,
+.trust-bar,
+.footer {
+    transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+/* Prevent layout shift during theme toggle */
+svg text {
+    transition: fill 0.4s ease;
+}
+</style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav__container">
+            <a href="#" class="nav__logo">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" class="nav__logo-icon">
+                    <rect width="32" height="32" rx="8" fill="var(--accent)"/>
+                    <path d="M8 12L16 8L24 12V20L16 24L8 20V12Z" fill="var(--bg-primary)" stroke="var(--bg-primary)" stroke-width="1.5"/>
+                    <path d="M16 8V24M8 12L24 20M24 12L8 20" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                <span>ugcgo<span class="accent">.ai</span></span>
+            </a>
+            <div class="nav__links">
+                <a href="#features" class="nav__link">Platform</a>
+                <a href="#how-it-works" class="nav__link">How It Works</a>
+                <a href="#creators" class="nav__link">Creators</a>
+                <a href="#brands" class="nav__link">Brands</a>
+                <a href="#pricing" class="nav__link">Pricing</a>
+            </div>
+            <div class="nav__actions">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <svg class="theme-toggle__icon theme-toggle__icon--dark" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <circle cx="10" cy="10" r="4" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M10 2V4M10 16V18M18 10H16M4 10H2M15.66 4.34L14.24 5.76M5.76 14.24L4.34 15.66M15.66 15.66L14.24 14.24M5.76 5.76L4.34 4.34" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                    <svg class="theme-toggle__icon theme-toggle__icon--light" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.003 8.003 0 1010.586 10.586z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <a href="#waitlist" class="nav__cta">Get Early Access</a>
+                <button class="nav__burger" id="navBurger" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="nav__mobile" id="navMobile">
+            <a href="#features" class="nav__mobile-link">Platform</a>
+            <a href="#how-it-works" class="nav__mobile-link">How It Works</a>
+            <a href="#creators" class="nav__mobile-link">Creators</a>
+            <a href="#brands" class="nav__mobile-link">Brands</a>
+            <a href="#pricing" class="nav__mobile-link">Pricing</a>
+            <a href="#waitlist" class="nav__mobile-cta">Get Early Access</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <canvas id="particleCanvas" class="hero__particles"></canvas>
+        <div class="hero__gradient"></div>
+        <div class="hero__content">
+            <div class="hero__badge reveal-up">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <circle cx="8" cy="8" r="3" fill="var(--accent)"/>
+                    <circle cx="8" cy="8" r="6" stroke="var(--accent)" stroke-width="1" opacity="0.4"/>
+                    <circle cx="8" cy="8" r="7.5" stroke="var(--accent)" stroke-width="0.5" opacity="0.2"/>
+                </svg>
+                <span>Now in Private Beta</span>
+            </div>
+            <h1 class="hero__title reveal-up">
+                <span class="glitch" data-text="The Future of">The Future of</span>
+                <br>
+                <span class="hero__title--accent">UGC is AI.</span>
+            </h1>
+            <p class="hero__subtitle reveal-up">
+                The marketplace where brands hire AI-powered creators to produce
+                viral short-form video at 10x speed and 1/10th the cost.
+            </p>
+            <div class="hero__actions reveal-up">
+                <a href="#waitlist" class="btn btn--primary">
+                    <span>Join the Waitlist</span>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+                <a href="#how-it-works" class="btn btn--ghost">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M8 7L13 10L8 13V7Z" fill="currentColor"/>
+                    </svg>
+                    <span>See How It Works</span>
+                </a>
+            </div>
+            <div class="hero__stats reveal-up">
+                <div class="hero__stat">
+                    <span class="hero__stat-number" data-count="500">0</span><span class="accent">+</span>
+                    <span class="hero__stat-label">Creators</span>
+                </div>
+                <div class="hero__stat-divider"></div>
+                <div class="hero__stat">
+                    <span class="hero__stat-number" data-count="10">0</span><span class="accent">x</span>
+                    <span class="hero__stat-label">Faster Production</span>
+                </div>
+                <div class="hero__stat-divider"></div>
+                <div class="hero__stat">
+                    <span class="hero__stat-number" data-count="85">0</span><span class="accent">%</span>
+                    <span class="hero__stat-label">Cost Reduction</span>
+                </div>
+            </div>
+        </div>
+        <!-- Floating Video Cards -->
+        <div class="hero__cards reveal-up">
+            <div class="video-card video-card--1">
+                <div class="video-card__inner">
+                    <div class="video-card__shimmer"></div>
+                    <div class="video-card__content">
+                        <svg class="video-card__play" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                            <circle cx="20" cy="20" r="20" fill="rgba(232,255,89,0.15)"/>
+                            <path d="M16 13L28 20L16 27V13Z" fill="var(--accent)"/>
+                        </svg>
+                        <div class="video-card__meta">
+                            <span class="video-card__views">2.4M views</span>
+                            <span class="video-card__platform">TikTok</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="video-card video-card--2">
+                <div class="video-card__inner">
+                    <div class="video-card__shimmer"></div>
+                    <div class="video-card__content">
+                        <svg class="video-card__play" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                            <circle cx="20" cy="20" r="20" fill="rgba(232,255,89,0.15)"/>
+                            <path d="M16 13L28 20L16 27V13Z" fill="var(--accent)"/>
+                        </svg>
+                        <div class="video-card__meta">
+                            <span class="video-card__views">890K views</span>
+                            <span class="video-card__platform">Reels</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="video-card video-card--3">
+                <div class="video-card__inner">
+                    <div class="video-card__shimmer"></div>
+                    <div class="video-card__content">
+                        <svg class="video-card__play" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                            <circle cx="20" cy="20" r="20" fill="rgba(232,255,89,0.15)"/>
+                            <path d="M16 13L28 20L16 27V13Z" fill="var(--accent)"/>
+                        </svg>
+                        <div class="video-card__meta">
+                            <span class="video-card__views">1.1M views</span>
+                            <span class="video-card__platform">Shorts</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero__scroll">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <rect x="7" y="2" width="10" height="18" rx="5" stroke="var(--text-secondary)" stroke-width="1.5"/>
+                <circle cx="12" cy="8" r="1.5" fill="var(--accent)" class="scroll-dot"/>
+            </svg>
+            <span>Scroll to explore</span>
+        </div>
+    </section>
+
+    <!-- Logos/Trust Bar -->
+    <section class="trust-bar reveal-up">
+        <div class="container">
+            <p class="trust-bar__label">Trusted by forward-thinking brands</p>
+            <div class="trust-bar__logos">
+                <div class="trust-bar__logo">
+                    <svg width="120" height="32" viewBox="0 0 120 32" fill="none">
+                        <rect x="4" y="8" width="16" height="16" rx="4" stroke="var(--text-tertiary)" stroke-width="1.5"/>
+                        <text x="28" y="21" fill="var(--text-tertiary)" font-family="Inter" font-weight="600" font-size="14">Shopify</text>
+                    </svg>
+                </div>
+                <div class="trust-bar__logo">
+                    <svg width="100" height="32" viewBox="0 0 100 32" fill="none">
+                        <circle cx="12" cy="16" r="8" stroke="var(--text-tertiary)" stroke-width="1.5"/>
+                        <text x="28" y="21" fill="var(--text-tertiary)" font-family="Inter" font-weight="600" font-size="14">Vercel</text>
+                    </svg>
+                </div>
+                <div class="trust-bar__logo">
+                    <svg width="110" height="32" viewBox="0 0 110 32" fill="none">
+                        <path d="M4 16L12 8L20 16L12 24Z" stroke="var(--text-tertiary)" stroke-width="1.5"/>
+                        <text x="28" y="21" fill="var(--text-tertiary)" font-family="Inter" font-weight="600" font-size="14">Notion</text>
+                    </svg>
+                </div>
+                <div class="trust-bar__logo">
+                    <svg width="100" height="32" viewBox="0 0 100 32" fill="none">
+                        <path d="M4 24L12 8L20 24" stroke="var(--text-tertiary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <text x="28" y="21" fill="var(--text-tertiary)" font-family="Inter" font-weight="600" font-size="14">Linear</text>
+                    </svg>
+                </div>
+                <div class="trust-bar__logo">
+                    <svg width="110" height="32" viewBox="0 0 110 32" fill="none">
+                        <rect x="4" y="10" width="12" height="12" rx="2" stroke="var(--text-tertiary)" stroke-width="1.5"/>
+                        <rect x="8" y="14" width="4" height="4" fill="var(--text-tertiary)"/>
+                        <text x="24" y="21" fill="var(--text-tertiary)" font-family="Inter" font-weight="600" font-size="14">Stripe</text>
+                    </svg>
+                </div>
+                <div class="trust-bar__logo">
+                    <svg width="120" height="32" viewBox="0 0 120 32" fill="none">
+                        <circle cx="12" cy="16" r="6" stroke="var(--text-tertiary)" stroke-width="1.5"/>
+                        <circle cx="12" cy="16" r="2" fill="var(--text-tertiary)"/>
+                        <text x="24" y="21" fill="var(--text-tertiary)" font-family="Inter" font-weight="600" font-size="14">Revolut</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header reveal-up">
+                <span class="section-label">Platform</span>
+                <h2 class="section-title">One platform.<br><span class="accent">Infinite content.</span></h2>
+                <p class="section-subtitle">Everything you need to produce, manage, and scale AI-powered UGC — from brief to viral video.</p>
+            </div>
+            <div class="features__grid">
+                <!-- Feature 1 -->
+                <div class="feature-card feature-card--large reveal-up">
+                    <div class="feature-card__icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect x="4" y="4" width="40" height="40" rx="12" stroke="var(--accent)" stroke-width="2"/>
+                            <path d="M16 18C16 16.8954 16.8954 16 18 16H22C23.1046 16 24 16.8954 24 18V30C24 31.1046 23.1046 32 22 32H18C16.8954 32 16 31.1046 16 30V18Z" fill="var(--accent)" opacity="0.3"/>
+                            <path d="M26 22C26 20.8954 26.8954 20 28 20H30C31.1046 20 32 20.8954 32 22V30C32 31.1046 31.1046 32 30 32H28C26.8954 32 26 31.1046 26 30V22Z" fill="var(--accent)" opacity="0.6"/>
+                            <circle cx="34" cy="14" r="4" fill="var(--accent)"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-card__title">AI-Powered Matching</h3>
+                    <p class="feature-card__desc">Our algorithm matches brands with the perfect creators based on niche, style, performance history, and content type. No more scrolling through portfolios.</p>
+                    <div class="feature-card__visual">
+                        <svg viewBox="0 0 400 200" fill="none" class="feature-card__svg">
+                            <line x1="50" y1="100" x2="200" y2="50" stroke="var(--accent)" stroke-width="2" opacity="0.3" class="svg-line-animate"/>
+                            <line x1="50" y1="100" x2="200" y2="100" stroke="var(--accent)" stroke-width="2" opacity="0.5" class="svg-line-animate"/>
+                            <line x1="50" y1="100" x2="200" y2="150" stroke="var(--accent)" stroke-width="2" opacity="0.3" class="svg-line-animate"/>
+                            <line x1="200" y1="50" x2="350" y2="100" stroke="var(--accent)" stroke-width="2" opacity="0.3" class="svg-line-animate"/>
+                            <line x1="200" y1="100" x2="350" y2="100" stroke="var(--accent)" stroke-width="2" opacity="0.5" class="svg-line-animate"/>
+                            <line x1="200" y1="150" x2="350" y2="100" stroke="var(--accent)" stroke-width="2" opacity="0.3" class="svg-line-animate"/>
+                            <circle cx="50" cy="100" r="20" fill="var(--bg-secondary)" stroke="var(--accent)" stroke-width="2"/>
+                            <text x="50" y="105" text-anchor="middle" fill="var(--accent)" font-size="14" font-weight="700">B</text>
+                            <circle cx="200" cy="50" r="16" fill="var(--bg-secondary)" stroke="var(--accent)" stroke-width="1.5" opacity="0.6"/>
+                            <circle cx="200" cy="100" r="16" fill="var(--accent)" opacity="0.2" stroke="var(--accent)" stroke-width="2"/>
+                            <circle cx="200" cy="150" r="16" fill="var(--bg-secondary)" stroke="var(--accent)" stroke-width="1.5" opacity="0.6"/>
+                            <text x="200" y="55" text-anchor="middle" fill="var(--text-secondary)" font-size="11">C1</text>
+                            <text x="200" y="105" text-anchor="middle" fill="var(--accent)" font-size="11" font-weight="700">C2</text>
+                            <text x="200" y="155" text-anchor="middle" fill="var(--text-secondary)" font-size="11">C3</text>
+                            <circle cx="350" cy="100" r="20" fill="var(--accent)" opacity="0.15" stroke="var(--accent)" stroke-width="2"/>
+                            <text x="350" y="97" text-anchor="middle" fill="var(--accent)" font-size="10" font-weight="700">MATCH</text>
+                            <text x="350" y="109" text-anchor="middle" fill="var(--accent)" font-size="8">98%</text>
+                            <circle cx="125" cy="75" r="4" fill="var(--accent)" class="pulse-dot"/>
+                            <circle cx="275" cy="75" r="4" fill="var(--accent)" class="pulse-dot" style="animation-delay: 0.5s"/>
+                        </svg>
+                    </div>
+                </div>
+                <!-- Feature 2 -->
+                <div class="feature-card reveal-up">
+                    <div class="feature-card__icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect x="8" y="6" width="20" height="36" rx="4" stroke="var(--accent)" stroke-width="2"/>
+                            <rect x="12" y="10" width="12" height="20" rx="2" fill="var(--accent)" opacity="0.2"/>
+                            <path d="M14 34H22" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"/>
+                            <path d="M32 16L38 12V28L32 24V16Z" fill="var(--accent)" opacity="0.4"/>
+                            <circle cx="36" cy="36" r="8" stroke="var(--accent)" stroke-width="1.5"/>
+                            <path d="M33 36L35 38L39 34" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-card__title">9:16 Native</h3>
+                    <p class="feature-card__desc">Built for vertical video from day one. Every tool, preview, and export is optimized for TikTok, Reels, and Shorts.</p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="feature-card reveal-up">
+                    <div class="feature-card__icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <path d="M24 6L42 16V32L24 42L6 32V16L24 6Z" stroke="var(--accent)" stroke-width="2"/>
+                            <path d="M24 6V42M6 16L42 32M42 16L6 32" stroke="var(--accent)" stroke-width="1" opacity="0.3"/>
+                            <circle cx="24" cy="24" r="6" fill="var(--accent)" opacity="0.3"/>
+                            <circle cx="24" cy="24" r="3" fill="var(--accent)"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-card__title">Built-in AI Tools</h3>
+                    <p class="feature-card__desc">Creators get access to Kling, Runway, HeyGen and more — integrated directly into the workflow. No extra subscriptions.</p>
+                </div>
+                <!-- Feature 4 -->
+                <div class="feature-card reveal-up">
+                    <div class="feature-card__icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <path d="M8 36L16 24L24 28L32 16L40 20" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M8 36L16 24L24 28L32 16L40 20V36H8Z" fill="var(--accent)" opacity="0.1"/>
+                            <circle cx="40" cy="20" r="4" fill="var(--accent)" opacity="0.4"/>
+                            <circle cx="40" cy="20" r="2" fill="var(--accent)"/>
+                            <path d="M36 10L40 8L44 10" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-card__title">Performance Bonuses</h3>
+                    <p class="feature-card__desc">Creators earn flat fees plus view-based bonuses. More views = more money. Aligned incentives drive better content.</p>
+                </div>
+                <!-- Feature 5 -->
+                <div class="feature-card reveal-up">
+                    <div class="feature-card__icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect x="6" y="12" width="36" height="24" rx="4" stroke="var(--accent)" stroke-width="2"/>
+                            <path d="M6 20H42" stroke="var(--accent)" stroke-width="1.5"/>
+                            <rect x="10" y="24" width="12" height="4" rx="1" fill="var(--accent)" opacity="0.3"/>
+                            <rect x="10" y="30" width="8" height="2" rx="1" fill="var(--accent)" opacity="0.2"/>
+                            <circle cx="36" cy="28" r="4" stroke="var(--accent)" stroke-width="1.5"/>
+                            <path d="M34 28L35.5 29.5L38 27" stroke="var(--accent)" stroke-width="1" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-card__title">Instant Payments</h3>
+                    <p class="feature-card__desc">No chasing invoices. The platform handles contracts, escrow, and payouts automatically. Get paid the moment content is approved.</p>
+                </div>
+                <!-- Feature 6 - Large -->
+                <div class="feature-card feature-card--large reveal-up">
+                    <div class="feature-card__icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <path d="M12 8H36C38.2091 8 40 9.79086 40 12V36C40 38.2091 38.2091 40 36 40H12C9.79086 40 8 38.2091 8 36V12C8 9.79086 9.79086 8 12 8Z" stroke="var(--accent)" stroke-width="2"/>
+                            <path d="M18 20L22 24L18 28" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M26 28H32" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-card__title">Full Campaign Dashboard</h3>
+                    <p class="feature-card__desc">Track every campaign from brief to delivery. Real-time analytics, revision management, and performance metrics — all in one place. Built for scale.</p>
+                    <div class="feature-card__visual">
+                        <svg viewBox="0 0 400 180" fill="none" class="feature-card__svg">
+                            <!-- Dashboard mockup -->
+                            <rect x="20" y="10" width="360" height="160" rx="8" fill="var(--bg-secondary)" stroke="var(--border-color)" stroke-width="1"/>
+                            <rect x="20" y="10" width="360" height="30" rx="8" fill="var(--bg-tertiary)"/>
+                            <rect x="20" y="38" width="360" height="2" fill="var(--border-color)"/>
+                            <circle cx="36" cy="25" r="5" fill="#ff5f57"/>
+                            <circle cx="52" cy="25" r="5" fill="#febc2e"/>
+                            <circle cx="68" cy="25" r="5" fill="#28c840"/>
+                            <!-- Bars chart -->
+                            <rect x="40" y="120" width="24" height="30" rx="2" fill="var(--accent)" opacity="0.3" class="bar-animate" style="--delay: 0"/>
+                            <rect x="72" y="100" width="24" height="50" rx="2" fill="var(--accent)" opacity="0.4" class="bar-animate" style="--delay: 1"/>
+                            <rect x="104" y="80" width="24" height="70" rx="2" fill="var(--accent)" opacity="0.6" class="bar-animate" style="--delay: 2"/>
+                            <rect x="136" y="60" width="24" height="90" rx="2" fill="var(--accent)" opacity="0.8" class="bar-animate" style="--delay: 3"/>
+                            <rect x="168" y="50" width="24" height="100" rx="2" fill="var(--accent)" class="bar-animate" style="--delay: 4"/>
+                            <!-- Stats -->
+                            <rect x="220" y="55" width="140" height="40" rx="6" fill="var(--bg-tertiary)" stroke="var(--border-color)" stroke-width="1"/>
+                            <text x="235" y="72" fill="var(--text-secondary)" font-size="8" font-family="Inter">Total Views</text>
+                            <text x="235" y="88" fill="var(--accent)" font-size="14" font-weight="700" font-family="Inter">24.8M</text>
+                            <rect x="220" y="105" width="140" height="40" rx="6" fill="var(--bg-tertiary)" stroke="var(--border-color)" stroke-width="1"/>
+                            <text x="235" y="122" fill="var(--text-secondary)" font-size="8" font-family="Inter">Conversion Rate</text>
+                            <text x="235" y="138" fill="var(--accent)" font-size="14" font-weight="700" font-family="Inter">4.2%</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-header reveal-up">
+                <span class="section-label">Process</span>
+                <h2 class="section-title">From brief to viral<br><span class="accent">in 48 hours.</span></h2>
+                <p class="section-subtitle">Three steps. No creative agencies. No weeks of back-and-forth.</p>
+            </div>
+            <div class="steps">
+                <div class="step reveal-up">
+                    <div class="step__number">01</div>
+                    <div class="step__connector">
+                        <svg width="100%" height="4" class="step__line">
+                            <line x1="0" y1="2" x2="100%" y2="2" stroke="var(--accent)" stroke-width="2" stroke-dasharray="8 4" class="svg-dash-animate"/>
+                        </svg>
+                    </div>
+                    <div class="step__content">
+                        <div class="step__icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                                <rect x="6" y="6" width="28" height="28" rx="6" stroke="var(--accent)" stroke-width="2"/>
+                                <path d="M14 14H26M14 20H22M14 26H18" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="step__title">Submit a Brief</h3>
+                        <p class="step__desc">Tell us what you need: product, audience, platform, vibe. Our AI pre-fills creative direction so your brief is agency-quality in minutes.</p>
+                    </div>
+                </div>
+                <div class="step reveal-up">
+                    <div class="step__number">02</div>
+                    <div class="step__connector">
+                        <svg width="100%" height="4" class="step__line">
+                            <line x1="0" y1="2" x2="100%" y2="2" stroke="var(--accent)" stroke-width="2" stroke-dasharray="8 4" class="svg-dash-animate"/>
+                        </svg>
+                    </div>
+                    <div class="step__content">
+                        <div class="step__icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                                <circle cx="14" cy="16" r="6" stroke="var(--accent)" stroke-width="2"/>
+                                <circle cx="26" cy="16" r="6" stroke="var(--accent)" stroke-width="2"/>
+                                <path d="M8 32C8 28 10 26 14 26C16 26 18 26 20 28C22 26 24 26 26 26C30 26 32 28 32 32" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/>
+                                <circle cx="32" cy="10" r="4" fill="var(--accent)" opacity="0.3"/>
+                                <path d="M30 10H34M32 8V12" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="step__title">AI Matches Creators</h3>
+                        <p class="step__desc">Within hours, our algorithm selects the top AI creators for your brief. Review profiles, past performance, and style — then approve.</p>
+                    </div>
+                </div>
+                <div class="step reveal-up">
+                    <div class="step__number">03</div>
+                    <div class="step__connector"></div>
+                    <div class="step__content">
+                        <div class="step__icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                                <path d="M6 12L20 6L34 12V22C34 28 28 34 20 36C12 34 6 28 6 22V12Z" stroke="var(--accent)" stroke-width="2"/>
+                                <path d="M14 20L18 24L26 16" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="step__title">Get Viral Content</h3>
+                        <p class="step__desc">Receive polished, platform-native video content. Approve, request revisions, or publish directly. Pay on approval — bonuses kick in when views roll in.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Big Stats Section -->
+    <section class="big-stats">
+        <div class="container">
+            <div class="big-stats__grid">
+                <div class="big-stat reveal-up">
+                    <svg class="big-stat__bg" viewBox="0 0 200 200" fill="none">
+                        <circle cx="100" cy="100" r="80" stroke="var(--accent)" stroke-width="0.5" opacity="0.2" class="orbit-circle"/>
+                        <circle cx="100" cy="100" r="60" stroke="var(--accent)" stroke-width="0.5" opacity="0.15" class="orbit-circle" style="animation-direction: reverse"/>
+                    </svg>
+                    <span class="big-stat__number"><span data-count="2400">0</span>+</span>
+                    <span class="big-stat__label">Videos Created</span>
+                </div>
+                <div class="big-stat reveal-up">
+                    <svg class="big-stat__bg" viewBox="0 0 200 200" fill="none">
+                        <circle cx="100" cy="100" r="80" stroke="var(--accent)" stroke-width="0.5" opacity="0.2" class="orbit-circle"/>
+                        <circle cx="100" cy="100" r="60" stroke="var(--accent)" stroke-width="0.5" opacity="0.15" class="orbit-circle" style="animation-direction: reverse"/>
+                    </svg>
+                    <span class="big-stat__number">$<span data-count="2">0</span>M+</span>
+                    <span class="big-stat__label">Creator Earnings</span>
+                </div>
+                <div class="big-stat reveal-up">
+                    <svg class="big-stat__bg" viewBox="0 0 200 200" fill="none">
+                        <circle cx="100" cy="100" r="80" stroke="var(--accent)" stroke-width="0.5" opacity="0.2" class="orbit-circle"/>
+                        <circle cx="100" cy="100" r="60" stroke="var(--accent)" stroke-width="0.5" opacity="0.15" class="orbit-circle" style="animation-direction: reverse"/>
+                    </svg>
+                    <span class="big-stat__number"><span data-count="180">0</span>M+</span>
+                    <span class="big-stat__label">Total Views Generated</span>
+                </div>
+                <div class="big-stat reveal-up">
+                    <svg class="big-stat__bg" viewBox="0 0 200 200" fill="none">
+                        <circle cx="100" cy="100" r="80" stroke="var(--accent)" stroke-width="0.5" opacity="0.2" class="orbit-circle"/>
+                        <circle cx="100" cy="100" r="60" stroke="var(--accent)" stroke-width="0.5" opacity="0.15" class="orbit-circle" style="animation-direction: reverse"/>
+                    </svg>
+                    <span class="big-stat__number"><span data-count="48">0</span>h</span>
+                    <span class="big-stat__label">Avg. Delivery Time</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- For Creators Section -->
+    <section class="audience-section" id="creators">
+        <div class="container">
+            <div class="audience-section__inner">
+                <div class="audience-section__text reveal-up">
+                    <span class="section-label">For Creators</span>
+                    <h2 class="section-title">Your AI skills<br><span class="accent">deserve to get paid.</span></h2>
+                    <p class="section-subtitle">You already know how to use Kling, Runway, HeyGen. Now turn that skill into a real income stream with brands that pay premium rates.</p>
+                    <ul class="audience-section__list">
+                        <li>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="10" stroke="var(--accent)" stroke-width="1.5"/>
+                                <path d="M8 12L11 15L16 9" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Flat fee + performance bonuses on every project</span>
+                        </li>
+                        <li>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="10" stroke="var(--accent)" stroke-width="1.5"/>
+                                <path d="M8 12L11 15L16 9" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Access to premium AI tools at no cost</span>
+                        </li>
+                        <li>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="10" stroke="var(--accent)" stroke-width="1.5"/>
+                                <path d="M8 12L11 15L16 9" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Build your portfolio with real brand campaigns</span>
+                        </li>
+                        <li>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="10" stroke="var(--accent)" stroke-width="1.5"/>
+                                <path d="M8 12L11 15L16 9" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Get paid within 24 hours of content approval</span>
+                        </li>
+                    </ul>
+                    <a href="#waitlist" class="btn btn--primary">
+                        <span>Apply as Creator</span>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="audience-section__visual reveal-up">
+                    <div class="creator-card">
+                        <div class="creator-card__header">
+                            <div class="creator-card__avatar">
+                                <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                                    <rect width="48" height="48" rx="12" fill="var(--accent)" opacity="0.15"/>
+                                    <circle cx="24" cy="18" r="8" stroke="var(--accent)" stroke-width="1.5"/>
+                                    <path d="M10 42C10 34 16 30 24 30C32 30 38 34 38 42" stroke="var(--accent)" stroke-width="1.5"/>
+                                </svg>
+                            </div>
+                            <div class="creator-card__info">
+                                <span class="creator-card__name">Alex Rivera</span>
+                                <span class="creator-card__role">AI Video Creator</span>
+                            </div>
+                            <div class="creator-card__badge">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M8 1L10 5.5L15 6.2L11.5 9.5L12.3 14.5L8 12.2L3.7 14.5L4.5 9.5L1 6.2L6 5.5L8 1Z" fill="var(--accent)"/>
+                                </svg>
+                                <span>Top Creator</span>
+                            </div>
+                        </div>
+                        <div class="creator-card__stats">
+                            <div class="creator-card__stat">
+                                <span class="creator-card__stat-val">142</span>
+                                <span class="creator-card__stat-lbl">Videos</span>
+                            </div>
+                            <div class="creator-card__stat">
+                                <span class="creator-card__stat-val">18.4M</span>
+                                <span class="creator-card__stat-lbl">Views</span>
+                            </div>
+                            <div class="creator-card__stat">
+                                <span class="creator-card__stat-val">$24K</span>
+                                <span class="creator-card__stat-lbl">Earned</span>
+                            </div>
+                        </div>
+                        <div class="creator-card__graph">
+                            <svg viewBox="0 0 300 80" fill="none" class="creator-card__chart">
+                                <defs>
+                                    <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.3"/>
+                                        <stop offset="100%" stop-color="var(--accent)" stop-opacity="0"/>
+                                    </linearGradient>
+                                </defs>
+                                <path d="M0 60 Q30 55 60 50 T120 35 T180 25 T240 15 T300 5" stroke="var(--accent)" stroke-width="2" fill="none" class="chart-line-animate"/>
+                                <path d="M0 60 Q30 55 60 50 T120 35 T180 25 T240 15 T300 5 V80 H0 Z" fill="url(#chartGrad)" class="chart-area-animate"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- For Brands Section -->
+    <section class="audience-section audience-section--reverse" id="brands">
+        <div class="container">
+            <div class="audience-section__inner">
+                <div class="audience-section__text reveal-up">
+                    <span class="section-label">For Brands</span>
+                    <h2 class="section-title">Scale your content.<br><span class="accent">Not your team.</span></h2>
+                    <p class="section-subtitle">Stop hiring freelancers who ghost you. Get matched with AI-native creators who deliver fast, high-performing video content on demand.</p>
+                    <ul class="audience-section__list">
+                        <li>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="10" stroke="var(--accent)" stroke-width="1.5"/>
+                                <path d="M8 12L11 15L16 9" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>10x faster than traditional UGC production</span>
+                        </li>
+                        <li>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="10" stroke="var(--accent)" stroke-width="1.5"/>
+                                <path d="M8 12L11 15L16 9" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Pay for performance — aligned incentives</span>
+                        </li>
+                        <li>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="10" stroke="var(--accent)" stroke-width="1.5"/>
+                                <path d="M8 12L11 15L16 9" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Full rights to all content, no licensing headaches</span>
+                        </li>
+                        <li>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="10" stroke="var(--accent)" stroke-width="1.5"/>
+                                <path d="M8 12L11 15L16 9" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Real-time campaign analytics and ROI tracking</span>
+                        </li>
+                    </ul>
+                    <a href="#waitlist" class="btn btn--primary">
+                        <span>Start a Campaign</span>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="audience-section__visual reveal-up">
+                    <div class="brand-dashboard">
+                        <div class="brand-dashboard__header">
+                            <span class="brand-dashboard__title">Campaign Overview</span>
+                            <span class="brand-dashboard__status">
+                                <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><circle cx="4" cy="4" r="4" fill="#28c840"/></svg>
+                                Live
+                            </span>
+                        </div>
+                        <div class="brand-dashboard__metrics">
+                            <div class="brand-dashboard__metric">
+                                <span class="brand-dashboard__metric-val">$0.12</span>
+                                <span class="brand-dashboard__metric-lbl">Cost per View</span>
+                                <span class="brand-dashboard__metric-change positive">-42%</span>
+                            </div>
+                            <div class="brand-dashboard__metric">
+                                <span class="brand-dashboard__metric-val">3.8%</span>
+                                <span class="brand-dashboard__metric-lbl">Engagement Rate</span>
+                                <span class="brand-dashboard__metric-change positive">+28%</span>
+                            </div>
+                            <div class="brand-dashboard__metric">
+                                <span class="brand-dashboard__metric-val">12</span>
+                                <span class="brand-dashboard__metric-lbl">Videos Live</span>
+                                <span class="brand-dashboard__metric-change">On Track</span>
+                            </div>
+                        </div>
+                        <div class="brand-dashboard__chart">
+                            <svg viewBox="0 0 300 100" fill="none">
+                                <defs>
+                                    <linearGradient id="brandGrad" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.2"/>
+                                        <stop offset="100%" stop-color="var(--accent)" stop-opacity="0"/>
+                                    </linearGradient>
+                                </defs>
+                                <path d="M0 80 C20 75 40 70 60 65 C80 60 100 45 120 40 C140 35 160 30 180 28 C200 26 220 22 240 18 C260 14 280 10 300 5" stroke="var(--accent)" stroke-width="2" fill="none" class="chart-line-animate"/>
+                                <path d="M0 80 C20 75 40 70 60 65 C80 60 100 45 120 40 C140 35 160 30 180 28 C200 26 220 22 240 18 C260 14 280 10 300 5 V100 H0 Z" fill="url(#brandGrad)" class="chart-area-animate"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-header reveal-up">
+                <span class="section-label">Pricing</span>
+                <h2 class="section-title">Simple pricing.<br><span class="accent">Serious results.</span></h2>
+                <p class="section-subtitle">No subscriptions. No hidden fees. Pay per campaign.</p>
+            </div>
+            <div class="pricing__grid">
+                <div class="pricing-card reveal-up">
+                    <div class="pricing-card__header">
+                        <span class="pricing-card__name">Starter</span>
+                        <span class="pricing-card__desc">Perfect for testing the waters</span>
+                    </div>
+                    <div class="pricing-card__price">
+                        <span class="pricing-card__amount">$499</span>
+                        <span class="pricing-card__period">per campaign</span>
+                    </div>
+                    <ul class="pricing-card__features">
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            3 UGC videos
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            1 creator match
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            1 round of revisions
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            Basic analytics
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            Full content rights
+                        </li>
+                    </ul>
+                    <a href="#waitlist" class="btn btn--ghost btn--full">Get Started</a>
+                </div>
+                <div class="pricing-card pricing-card--featured reveal-up">
+                    <div class="pricing-card__badge">Most Popular</div>
+                    <div class="pricing-card__header">
+                        <span class="pricing-card__name">Growth</span>
+                        <span class="pricing-card__desc">For brands ready to scale</span>
+                    </div>
+                    <div class="pricing-card__price">
+                        <span class="pricing-card__amount">$1,499</span>
+                        <span class="pricing-card__period">per campaign</span>
+                    </div>
+                    <ul class="pricing-card__features">
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            10 UGC videos
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            3 creator matches
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            Unlimited revisions
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            Advanced analytics + A/B testing
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            Priority creator matching
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            Dedicated account manager
+                        </li>
+                    </ul>
+                    <a href="#waitlist" class="btn btn--primary btn--full">Get Started</a>
+                </div>
+                <div class="pricing-card reveal-up">
+                    <div class="pricing-card__header">
+                        <span class="pricing-card__name">Enterprise</span>
+                        <span class="pricing-card__desc">Custom solutions for big teams</span>
+                    </div>
+                    <div class="pricing-card__price">
+                        <span class="pricing-card__amount">Custom</span>
+                        <span class="pricing-card__period">tailored to you</span>
+                    </div>
+                    <ul class="pricing-card__features">
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            Unlimited videos
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            Dedicated creator team
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            White-label options
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            API access
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            Custom integrations
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            SLA guarantee
+                        </li>
+                    </ul>
+                    <a href="#waitlist" class="btn btn--ghost btn--full">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header reveal-up">
+                <span class="section-label">Testimonials</span>
+                <h2 class="section-title">Don't take our word.<br><span class="accent">Take theirs.</span></h2>
+            </div>
+            <div class="testimonials__grid">
+                <div class="testimonial-card reveal-up">
+                    <div class="testimonial-card__stars">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--accent)"><path d="M8 1L10 5.5L15 6.2L11.5 9.5L12.3 14.5L8 12.2L3.7 14.5L4.5 9.5L1 6.2L6 5.5Z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--accent)"><path d="M8 1L10 5.5L15 6.2L11.5 9.5L12.3 14.5L8 12.2L3.7 14.5L4.5 9.5L1 6.2L6 5.5Z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--accent)"><path d="M8 1L10 5.5L15 6.2L11.5 9.5L12.3 14.5L8 12.2L3.7 14.5L4.5 9.5L1 6.2L6 5.5Z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--accent)"><path d="M8 1L10 5.5L15 6.2L11.5 9.5L12.3 14.5L8 12.2L3.7 14.5L4.5 9.5L1 6.2L6 5.5Z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--accent)"><path d="M8 1L10 5.5L15 6.2L11.5 9.5L12.3 14.5L8 12.2L3.7 14.5L4.5 9.5L1 6.2L6 5.5Z"/></svg>
+                    </div>
+                    <p class="testimonial-card__text">"We replaced our entire freelance video team with ugcgo creators. 10x the output, half the cost. The AI matching is scarily good."</p>
+                    <div class="testimonial-card__author">
+                        <div class="testimonial-card__avatar">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                                <rect width="40" height="40" rx="10" fill="var(--accent)" opacity="0.1"/>
+                                <circle cx="20" cy="15" r="6" stroke="var(--accent)" stroke-width="1.2"/>
+                                <path d="M8 36C8 29 13 26 20 26C27 26 32 29 32 36" stroke="var(--accent)" stroke-width="1.2"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="testimonial-card__name">Sarah Chen</span>
+                            <span class="testimonial-card__role">Head of Growth, Luminary</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal-up">
+                    <div class="testimonial-card__stars">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--accent)"><path d="M8 1L10 5.5L15 6.2L11.5 9.5L12.3 14.5L8 12.2L3.7 14.5L4.5 9.5L1 6.2L6 5.5Z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--accent)"><path d="M8 1L10 5.5L15 6.2L11.5 9.5L12.3 14.5L8 12.2L3.7 14.5L4.5 9.5L1 6.2L6 5.5Z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--accent)"><path d="M8 1L10 5.5L15 6.2L11.5 9.5L12.3 14.5L8 12.2L3.7 14.5L4.5 9.5L1 6.2L6 5.5Z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--accent)"><path d="M8 1L10 5.5L15 6.2L11.5 9.5L12.3 14.5L8 12.2L3.7 14.5L4.5 9.5L1 6.2L6 5.5Z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--accent)"><path d="M8 1L10 5.5L15 6.2L11.5 9.5L12.3 14.5L8 12.2L3.7 14.5L4.5 9.5L1 6.2L6 5.5Z"/></svg>
+                    </div>
+                    <p class="testimonial-card__text">"Made $8K in my first month. The AI tools they provide are insane — I can produce content 5x faster than before. This platform is a game-changer for creators."</p>
+                    <div class="testimonial-card__author">
+                        <div class="testimonial-card__avatar">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                                <rect width="40" height="40" rx="10" fill="var(--accent)" opacity="0.1"/>
+                                <circle cx="20" cy="15" r="6" stroke="var(--accent)" stroke-width="1.2"/>
+                                <path d="M8 36C8 29 13 26 20 26C27 26 32 29 32 36" stroke="var(--accent)" stroke-width="1.2"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="testimonial-card__name">Marcus Johnson</span>
+                            <span class="testimonial-card__role">AI Creator, Top 10</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal-up">
+                    <div class="testimonial-card__stars">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--accent)"><path d="M8 1L10 5.5L15 6.2L11.5 9.5L12.3 14.5L8 12.2L3.7 14.5L4.5 9.5L1 6.2L6 5.5Z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--accent)"><path d="M8 1L10 5.5L15 6.2L11.5 9.5L12.3 14.5L8 12.2L3.7 14.5L4.5 9.5L1 6.2L6 5.5Z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--accent)"><path d="M8 1L10 5.5L15 6.2L11.5 9.5L12.3 14.5L8 12.2L3.7 14.5L4.5 9.5L1 6.2L6 5.5Z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--accent)"><path d="M8 1L10 5.5L15 6.2L11.5 9.5L12.3 14.5L8 12.2L3.7 14.5L4.5 9.5L1 6.2L6 5.5Z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--accent)"><path d="M8 1L10 5.5L15 6.2L11.5 9.5L12.3 14.5L8 12.2L3.7 14.5L4.5 9.5L1 6.2L6 5.5Z"/></svg>
+                    </div>
+                    <p class="testimonial-card__text">"The ROI is insane. We're getting 3-4x ROAS on TikTok ads using ugcgo content. Their creators understand what converts — it's not just pretty videos."</p>
+                    <div class="testimonial-card__author">
+                        <div class="testimonial-card__avatar">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                                <rect width="40" height="40" rx="10" fill="var(--accent)" opacity="0.1"/>
+                                <circle cx="20" cy="15" r="6" stroke="var(--accent)" stroke-width="1.2"/>
+                                <path d="M8 36C8 29 13 26 20 26C27 26 32 29 32 36" stroke="var(--accent)" stroke-width="1.2"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="testimonial-card__name">Emma Rodriguez</span>
+                            <span class="testimonial-card__role">CMO, NovaSkin</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA / Waitlist -->
+    <section class="final-cta" id="waitlist">
+        <div class="container">
+            <div class="final-cta__inner reveal-up">
+                <div class="final-cta__bg">
+                    <svg viewBox="0 0 800 400" fill="none" class="final-cta__svg">
+                        <circle cx="400" cy="200" r="150" stroke="var(--accent)" stroke-width="0.5" opacity="0.2" class="orbit-circle"/>
+                        <circle cx="400" cy="200" r="200" stroke="var(--accent)" stroke-width="0.5" opacity="0.15" class="orbit-circle" style="animation-direction: reverse; animation-duration: 25s"/>
+                        <circle cx="400" cy="200" r="250" stroke="var(--accent)" stroke-width="0.5" opacity="0.1" class="orbit-circle" style="animation-duration: 35s"/>
+                        <circle cx="400" cy="200" r="4" fill="var(--accent)" opacity="0.6" class="orbit-dot" style="--orbit-r: 150"/>
+                        <circle cx="400" cy="200" r="3" fill="var(--accent)" opacity="0.4" class="orbit-dot" style="--orbit-r: 200; animation-direction: reverse; animation-duration: 10s"/>
+                        <circle cx="400" cy="200" r="2" fill="var(--accent)" opacity="0.3" class="orbit-dot" style="--orbit-r: 250; animation-duration: 14s"/>
+                    </svg>
+                </div>
+                <span class="section-label">Join the Future</span>
+                <h2 class="final-cta__title">The future of UGC is here.<br><span class="accent">Are you in?</span></h2>
+                <p class="final-cta__subtitle">Join 500+ brands and creators already on the waitlist. Early access members get priority matching and exclusive rates.</p>
+                <form class="waitlist-form" id="waitlistForm">
+                    <div class="waitlist-form__group">
+                        <input type="email" placeholder="Enter your email" class="waitlist-form__input" required>
+                        <select class="waitlist-form__select">
+                            <option value="brand">I'm a Brand</option>
+                            <option value="creator">I'm a Creator</option>
+                        </select>
+                        <button type="submit" class="btn btn--primary waitlist-form__btn">
+                            <span>Join Waitlist</span>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <p class="waitlist-form__note">No spam. Unsubscribe anytime. We respect your inbox.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__top">
+                <div class="footer__brand">
+                    <a href="#" class="nav__logo">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" class="nav__logo-icon">
+                            <rect width="32" height="32" rx="8" fill="var(--accent)"/>
+                            <path d="M8 12L16 8L24 12V20L16 24L8 20V12Z" fill="var(--bg-primary)" stroke="var(--bg-primary)" stroke-width="1.5"/>
+                            <path d="M16 8V24M8 12L24 20M24 12L8 20" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        <span>ugcgo<span class="accent">.ai</span></span>
+                    </a>
+                    <p class="footer__tagline">The AI-powered UGC marketplace.<br>Where brands meet the future of content.</p>
+                </div>
+                <div class="footer__links">
+                    <div class="footer__col">
+                        <span class="footer__col-title">Platform</span>
+                        <a href="#features">Features</a>
+                        <a href="#how-it-works">How It Works</a>
+                        <a href="#pricing">Pricing</a>
+                        <a href="#waitlist">Join Waitlist</a>
+                    </div>
+                    <div class="footer__col">
+                        <span class="footer__col-title">Company</span>
+                        <a href="#">About</a>
+                        <a href="#">Blog</a>
+                        <a href="#">Careers</a>
+                        <a href="#">Contact</a>
+                    </div>
+                    <div class="footer__col">
+                        <span class="footer__col-title">Legal</span>
+                        <a href="#">Privacy</a>
+                        <a href="#">Terms</a>
+                        <a href="#">Cookies</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <span class="footer__copy">&copy; 2026 ugcgo.ai. All rights reserved.</span>
+                <div class="footer__socials">
+                    <a href="#" aria-label="Twitter/X">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M3 3L8.5 10.5L3 17H4.5L9.2 11.4L13 17H17.5L11.6 9L16.7 3H15.2L10.9 8.1L7.5 3H3ZM5 4.5H6.8L15.5 15.5H13.7L5 4.5Z" fill="currentColor"/>
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="LinkedIn">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <rect x="2" y="2" width="16" height="16" rx="3" stroke="currentColor" stroke-width="1.5"/>
+                            <circle cx="6.5" cy="7" r="1.2" fill="currentColor"/>
+                            <path d="M5.5 9H7.5V14H5.5V9Z" fill="currentColor"/>
+                            <path d="M9 9H11V9.8C11.5 9.2 12.2 8.8 13 8.8C14.7 8.8 15 10 15 11.5V14H13V11.8C13 11.2 12.8 10.8 12.2 10.8C11.5 10.8 11 11.3 11 12V14H9V9Z" fill="currentColor"/>
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="TikTok">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M13.5 2V8.5C13.5 11.5 11 14 8 14C5 14 2.5 11.5 2.5 8.5C2.5 5.5 5 3 8 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                            <path d="M13.5 2C13.5 4 15 6 17.5 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="Instagram">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <rect x="2" y="2" width="16" height="16" rx="4" stroke="currentColor" stroke-width="1.5"/>
+                            <circle cx="10" cy="10" r="4" stroke="currentColor" stroke-width="1.5"/>
+                            <circle cx="14.5" cy="5.5" r="1" fill="currentColor"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>/* ============================================
+   ugcgo.ai — Landing Page JavaScript
+   ============================================ */
+
+(function () {
+    'use strict';
+
+    // ========================================
+    // PARTICLE SYSTEM
+    // ========================================
+    class ParticleSystem {
+        constructor(canvasId) {
+            this.canvas = document.getElementById(canvasId);
+            if (!this.canvas) return;
+            this.ctx = this.canvas.getContext('2d');
+            this.particles = [];
+            this.mouse = { x: 0, y: 0 };
+            this.particleCount = 80;
+            this.connectionDistance = 120;
+            this.isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+
+            this.resize();
+            this.init();
+            this.animate();
+
+            window.addEventListener('resize', () => this.resize());
+            this.canvas.addEventListener('mousemove', (e) => {
+                const rect = this.canvas.getBoundingClientRect();
+                this.mouse.x = e.clientX - rect.left;
+                this.mouse.y = e.clientY - rect.top;
+            });
+        }
+
+        resize() {
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+            this.canvas.width = this.canvas.offsetWidth * dpr;
+            this.canvas.height = this.canvas.offsetHeight * dpr;
+            this.ctx.scale(dpr, dpr);
+            this.width = this.canvas.offsetWidth;
+            this.height = this.canvas.offsetHeight;
+        }
+
+        init() {
+            this.particles = [];
+            for (let i = 0; i < this.particleCount; i++) {
+                this.particles.push({
+                    x: Math.random() * this.width,
+                    y: Math.random() * this.height,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    radius: Math.random() * 1.5 + 0.5,
+                    opacity: Math.random() * 0.5 + 0.1,
+                });
+            }
+        }
+
+        updateTheme(isDark) {
+            this.isDark = isDark;
+        }
+
+        animate() {
+            this.ctx.clearRect(0, 0, this.width, this.height);
+
+            const accentColor = this.isDark ? '232, 255, 89' : '26, 26, 26';
+
+            for (let i = 0; i < this.particles.length; i++) {
+                const p = this.particles[i];
+
+                // Move
+                p.x += p.vx;
+                p.y += p.vy;
+
+                // Bounce
+                if (p.x < 0 || p.x > this.width) p.vx *= -1;
+                if (p.y < 0 || p.y > this.height) p.vy *= -1;
+
+                // Mouse interaction
+                const dx = this.mouse.x - p.x;
+                const dy = this.mouse.y - p.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 150) {
+                    p.vx -= dx * 0.0002;
+                    p.vy -= dy * 0.0002;
+                }
+
+                // Draw particle
+                this.ctx.beginPath();
+                this.ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                this.ctx.fillStyle = `rgba(${accentColor}, ${p.opacity})`;
+                this.ctx.fill();
+
+                // Draw connections
+                for (let j = i + 1; j < this.particles.length; j++) {
+                    const p2 = this.particles[j];
+                    const ddx = p.x - p2.x;
+                    const ddy = p.y - p2.y;
+                    const distance = Math.sqrt(ddx * ddx + ddy * ddy);
+
+                    if (distance < this.connectionDistance) {
+                        const lineOpacity = (1 - distance / this.connectionDistance) * 0.15;
+                        this.ctx.beginPath();
+                        this.ctx.moveTo(p.x, p.y);
+                        this.ctx.lineTo(p2.x, p2.y);
+                        this.ctx.strokeStyle = `rgba(${accentColor}, ${lineOpacity})`;
+                        this.ctx.lineWidth = 0.5;
+                        this.ctx.stroke();
+                    }
+                }
+            }
+
+            requestAnimationFrame(() => this.animate());
+        }
+    }
+
+    // ========================================
+    // THEME TOGGLE
+    // ========================================
+    const themeToggle = document.getElementById('themeToggle');
+    let particleSystem = null;
+
+    function setTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('ugcgo-theme', theme);
+        if (particleSystem) {
+            particleSystem.updateTheme(theme === 'dark');
+        }
+    }
+
+    // Load saved theme
+    const savedTheme = localStorage.getItem('ugcgo-theme') || 'dark';
+    setTheme(savedTheme);
+
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-theme');
+            setTheme(current === 'dark' ? 'light' : 'dark');
+        });
+    }
+
+    // ========================================
+    // SCROLL REVEAL
+    // ========================================
+    function setupReveal() {
+        const reveals = document.querySelectorAll('.reveal-up');
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            },
+            {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px',
+            }
+        );
+
+        reveals.forEach((el, index) => {
+            el.style.transitionDelay = `${index % 5 * 0.1}s`;
+            observer.observe(el);
+        });
+    }
+
+    // ========================================
+    // COUNTER ANIMATION
+    // ========================================
+    function animateCounters() {
+        const counters = document.querySelectorAll('[data-count]');
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        const el = entry.target;
+                        const target = parseInt(el.getAttribute('data-count'), 10);
+                        const duration = 2000;
+                        const startTime = performance.now();
+
+                        function update(currentTime) {
+                            const elapsed = currentTime - startTime;
+                            const progress = Math.min(elapsed / duration, 1);
+
+                            // Easing: ease-out cubic
+                            const eased = 1 - Math.pow(1 - progress, 3);
+                            const current = Math.round(eased * target);
+
+                            el.textContent = current.toLocaleString();
+
+                            if (progress < 1) {
+                                requestAnimationFrame(update);
+                            }
+                        }
+
+                        requestAnimationFrame(update);
+                        observer.unobserve(el);
+                    }
+                });
+            },
+            { threshold: 0.5 }
+        );
+
+        counters.forEach((counter) => observer.observe(counter));
+    }
+
+    // ========================================
+    // NAV SCROLL EFFECT
+    // ========================================
+    function setupNav() {
+        const nav = document.getElementById('nav');
+        let lastScrollY = 0;
+
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            if (scrollY > 50) {
+                nav.classList.add('nav--scrolled');
+            } else {
+                nav.classList.remove('nav--scrolled');
+            }
+            lastScrollY = scrollY;
+        });
+
+        // Mobile burger
+        const burger = document.getElementById('navBurger');
+        const mobileMenu = document.getElementById('navMobile');
+
+        if (burger && mobileMenu) {
+            burger.addEventListener('click', () => {
+                burger.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+            });
+
+            // Close on link click
+            mobileMenu.querySelectorAll('a').forEach((link) => {
+                link.addEventListener('click', () => {
+                    burger.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                });
+            });
+        }
+    }
+
+    // ========================================
+    // SMOOTH SCROLL FOR ANCHOR LINKS
+    // ========================================
+    function setupSmoothScroll() {
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offset = 80;
+                    const top = target.getBoundingClientRect().top + window.scrollY - offset;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                }
+            });
+        });
+    }
+
+    // ========================================
+    // WAITLIST FORM
+    // ========================================
+    function setupForm() {
+        const form = document.getElementById('waitlistForm');
+        if (!form) return;
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = form.querySelector('.waitlist-form__btn span');
+            const originalText = btn.textContent;
+
+            btn.textContent = 'Added!';
+            form.querySelector('.waitlist-form__input').value = '';
+
+            setTimeout(() => {
+                btn.textContent = originalText;
+            }, 3000);
+        });
+    }
+
+    // ========================================
+    // MAGNETIC HOVER EFFECT ON BUTTONS
+    // ========================================
+    function setupMagneticButtons() {
+        const buttons = document.querySelectorAll('.btn--primary, .nav__cta');
+
+        buttons.forEach((btn) => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
+            });
+
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = '';
+            });
+        });
+    }
+
+    // ========================================
+    // TILT EFFECT ON CARDS
+    // ========================================
+    function setupCardTilt() {
+        const cards = document.querySelectorAll('.feature-card, .pricing-card, .testimonial-card');
+
+        cards.forEach((card) => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width;
+                const y = (e.clientY - rect.top) / rect.height;
+                const tiltX = (y - 0.5) * 4;
+                const tiltY = (x - 0.5) * -4;
+
+                card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(-4px)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
+        });
+    }
+
+    // ========================================
+    // CURSOR GLOW EFFECT
+    // ========================================
+    function setupCursorGlow() {
+        const glow = document.createElement('div');
+        glow.style.cssText = `
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: screen;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            transform: translate(-50%, -50%);
+        `;
+        document.body.appendChild(glow);
+
+        function updateGlow() {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            glow.style.background = isDark
+                ? 'radial-gradient(circle, rgba(232,255,89,0.04) 0%, transparent 70%)'
+                : 'radial-gradient(circle, rgba(0,0,0,0.02) 0%, transparent 70%)';
+        }
+
+        updateGlow();
+
+        // Update on theme change
+        const observer = new MutationObserver(updateGlow);
+        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+        document.addEventListener('mousemove', (e) => {
+            glow.style.left = e.clientX + 'px';
+            glow.style.top = e.clientY + 'px';
+            glow.style.opacity = '1';
+        });
+
+        document.addEventListener('mouseleave', () => {
+            glow.style.opacity = '0';
+        });
+    }
+
+    // ========================================
+    // PARALLAX ON HERO ELEMENTS
+    // ========================================
+    function setupParallax() {
+        const heroContent = document.querySelector('.hero__content');
+        const heroCards = document.querySelector('.hero__cards');
+
+        if (!heroContent || !heroCards) return;
+
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const factor = Math.min(scrollY / 600, 1);
+
+            heroContent.style.transform = `translateY(${scrollY * 0.15}px)`;
+            heroContent.style.opacity = 1 - factor;
+            heroCards.style.transform = `translateY(${scrollY * 0.08}px)`;
+        });
+    }
+
+    // ========================================
+    // INITIALIZE
+    // ========================================
+    document.addEventListener('DOMContentLoaded', () => {
+        particleSystem = new ParticleSystem('particleCanvas');
+        setupReveal();
+        animateCounters();
+        setupNav();
+        setupSmoothScroll();
+        setupForm();
+        setupMagneticButtons();
+        setupCardTilt();
+        setupCursorGlow();
+        setupParallax();
+    });
+})();
+</script>
+</body>
+</html>
