@@ -1,0 +1,1071 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>ugcgo.ai — Launch Deck</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --bg: #0a0a0a;
+        --card: #141414;
+        --accent: #e8ff59;
+        --accent2: #59ffe8;
+        --text: #e0e0e0;
+        --dim: #666;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        overflow-x: hidden;
+      }
+      .slide {
+        min-height: 100vh;
+        padding: 60px 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        max-width: 800px;
+        margin: 0 auto;
+        position: relative;
+      }
+      .slide + .slide {
+        border-top: 1px solid #222;
+      }
+
+      /* Typography */
+      h1 {
+        font-size: clamp(2rem, 6vw, 3.5rem);
+        font-weight: 800;
+        line-height: 1.1;
+        margin-bottom: 16px;
+      }
+      h2 {
+        font-size: clamp(1.4rem, 4vw, 2rem);
+        font-weight: 700;
+        margin-bottom: 24px;
+        color: var(--accent);
+      }
+      h3 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 12px;
+        color: var(--accent2);
+      }
+      p,
+      .desc {
+        color: var(--dim);
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 16px;
+      }
+      .tag {
+        display: inline-block;
+        background: var(--accent);
+        color: #000;
+        font-size: 0.7rem;
+        font-weight: 700;
+        padding: 4px 10px;
+        border-radius: 20px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 20px;
+      }
+      .tag2 {
+        background: var(--accent2);
+      }
+
+      /* Hero */
+      .hero h1 .accent {
+        color: var(--accent);
+      }
+      .hero .sub {
+        font-size: clamp(1rem, 3vw, 1.4rem);
+        color: var(--dim);
+        margin-bottom: 32px;
+      }
+      .hero-badge {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 16px;
+      }
+      .badge {
+        background: #1a1a1a;
+        border: 1px solid #333;
+        border-radius: 8px;
+        padding: 8px 14px;
+        font-size: 0.8rem;
+        color: var(--text);
+      }
+
+      /* Cards grid */
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+        margin: 20px 0;
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid #222;
+        border-radius: 12px;
+        padding: 20px;
+        transition: transform 0.2s;
+      }
+      .card:hover {
+        transform: translateY(-2px);
+      }
+      .card .icon {
+        font-size: 2rem;
+        margin-bottom: 12px;
+      }
+      .card .label {
+        font-size: 0.8rem;
+        color: var(--dim);
+        margin-bottom: 4px;
+      }
+      .card .value {
+        font-size: 1.3rem;
+        font-weight: 700;
+      }
+      .card .value.green {
+        color: #4ade80;
+      }
+      .card .value.red {
+        color: #f87171;
+      }
+      .card .value.yellow {
+        color: var(--accent);
+      }
+
+      /* Competitor table */
+      .comp-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 16px 0;
+        font-size: 0.85rem;
+      }
+      .comp-table th {
+        text-align: left;
+        padding: 10px 12px;
+        border-bottom: 2px solid var(--accent);
+        color: var(--accent);
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .comp-table td {
+        padding: 10px 12px;
+        border-bottom: 1px solid #1a1a1a;
+      }
+      .comp-table tr:hover td {
+        background: #1a1a1a;
+      }
+      .comp-table .price {
+        color: var(--accent);
+        font-weight: 600;
+      }
+
+      /* Bar chart */
+      .bar-chart {
+        margin: 20px 0;
+      }
+      .bar-row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        gap: 12px;
+      }
+      .bar-label {
+        width: 100px;
+        font-size: 0.8rem;
+        text-align: right;
+        flex-shrink: 0;
+      }
+      .bar-track {
+        flex: 1;
+        background: #1a1a1a;
+        border-radius: 6px;
+        height: 28px;
+        overflow: hidden;
+        position: relative;
+      }
+      .bar-fill {
+        height: 100%;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        padding-left: 10px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #000;
+        transition: width 1s ease;
+      }
+      .bar-fill.a {
+        background: var(--accent);
+        width: 80%;
+      }
+      .bar-fill.b {
+        background: var(--accent2);
+        width: 60%;
+      }
+      .bar-fill.c {
+        background: #a78bfa;
+        width: 45%;
+      }
+      .bar-fill.d {
+        background: #fb923c;
+        width: 35%;
+      }
+      .bar-fill.e {
+        background: #f87171;
+        width: 25%;
+      }
+
+      /* Timeline */
+      .timeline {
+        position: relative;
+        margin: 24px 0;
+        padding-left: 28px;
+      }
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 8px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(var(--accent), var(--accent2));
+      }
+      .tl-item {
+        position: relative;
+        margin-bottom: 28px;
+      }
+      .tl-item::before {
+        content: "";
+        position: absolute;
+        left: -24px;
+        top: 4px;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--accent);
+        border: 2px solid var(--bg);
+      }
+      .tl-item:nth-child(2)::before {
+        background: var(--accent2);
+      }
+      .tl-item:nth-child(3)::before {
+        background: #a78bfa;
+      }
+      .tl-item:nth-child(4)::before {
+        background: #fb923c;
+      }
+      .tl-item .tl-title {
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+      .tl-item .tl-desc {
+        font-size: 0.85rem;
+        color: var(--dim);
+      }
+      .tl-item .tl-days {
+        font-size: 0.7rem;
+        color: var(--accent);
+        font-weight: 600;
+        margin-bottom: 2px;
+      }
+
+      /* Metrics */
+      .metric-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin: 16px 0;
+      }
+      .metric {
+        background: var(--card);
+        border-radius: 12px;
+        padding: 16px;
+        text-align: center;
+        border: 1px solid #222;
+      }
+      .metric .num {
+        font-size: clamp(1.5rem, 5vw, 2.2rem);
+        font-weight: 800;
+        background: linear-gradient(135deg, var(--accent), var(--accent2));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .metric .mlabel {
+        font-size: 0.75rem;
+        color: var(--dim);
+        margin-top: 4px;
+      }
+
+      /* Donut chart */
+      .donut-wrap {
+        display: flex;
+        justify-content: center;
+        gap: 24px;
+        flex-wrap: wrap;
+        margin: 20px 0;
+      }
+      .donut {
+        position: relative;
+        width: 120px;
+        height: 120px;
+      }
+      .donut svg {
+        transform: rotate(-90deg);
+      }
+      .donut circle {
+        fill: none;
+        stroke-width: 8;
+      }
+      .donut .bg {
+        stroke: #1a1a1a;
+      }
+      .donut .fg {
+        stroke-linecap: round;
+        transition: stroke-dashoffset 1s ease;
+      }
+      .donut .center {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+      }
+      .donut .center .pct {
+        font-size: 1.4rem;
+        font-weight: 800;
+      }
+      .donut .center .dlabel {
+        font-size: 0.65rem;
+        color: var(--dim);
+      }
+
+      /* Steps */
+      .steps {
+        counter-reset: step;
+        margin: 16px 0;
+      }
+      .step {
+        counter-increment: step;
+        display: flex;
+        gap: 16px;
+        margin-bottom: 20px;
+        align-items: flex-start;
+      }
+      .step::before {
+        content: counter(step);
+        background: var(--accent);
+        color: #000;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 0.8rem;
+        flex-shrink: 0;
+      }
+      .step-content .step-title {
+        font-weight: 700;
+        margin-bottom: 2px;
+      }
+      .step-content .step-desc {
+        font-size: 0.85rem;
+        color: var(--dim);
+      }
+
+      /* Quote */
+      .quote {
+        border-left: 3px solid var(--accent);
+        padding: 16px 20px;
+        background: #111;
+        border-radius: 0 8px 8px 0;
+        margin: 20px 0;
+        font-style: italic;
+        color: var(--dim);
+      }
+      .quote strong {
+        color: var(--text);
+        font-style: normal;
+      }
+
+      /* CTA */
+      .cta {
+        background: linear-gradient(135deg, var(--accent), var(--accent2));
+        color: #000;
+        text-align: center;
+        border-radius: 16px;
+        padding: 40px 24px;
+        margin: 24px 0;
+      }
+      .cta h2 {
+        color: #000;
+      }
+      .cta p {
+        color: #000a;
+        font-size: 1rem;
+      }
+      .cta .cta-url {
+        font-size: 1.4rem;
+        font-weight: 800;
+        margin-top: 12px;
+        color: #000;
+      }
+
+      /* Funnel */
+      .funnel {
+        margin: 20px auto;
+        max-width: 400px;
+      }
+      .funnel-step {
+        text-align: center;
+        padding: 14px;
+        margin: 0 auto;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.85rem;
+        position: relative;
+      }
+      .funnel-step::after {
+        content: "";
+        display: block;
+        width: 2px;
+        height: 16px;
+        background: var(--accent);
+        margin: 0 auto;
+      }
+      .funnel-step:last-child::after {
+        display: none;
+      }
+      .f1 {
+        background: var(--accent);
+        color: #000;
+        width: 100%;
+      }
+      .f2 {
+        background: #c5d94a;
+        color: #000;
+        width: 82%;
+      }
+      .f3 {
+        background: #a78bfa;
+        color: #000;
+        width: 64%;
+      }
+      .f4 {
+        background: var(--accent2);
+        color: #000;
+        width: 46%;
+      }
+
+      /* Platform icons */
+      .platforms {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin: 16px 0;
+      }
+      .plat {
+        background: var(--card);
+        border: 1px solid #222;
+        border-radius: 10px;
+        padding: 14px;
+        text-align: center;
+        font-size: 0.75rem;
+      }
+      .plat .plat-icon {
+        font-size: 1.8rem;
+        margin-bottom: 6px;
+      }
+      .plat .plat-name {
+        font-weight: 700;
+        margin-bottom: 2px;
+      }
+      .plat .plat-val {
+        color: var(--accent);
+        font-size: 0.7rem;
+      }
+
+      /* Animate on scroll */
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 0.6s,
+          transform 0.6s;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Nav dots */
+      .nav-dots {
+        position: fixed;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 100;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .nav-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #333;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+      .nav-dot.active {
+        background: var(--accent);
+      }
+      @media (max-width: 500px) {
+        .nav-dots {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="nav-dots" id="navDots"></div>
+
+    <!-- SLIDE 1: Hero -->
+    <div class="slide hero" id="s1">
+      <div class="tag">Март 2026</div>
+      <h1>
+        <span class="accent">ugcgo.ai</span><br />Запуск с нулевым бюджетом
+      </h1>
+      <p class="sub">
+        Первый маркетплейс для AI UGC креаторов.<br />Fiverr, но для AI-видео.
+      </p>
+      <div class="hero-badge">
+        <div class="badge">$0 бюджет</div>
+        <div class="badge">4 фазы</div>
+        <div class="badge">90 дней до выручки</div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2: Problem -->
+    <div class="slide" id="s2">
+      <div class="tag">Проблема</div>
+      <h2>Рынок AI UGC перегрет инструментами</h2>
+      <p>
+        10+ платформ генерируют AI-видео. Но ни одна не соединяет брендов с
+        креаторами.
+      </p>
+      <div class="cards">
+        <div class="card">
+          <div class="icon">💰</div>
+          <div class="label">Живой UGC креатор</div>
+          <div class="value red">$150-2000</div>
+          <div class="label">за видео</div>
+        </div>
+        <div class="card">
+          <div class="icon">🤖</div>
+          <div class="label">AI инструменты</div>
+          <div class="value yellow">$2-20</div>
+          <div class="label">за видео</div>
+        </div>
+        <div class="card">
+          <div class="icon">🤷</div>
+          <div class="label">Бренды умеют AI?</div>
+          <div class="value red">Нет</div>
+          <div class="label">нужен посредник</div>
+        </div>
+        <div class="card">
+          <div class="icon">🎯</div>
+          <div class="label">Маркетплейсов</div>
+          <div class="value green">0</div>
+          <div class="label">свободная ниша</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: Competitors -->
+    <div class="slide" id="s3">
+      <div class="tag tag2">Конкуренты</div>
+      <h2>Все делают SaaS. Никто — маркетплейс.</h2>
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>Платформа</th>
+            <th>Цена</th>
+            <th>Модель</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Arcads</td>
+            <td class="price">$100/мес</td>
+            <td>SaaS (10 видео)</td>
+          </tr>
+          <tr>
+            <td>HeyGen</td>
+            <td class="price">$24/мес</td>
+            <td>SaaS (1100+ аватаров)</td>
+          </tr>
+          <tr>
+            <td>Creatify</td>
+            <td class="price">$39/мес</td>
+            <td>SaaS (URL-to-video)</td>
+          </tr>
+          <tr>
+            <td>MakeUGC</td>
+            <td class="price">$49/мес</td>
+            <td>SaaS (< $10/видео)</td>
+          </tr>
+          <tr>
+            <td>Synthesia</td>
+            <td class="price">$22/мес</td>
+            <td>SaaS (enterprise)</td>
+          </tr>
+          <tr>
+            <td style="color: var(--accent); font-weight: 700">ugcgo.ai</td>
+            <td class="price">Комиссия</td>
+            <td style="color: var(--accent)">Маркетплейс</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="quote">
+        <strong>Наше преимущество:</strong> Мы не конкурируем с инструментами —
+        мы строим экосистему, где креаторы используют ЛЮБЫЕ инструменты для
+        выполнения заказов брендов.
+      </div>
+    </div>
+
+    <!-- SLIDE 4: Opportunity -->
+    <div class="slide" id="s4">
+      <div class="tag">Возможность</div>
+      <h2>Цена за видео: разница в 75x</h2>
+      <div class="bar-chart">
+        <div class="bar-row">
+          <div class="bar-label">Живой UGC</div>
+          <div class="bar-track">
+            <div class="bar-fill a" style="width: 95%">$500-2000</div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Arcads</div>
+          <div class="bar-track">
+            <div class="bar-fill b" style="width: 40%">$100/мес</div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">HeyGen</div>
+          <div class="bar-track">
+            <div class="bar-fill c" style="width: 25%">$24/мес</div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">MakeUGC</div>
+          <div class="bar-track">
+            <div class="bar-fill d" style="width: 30%">$49/мес</div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label" style="color: var(--accent); font-weight: 700">
+            ugcgo.ai
+          </div>
+          <div class="bar-track">
+            <div
+              class="bar-fill e"
+              style="width: 15%; background: var(--accent)"
+            >
+              $15-30
+            </div>
+          </div>
+        </div>
+      </div>
+      <p>
+        Бренд платит $15-30 за готовое AI-видео через маркетплейс. Креатор
+        зарабатывает. Платформа берёт комиссию 15-20%.
+      </p>
+    </div>
+
+    <!-- SLIDE 5: Roadmap Timeline -->
+    <div class="slide" id="s5">
+      <div class="tag">Роудмап</div>
+      <h2>4 фазы за 90 дней</h2>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-days">Дни 1-3</div>
+          <div class="tl-title">Фаза 0: Подготовка</div>
+          <div class="tl-desc">
+            Waitlist (Tally.so), аккаунты X/Reddit, первый тред, демо-ролик
+            лендинга
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-days">Дни 4-21</div>
+          <div class="tl-title">Фаза 1: Build in Public</div>
+          <div class="tl-desc">
+            3 поста/день в X, Reddit-контент, сбор 200+ emails, рост до 500
+            подписчиков
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-days">Дни 22-45</div>
+          <div class="tl-title">Фаза 2: MVP</div>
+          <div class="tl-desc">
+            Next.js + Supabase: профили креаторов, брифы, чат, загрузка видео.
+            $0 за хостинг
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-days">Дни 46-90</div>
+          <div class="tl-title">Фаза 3: Запуск + Рост</div>
+          <div class="tl-desc">
+            Product Hunt, BetaList, HN. Direct outreach к 100 брендам. Первая
+            выручка
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: Build in Public -->
+    <div class="slide" id="s6">
+      <div class="tag">Фаза 1</div>
+      <h2>Build in Public — стратегия роста</h2>
+      <p>
+        Алгоритм X в 2026 (Grok-powered) показывает контент маленьких аккаунтов
+        с хорошим engagement. 500 подписчиков могут обогнать 50K.
+      </p>
+      <h3>Контент-план: 3 поста в день</h3>
+      <div class="cards">
+        <div class="card">
+          <div class="icon">🌅</div>
+          <div class="label">Утро</div>
+          <div class="value" style="font-size: 1rem">Build-апдейт</div>
+          <div class="label">
+            "День 7. Сделал профили креаторов. Что добавить?"
+          </div>
+        </div>
+        <div class="card">
+          <div class="icon">📊</div>
+          <div class="label">День</div>
+          <div class="value" style="font-size: 1rem">Эксперт-пост</div>
+          <div class="label">"AI UGC: Arcads $100/мес vs креатор за $15"</div>
+        </div>
+        <div class="card">
+          <div class="icon">🔥</div>
+          <div class="label">Вечер</div>
+          <div class="value" style="font-size: 1rem">Engagement</div>
+          <div class="label">
+            "Бренды: сколько платите за UGC? Хочу понять рынок"
+          </div>
+        </div>
+      </div>
+      <div class="quote">
+        <strong>Реальный кейс:</strong> Инди-хакер вырос с 0 до 2400 подписчиков
+        за 4 месяца через build in public → запустил продукт на $8K MRR.
+      </div>
+    </div>
+
+    <!-- SLIDE 7: MVP -->
+    <div class="slide" id="s7">
+      <div class="tag tag2">Фаза 2</div>
+      <h2>MVP за $0 — стек</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-content">
+            <div class="step-title">Регистрация</div>
+            <div class="step-desc">
+              Email + Google OAuth через Supabase Auth (бесплатно)
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-content">
+            <div class="step-title">Профиль креатора</div>
+            <div class="step-desc">Портфолио, навыки, цена, примеры работ</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-content">
+            <div class="step-title">Бриф от бренда</div>
+            <div class="step-desc">
+              Продукт, стиль, платформа (TikTok/Reels/Shorts), бюджет
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-content">
+            <div class="step-title">Матчинг + Чат</div>
+            <div class="step-desc">
+              Бренд выбирает креатора, обсуждают детали
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-content">
+            <div class="step-title">Доставка видео</div>
+            <div class="step-desc">
+              Креатор загружает готовое видео через Supabase Storage
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="metric-grid">
+        <div class="metric">
+          <div class="num">$0</div>
+          <div class="mlabel">Стоимость хостинга</div>
+        </div>
+        <div class="metric">
+          <div class="num">2-3</div>
+          <div class="mlabel">Недели разработки</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: Launch Day -->
+    <div class="slide" id="s8">
+      <div class="tag">Фаза 3</div>
+      <h2>Launch Day — мультиплатформа</h2>
+      <div class="platforms">
+        <div class="plat">
+          <div class="plat-icon">🏆</div>
+          <div class="plat-name">Product Hunt</div>
+          <div class="plat-val">5-10K визитов</div>
+        </div>
+        <div class="plat">
+          <div class="plat-icon">📋</div>
+          <div class="plat-name">BetaList</div>
+          <div class="plat-val">14.9% конверсия</div>
+        </div>
+        <div class="plat">
+          <div class="plat-icon">🧡</div>
+          <div class="plat-name">Hacker News</div>
+          <div class="plat-val">Тех-аудитория</div>
+        </div>
+        <div class="plat">
+          <div class="plat-icon">💬</div>
+          <div class="plat-name">Reddit</div>
+          <div class="plat-val">r/SideProject</div>
+        </div>
+        <div class="plat">
+          <div class="plat-icon">🐦</div>
+          <div class="plat-name">X (Twitter)</div>
+          <div class="plat-val">Build in Public</div>
+        </div>
+        <div class="plat">
+          <div class="plat-icon">🚀</div>
+          <div class="plat-name">Indie Hackers</div>
+          <div class="plat-val">Фидбек</div>
+        </div>
+      </div>
+      <h3>Таймлайн запуска</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step-content">
+            <div class="step-title">00:01 — Product Hunt</div>
+            <div class="step-desc">Публикация + maker comment с историей</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-content">
+            <div class="step-title">00:15 — X + Email</div>
+            <div class="step-desc">
+              Анонс подписчикам + рассылка по waitlist
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-content">
+            <div class="step-title">06:00 — Hacker News</div>
+            <div class="step-desc">
+              Show HN: ugcgo.ai — Marketplace for AI UGC
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-content">
+            <div class="step-title">08:00+ — Reddit, IH</div>
+            <div class="step-desc">
+              Посты в целевых сабреддитах и сообществах
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 9: Metrics -->
+    <div class="slide" id="s9">
+      <div class="tag tag2">Метрики</div>
+      <h2>Целевые показатели</h2>
+      <div class="donut-wrap">
+        <div class="donut">
+          <svg width="120" height="120">
+            <circle class="bg" cx="60" cy="60" r="50" />
+            <circle
+              class="fg"
+              cx="60"
+              cy="60"
+              r="50"
+              stroke="var(--accent)"
+              stroke-dasharray="314"
+              stroke-dashoffset="251"
+            />
+          </svg>
+          <div class="center">
+            <div class="pct">20%</div>
+            <div class="dlabel">Waitlist→User</div>
+          </div>
+        </div>
+        <div class="donut">
+          <svg width="120" height="120">
+            <circle class="bg" cx="60" cy="60" r="50" />
+            <circle
+              class="fg"
+              cx="60"
+              cy="60"
+              r="50"
+              stroke="var(--accent2)"
+              stroke-dasharray="314"
+              stroke-dashoffset="188"
+            />
+          </svg>
+          <div class="center">
+            <div class="pct">40%</div>
+            <div class="dlabel">Activation</div>
+          </div>
+        </div>
+        <div class="donut">
+          <svg width="120" height="120">
+            <circle class="bg" cx="60" cy="60" r="50" />
+            <circle
+              class="fg"
+              cx="60"
+              cy="60"
+              r="50"
+              stroke="#a78bfa"
+              stroke-dasharray="314"
+              stroke-dashoffset="304"
+            />
+          </svg>
+          <div class="center">
+            <div class="pct">3%</div>
+            <div class="dlabel">Signup Rate</div>
+          </div>
+        </div>
+      </div>
+      <div class="funnel">
+        <div class="funnel-step f1">10,000 посетителей (PH + Organic)</div>
+        <div class="funnel-step f2">300 регистраций (3%)</div>
+        <div class="funnel-step f3">120 активных (40%)</div>
+        <div class="funnel-step f4">100 пользователей (цель)</div>
+      </div>
+    </div>
+
+    <!-- SLIDE 10: Action -->
+    <div class="slide" id="s10">
+      <div class="tag">Действие</div>
+      <h2>Что делать прямо сейчас</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-content">
+            <div class="step-title">Сегодня (30 мин)</div>
+            <div class="step-desc">
+              Подключить Tally.so к waitlist + оптимизировать X профиль
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-content">
+            <div class="step-title">Завтра (2 часа)</div>
+            <div class="step-desc">
+              Демо-ролик лендинга + первый тред в X + пост на Reddit
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-content">
+            <div class="step-title">Неделя 1-3</div>
+            <div class="step-desc">
+              Build in public (3 поста/день) + собирать waitlist + начать MVP
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-content">
+            <div class="step-title">Неделя 4-6</div>
+            <div class="step-desc">
+              Запуск MVP + 10 креаторов вручную + Product Hunt
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-content">
+            <div class="step-title">Неделя 7-12</div>
+            <div class="step-desc">
+              100 пользователей через direct outreach + первая выручка
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cta">
+        <h2>ugcgo.ai</h2>
+        <p>Fiverr для AI UGC. От $0 до первой выручки за 90 дней.</p>
+        <div class="cta-url">ugcgo.ai</div>
+      </div>
+    </div>
+
+    <script>
+      // Scroll reveal
+      const reveals = document.querySelectorAll(
+        ".card,.tl-item,.step,.metric,.plat,.bar-row,.comp-table tr,.donut,.funnel-step,.quote",
+      );
+      reveals.forEach((el) => el.classList.add("reveal"));
+      const obs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+              obs.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.15 },
+      );
+      reveals.forEach((el) => obs.observe(el));
+
+      // Nav dots
+      const slides = document.querySelectorAll(".slide");
+      const dots = document.getElementById("navDots");
+      slides.forEach((_, i) => {
+        const d = document.createElement("div");
+        d.className = "nav-dot";
+        d.onclick = () => slides[i].scrollIntoView({ behavior: "smooth" });
+        dots.appendChild(d);
+      });
+      const dotEls = dots.querySelectorAll(".nav-dot");
+      const sObs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              const idx = [...slides].indexOf(e.target);
+              dotEls.forEach((d, i) => d.classList.toggle("active", i === idx));
+            }
+          });
+        },
+        { threshold: 0.5 },
+      );
+      slides.forEach((s) => sObs.observe(s));
+    </script>
+  </body>
+</html>
