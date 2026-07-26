@@ -1,0 +1,26 @@
+services:
+  kinoteka:
+    build: .
+    container_name: kinoteka
+    restart: unless-stopped
+    ports:
+      - '8080:8080'
+    environment:
+      TMDB_API_KEY: ${TMDB_API_KEY:?set TMDB_API_KEY in .env}
+      ACCESS_CODE: ${ACCESS_CODE:-}
+      SESSION_SECRET: ${SESSION_SECRET:-}
+      DEFAULT_LANGUAGE: ${DEFAULT_LANGUAGE:-ru-RU}
+      DEFAULT_REGION: ${DEFAULT_REGION:-RU}
+      TRUST_PROXY: ${TRUST_PROXY:-false}
+      # Paths as seen inside the container — see the mounts below.
+      MEDIA_ROOTS: /media/movies,/media/series
+      LIBRARY_SCAN_INTERVAL: ${LIBRARY_SCAN_INTERVAL:-60}
+    volumes:
+      # Your library, read-only: the container can never damage it.
+      - ${MOVIES_DIR:-./media/movies}:/media/movies:ro
+      - ${SERIES_DIR:-./media/series}:/media/series:ro
+      # Profiles, watch history and the library index.
+      - kinoteka-data:/app/data
+
+volumes:
+  kinoteka-data:

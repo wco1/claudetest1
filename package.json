@@ -1,0 +1,22 @@
+{
+  "name": "kinoteka",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Self-hosted movie & series streaming site: TMDB metadata, your own media library, TV-first UI",
+  "workspaces": [
+    "server",
+    "web"
+  ],
+  "engines": {
+    "node": ">=20.11"
+  },
+  "scripts": {
+    "dev": "npm run dev --workspace=server & npm run dev --workspace=web",
+    "dev:server": "npm run dev --workspace=server",
+    "dev:web": "npm run dev --workspace=web",
+    "build": "npm run build --workspace=web",
+    "start": "npm run start --workspace=server",
+    "scan": "npm run scan --workspace=server"
+  }
+}
