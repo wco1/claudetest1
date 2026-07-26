@@ -1,0 +1,321 @@
+/* ==========================================================================
+   Kinoteka — base layer
+   Sizing is driven by `data-device` on <html> so one stylesheet serves a
+   television at three metres and an iPad at forty centimetres.
+   ========================================================================== */
+
+:root {
+  --bg: #07080d;
+  --bg-elevated: #10131d;
+  --surface: #171b27;
+  --surface-hover: #1f2534;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
+
+  --text: #eef1f6;
+  --text-muted: #98a0b3;
+  --text-dim: #6a7488;
+
+  --accent: #4cc2ff;
+  --accent-strong: #1aa9f0;
+  --gold: #ffc857;
+  --danger: #ff5470;
+  --success: #45d9a4;
+
+  --focus-ring: #ffffff;
+
+  /* Layout rhythm — overridden per device below. */
+  --gutter: 40px;
+  --row-gap: 44px;
+  --card-gap: 14px;
+  --radius: 12px;
+  --radius-lg: 18px;
+
+  --font: 'Inter', 'SF Pro Display', 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue',
+    Arial, sans-serif;
+
+  --fs-hero: 46px;
+  --fs-h1: 34px;
+  --fs-h2: 24px;
+  --fs-body: 16px;
+  --fs-small: 14px;
+  --fs-tiny: 12px;
+
+  --header-h: 68px;
+  --card-w: 168px;
+
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur: 180ms;
+
+  --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.55);
+}
+
+/* --- Television: 10-foot UI ------------------------------------------------
+   Everything grows, the safe area keeps content clear of overscan, and hover
+   affordances disappear because there is no pointer. */
+html[data-device='tv'] {
+  --gutter: 64px;
+  --row-gap: 56px;
+  --card-gap: 20px;
+  --radius: 10px;
+  --radius-lg: 16px;
+
+  --fs-hero: 64px;
+  --fs-h1: 42px;
+  --fs-h2: 30px;
+  --fs-body: 22px;
+  --fs-small: 19px;
+  --fs-tiny: 17px;
+
+  --header-h: 92px;
+  --card-w: 232px;
+
+  /* Older panels smear pure white; a hair below full brightness is cleaner. */
+  --text: #f2f4f8;
+}
+
+html[data-device='tablet'] {
+  --gutter: 32px;
+  --row-gap: 40px;
+  --card-w: 156px;
+  --fs-hero: 40px;
+  --fs-h1: 30px;
+  --fs-h2: 22px;
+  --fs-body: 16px;
+}
+
+html[data-device='phone'] {
+  --gutter: 16px;
+  --row-gap: 30px;
+  --card-gap: 10px;
+  --card-w: 116px;
+  --fs-hero: 27px;
+  --fs-h1: 22px;
+  --fs-h2: 18px;
+  --fs-body: 15px;
+  --fs-small: 13px;
+  --header-h: 56px;
+}
+
+/* Weak GPUs: blur and large shadows are what actually drop the framerate. */
+html[data-perf='low'] {
+  --shadow-card: 0 6px 16px rgba(0, 0, 0, 0.6);
+  --dur: 120ms;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: var(--fs-body);
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeSpeed;
+}
+
+body {
+  overflow-x: hidden;
+  overscroll-behavior-y: none;
+}
+
+/* A remote-driven interface must never show a text cursor or selection. */
+html[data-pointerless] body {
+  cursor: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+  border: 0;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+
+/* The engine owns focus; the browser ring would double up. */
+:focus {
+  outline: none;
+}
+:focus-visible {
+  outline: none;
+}
+
+/* --- Focus treatment -------------------------------------------------------
+   One consistent signal across the whole app: a bright ring plus a small lift.
+   Both are transform/opacity only, which stays on the compositor. */
+[data-focusable] {
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+  will-change: transform;
+}
+
+[data-focused='true'] {
+  position: relative;
+  z-index: 5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+html[data-reduced-motion='true'] [data-focusable] {
+  transition: none;
+}
+
+/* --- Scrollbars ----------------------------------------------------------- */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+html[data-device='tv'] ::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+/* --- Utilities ------------------------------------------------------------ */
+.page {
+  min-height: 100vh;
+  padding-bottom: 80px;
+}
+
+.safe-x {
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.muted {
+  color: var(--text-muted);
+}
+
+.dim {
+  color: var(--text-dim);
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.clamp-2,
+.clamp-3,
+.clamp-4 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.clamp-2 {
+  -webkit-line-clamp: 2;
+}
+.clamp-3 {
+  -webkit-line-clamp: 3;
+}
+.clamp-4 {
+  -webkit-line-clamp: 4;
+}
+
+.spinner {
+  width: 34px;
+  height: 34px;
+  border: 3px solid rgba(255, 255, 255, 0.15);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 800ms linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.centre-state {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  text-align: center;
+  padding: 0 var(--gutter);
+}
+
+.centre-state h2 {
+  font-size: var(--fs-h1);
+  font-weight: 700;
+}
+
+.centre-state p {
+  color: var(--text-muted);
+  max-width: 34em;
+  font-size: var(--fs-small);
+}
+
+/* Safe area for notched iPads/iPhones in standalone mode. */
+@supports (padding: max(0px)) {
+  html[data-device='phone'] .page,
+  html[data-device='tablet'] .page {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    padding-bottom: max(80px, env(safe-area-inset-bottom));
+  }
+}
