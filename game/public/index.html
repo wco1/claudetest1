@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#101826">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Rail Rush</title>
+<link rel="icon" href="./assets/favicon.png">
+<style>
+  :root{
+    --navy:#121c2e; --navy2:#0b1220; --coral:#ff7a4d; --gold:#ffd24a;
+    --teal:#3fc6c0; --ink:#0a0f18; --paper:#f4f7fb;
+    --pad: env(safe-area-inset-top, 0px);
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;height:100%;overflow:hidden;background:var(--navy2);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    color:var(--paper); user-select:none;-webkit-user-select:none;
+    overscroll-behavior:none;touch-action:none}
+  canvas#gl,canvas#c{display:block;position:absolute;inset:0;width:100%;height:100%}
+  canvas#c{z-index:5;background:transparent}
+  #dev{position:fixed;top:calc(4px + var(--pad));left:6px;color:#6f6;font:11px/1.4 ui-monospace,monospace;
+    display:none;z-index:60;text-shadow:0 1px 2px #000;pointer-events:none;white-space:pre}
+
+  .layer{position:absolute;inset:0;display:none;z-index:20;
+    align-items:center;justify-content:center;flex-direction:column;
+    padding:calc(24px + var(--pad)) 20px 28px;text-align:center;
+    background:radial-gradient(120% 90% at 50% 15%, rgba(18,28,46,.72), rgba(8,12,20,.94));
+    backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+  .layer.show{display:flex;animation:fade .22s ease-out}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+  @keyframes pop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+  .card{animation:pop .26s cubic-bezier(.2,1.4,.4,1);width:min(440px,100%)}
+
+  h1.logo{margin:0 0 2px;font-size:clamp(40px,13vw,74px);font-weight:900;letter-spacing:-.03em;
+    line-height:.92;background:linear-gradient(180deg,#fff 12%,var(--gold) 55%,var(--coral) 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    filter:drop-shadow(0 4px 0 rgba(10,15,24,.9)) drop-shadow(0 10px 26px rgba(255,122,77,.45))}
+  .tag{margin:0 0 22px;font-size:14px;letter-spacing:.16em;text-transform:uppercase;opacity:.62;font-weight:700}
+  h2{margin:0 0 4px;font-size:clamp(26px,8vw,40px);font-weight:900;letter-spacing:-.02em}
+  .sub{font-size:13px;opacity:.6;margin:0 0 18px;letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+
+  .btn{display:flex;align-items:center;justify-content:center;gap:10px;
+    width:100%;min-height:60px;margin:9px 0;padding:0 22px;border:0;border-radius:16px;
+    font:900 19px/1 system-ui,sans-serif;letter-spacing:.04em;color:var(--ink);cursor:pointer;
+    background:linear-gradient(180deg,#ffe07a,var(--gold));
+    box-shadow:0 5px 0 #b8892a, 0 12px 26px rgba(0,0,0,.42);
+    transition:transform .07s, box-shadow .07s}
+  .btn:active{transform:translateY(4px);box-shadow:0 1px 0 #b8892a,0 6px 14px rgba(0,0,0,.4)}
+  .btn.alt{background:linear-gradient(180deg,#2c3d5b,#1b283f);color:#eaf0fa;box-shadow:0 5px 0 #0d1523,0 12px 24px rgba(0,0,0,.4)}
+  .btn.alt:active{box-shadow:0 1px 0 #0d1523,0 6px 14px rgba(0,0,0,.4)}
+  .btn.coral{background:linear-gradient(180deg,#ff9d6f,var(--coral));color:#2a0f04;box-shadow:0 5px 0 #a83f1c,0 12px 26px rgba(255,122,77,.4)}
+  .btn.coral:active{box-shadow:0 1px 0 #a83f1c,0 6px 14px rgba(0,0,0,.4)}
+  .btn:disabled{opacity:.42;filter:grayscale(.6)}
+  .btn small{font-weight:700;font-size:13px;opacity:.72}
+
+  .stats{display:flex;gap:10px;margin:6px 0 16px}
+  .stat{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);
+    border-radius:14px;padding:12px 8px}
+  .stat b{display:block;font-size:clamp(20px,6.5vw,28px);font-weight:900;letter-spacing:-.02em}
+  .stat span{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;opacity:.55;margin-top:3px;font-weight:700}
+  .gold{color:var(--gold)}
+
+  .hint{display:flex;align-items:center;gap:12px;text-align:left;font-size:14.5px;
+    line-height:1.35;margin:11px 2px;opacity:.9}
+  .hint i{flex:0 0 40px;height:40px;border-radius:12px;display:grid;place-items:center;
+    background:rgba(255,255,255,.08);font-style:normal;font-size:19px}
+  .foot{margin-top:14px;font-size:11.5px;opacity:.4;letter-spacing:.06em}
+
+  .row{display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:13px 4px;border-bottom:1px solid rgba(255,255,255,.08);font-size:15px;font-weight:700}
+  .row:last-of-type{border-bottom:0}
+  .toggle{border:0;border-radius:999px;min-width:74px;height:38px;font:800 13px system-ui;
+    letter-spacing:.08em;text-transform:uppercase;cursor:pointer;color:#0a0f18;
+    background:linear-gradient(180deg,#ffe07a,var(--gold));box-shadow:0 3px 0 #b8892a}
+  .toggle[data-on="0"]{background:#2c3d5b;color:#8fa2c0;box-shadow:0 3px 0 #0d1523}
+  .toggle:active{transform:translateY(2px);box-shadow:none}
+
+  #newbest{color:var(--gold);font-weight:900;letter-spacing:.1em;font-size:14px;
+    margin:0 0 10px;animation:blink 1s steps(2,end) infinite}
+  @keyframes blink{50%{opacity:.35}}
+
+  #pauseBtn{position:absolute;top:calc(9px + var(--pad));right:10px;z-index:15;
+    width:42px;height:42px;border-radius:12px;border:0;cursor:pointer;display:none;
+    background:rgba(10,16,26,.5);color:#fff;font-size:15px;line-height:1;
+    backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+  #pauseBtn.show{display:block}
+
+  #toast{position:absolute;left:50%;top:26%;transform:translate(-50%,-50%) scale(1);
+    z-index:18;pointer-events:none;font:900 clamp(26px,9vw,44px)/1 system-ui,sans-serif;
+    letter-spacing:.02em;color:#fff;opacity:0;text-align:center;
+    text-shadow:0 3px 0 rgba(10,15,24,.85), 0 0 26px rgba(255,210,74,.7)}
+  #toast.go{animation:toast 1.15s cubic-bezier(.2,1.3,.4,1) forwards}
+  @keyframes toast{0%{opacity:0;transform:translate(-50%,-50%) scale(.5)}
+    18%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}
+    30%{transform:translate(-50%,-50%) scale(1)}
+    78%{opacity:1}100%{opacity:0;transform:translate(-50%,-60%) scale(1)}}
+
+  #rotate{position:absolute;inset:0;z-index:70;display:none;
+    align-items:center;justify-content:center;flex-direction:column;gap:14px;
+    background:var(--navy2);font-size:15px;text-align:center;padding:24px}
+  #rotate span{font-size:44px}
+</style>
+</head>
+<body>
+<canvas id="gl"></canvas>
+<canvas id="c"></canvas>
+<div id="dev"></div>
+<button id="pauseBtn" aria-label="Pause">❚❚</button>
+<div id="toast"></div>
+
+<div class="layer show" id="loadLayer"><div class="card"><h1 class="logo" id="loadLogo">RAIL RUSH</h1><p class="tag" id="loadTxt">Loading…</p></div></div>
+
+<div class="layer" id="titleLayer"><div class="card">
+  <h1 class="logo" id="tTitle">RAIL RUSH</h1>
+  <p class="tag" id="tTag"></p>
+  <div class="stats">
+    <div class="stat"><b id="tBest">0</b><span id="tBestL">Best</span></div>
+    <div class="stat"><b class="gold" id="tCoins">0</b><span id="tCoinsL">Coins</span></div>
+  </div>
+  <button class="btn" id="btnPlay">PLAY</button>
+  <button class="btn alt" id="btnHow"></button>
+  <button class="btn alt" id="btnSet"></button>
+</div></div>
+
+<div class="layer" id="howLayer"><div class="card">
+  <h2 id="hTitle"></h2><p class="sub" id="hSub"></p>
+  <div class="hint"><i>⇦⇨</i><span id="hSwipe"></span></div>
+  <div class="hint"><i>⇧</i><span id="hUp"></span></div>
+  <div class="hint"><i>⇩</i><span id="hDown"></span></div>
+  <div class="hint"><i>⌨</i><span id="hKeys"></span></div>
+  <div class="hint"><i>🎮</i><span id="hPad"></span></div>
+  <button class="btn" id="btnHowOk"></button>
+</div></div>
+
+<div class="layer" id="setLayer"><div class="card">
+  <h2 id="sTitle"></h2><p class="sub"></p>
+  <div class="row"><span id="sSound"></span><button class="toggle" id="tgSound"></button></div>
+  <div class="row"><span id="sMusic"></span><button class="toggle" id="tgMusic"></button></div>
+  <div class="row"><span id="sFx"></span><button class="toggle" id="tgFx"></button></div>
+  <div class="row"><span id="sLang"></span><button class="toggle" id="tgLang"></button></div>
+  <button class="btn" id="btnSetOk"></button>
+</div></div>
+
+<div class="layer" id="pauseLayer"><div class="card">
+  <h2 id="pTitle"></h2><p class="sub"></p>
+  <button class="btn" id="btnResume"></button>
+  <button class="btn alt" id="btnQuit"></button>
+</div></div>
+
+<div class="layer" id="overLayer"><div class="card">
+  <h2 id="oTitle"></h2>
+  <p id="newbest" style="display:none"></p>
+  <div class="stats">
+    <div class="stat"><b id="oScore">0</b><span id="oScoreL"></span></div>
+    <div class="stat"><b id="oDist">0</b><span id="oDistL"></span></div>
+    <div class="stat"><b class="gold" id="oCoins">0</b><span id="oCoinsL"></span></div>
+  </div>
+  <button class="btn coral" id="btnRevive"></button>
+  <button class="btn" id="btnAgain"></button>
+  <button class="btn alt" id="btnHome"></button>
+  <p class="foot" id="oBest"></p>
+</div></div>
+
+<div id="rotate"><span>📱</span><div>Rotate your device to portrait</div></div>
+
+<script type="module" src="./game.js"></script>
+</body>
+</html>
