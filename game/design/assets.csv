@@ -1,0 +1,27 @@
+id,role,type,description,size_ratio,style_line_ref,source
+hero_run_a,"hero run-cycle frame 1; engine mirrors it for frame 3",sprite,"back-view teen street runner in coral-orange hoodie, mid-stride, left leg forward",1:1 cell -> 256x384 px,STYLE FORMULA v1 blocks 1-5,"generate (2x2 pose sheet, cell TL)"
+hero_run_b,"hero run-cycle frame 2; engine mirrors it for frame 4",sprite,"back-view teen street runner, legs passing close together under the body",1:1 cell -> 256x384 px,STYLE FORMULA v1 blocks 1-5,"generate (2x2 pose sheet, cell TR)"
+hero_jump,"hero airborne pose, shown while y > 0",sprite,"back-view teen street runner airborne, knees tucked, arms spread",1:1 cell -> 256x384 px,STYLE FORMULA v1 blocks 1-5,"generate (2x2 pose sheet, cell BL)"
+hero_roll,"hero slide pose, shown during roll state",sprite,"back-view teen street runner crouched low in a slide, head tucked",1:1 cell -> 256x384 px,STYLE FORMULA v1 blocks 1-5,"generate (2x2 pose sheet, cell BR)"
+chaser,"pursuing threat drawn behind the hero, drives the chase tension",sprite,"back-view burly depot inspector lunging forward beside a leaping guard dog",1:1 -> 512x512 px,STYLE FORMULA v1 blocks 1-5,generate
+train_car,"lane-blocking obstacle; roof is a walkable surface reachable from a ramp",sprite,"subway train car seen from behind at a slight three-quarter angle, graffiti tag",1:1 -> 512x512 px,STYLE FORMULA v1 blocks 1-5,generate
+barrier_low,"low obstacle answered by JUMP or a lane change",sprite,"low concrete road barrier with red-orange and white diagonal warning stripes",1:1 -> 256x256 px,STYLE FORMULA v1 blocks 1-5,generate
+barrier_high,"overhead gantry answered by ROLL or a lane change",sprite,"steel gantry sign frame, two legs and a striped warning beam, open gap beneath",1:1 -> 384x384 px,STYLE FORMULA v1 blocks 1-5,generate
+city_bg,"parallax skyline layer behind the horizon",background,"sunny stylized city skyline behind a rail depot, blocks, water towers, cranes",16:9 -> 1280x720 px,STYLE FORMULA v1 blocks 1-5,generate
+track_tile,"perspective-projected ground; sampled per depth band, tiles along Z",tile,"railway bed, three parallel steel rails, wooden sleepers on grey ballast",1:1 -> 512x512 px,STYLE FORMULA v1 blocks 1-5,generate
+coin,"primary pickup; 8 pre-rendered spin frames baked into an offscreen atlas at load",sprite,"spinning gold coin with a lightning-bolt stamp and a yellow-gold glow",64x64 px per frame,STYLE FORMULA v1 blocks 1-5 (yellow-gold pickup signal hue),procedural (canvas)
+pu_magnet,"power-up pickup: pulls nearby coins to the hero for 8 s",sprite,"horseshoe magnet token inside a yellow-gold glow ring",96x96 px,STYLE FORMULA v1 blocks 1-5,procedural (canvas)
+pu_jetpack,"power-up pickup: 7 s of flight above every obstacle",sprite,"jetpack token inside a yellow-gold glow ring",96x96 px,STYLE FORMULA v1 blocks 1-5,procedural (canvas)
+pu_x2,"power-up pickup: doubles the score rate for 10 s",sprite,"x2 multiplier token inside a yellow-gold glow ring",96x96 px,STYLE FORMULA v1 blocks 1-5,procedural (canvas)
+pu_board,"power-up pickup: hoverboard, absorbs one crash for 20 s",sprite,"graffiti-tagged hoverboard token inside a yellow-gold glow ring",96x96 px,STYLE FORMULA v1 blocks 1-5,procedural (canvas)
+ramp,"launch pad that throws the hero high enough to land on a train roof",sprite,"wedge-shaped steel launch ramp with red-orange edge striping",256x256 px,STYLE FORMULA v1 blocks 1-5,procedural (canvas)
+side_pylon,"repeating roadside pylon; carries the sensation of speed",sprite,"concrete depot pylon with a teal cap",128x256 px,STYLE FORMULA v1 blocks 1-5,procedural (canvas)
+fx_particles,"speed streaks, coin sparks, crash burst, jetpack flame",sprite,"soft round glow particles tinted per event",8-48 px,STYLE FORMULA v1 blocks 1-5,procedural (canvas)
+music_chase,"looping background music track",audio,"upbeat instrumental chase loop, four-on-the-floor drums, funky bass, synth stabs",30 s loop,n/a (audio layer),generate (sonilo_music)
+sfx_coin,"coin pickup confirmation",audio,"short bright ascending blip",0.12 s,n/a (audio layer),procedural (WebAudio)
+sfx_jump,"jump acknowledgement",audio,"short upward whoosh",0.20 s,n/a (audio layer),procedural (WebAudio)
+sfx_roll,"roll acknowledgement",audio,"short filtered noise sweep",0.25 s,n/a (audio layer),procedural (WebAudio)
+sfx_powerup,"power-up pickup fanfare",audio,"three-note ascending arpeggio",0.40 s,n/a (audio layer),procedural (WebAudio)
+sfx_crash,"crash / run over",audio,"low noise burst with a falling tone",0.60 s,n/a (audio layer),procedural (WebAudio)
+card_thumbnail,"deploy card: OG image and marketplace cover",image,"key art of the runner sprinting down the rails, title RAIL RUSH",16:9,STYLE FORMULA v1 blocks 1-4,generate
+card_favicon,"deploy card: site favicon and catalog icon",image,"gold coin with a lightning bolt on converging rails",1:1,STYLE FORMULA v1 blocks 1-4,generate
