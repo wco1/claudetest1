@@ -308,6 +308,7 @@ def favicon():
 def main(out):
     os.makedirs(out, exist_ok=True)
     jobs = {
+        # 2D sprite kit — superseded by the 3D scene; kept for reference only.
         "hero_run_a.png": lambda: hero("run_a"),
         "hero_run_b.png": lambda: hero("run_b"),
         "hero_jump.png": lambda: hero("jump"),

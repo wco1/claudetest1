@@ -1,8 +1,10 @@
 /* Rail Rush — endless three-lane runner.
-   Pseudo-3D perspective renderer on canvas 2D: fast everywhere, no engine, no CDN.
-   All tuning numbers live in CFG; the simulation is fixed-timestep and seeded. */
+   Real 3D (three.js, vendored) with a 2D HUD overlay. The simulation is
+   fixed-timestep and seeded; the renderer is a pure function of its state.
+   All tuning numbers live in CFG. */
 
 import { t, setLang, getLang, pickLang, LANGS } from "./strings.js";
+import { Renderer } from "./render.js";
 
 /* ============================ 1. TUNING (all balance data) ============================ */
 
@@ -90,62 +92,11 @@ function persist() {
 }
 setLang(pickLang(SAVE.lang));
 
-/* ============================ 4. Assets ============================ */
+/* ==================== 4. HUD art (the 3D scene builds its own) ==================== */
 
 const IMG = {};
-const ASSETS = {
-  hero_a: "./assets/hero_run_a.png",
-  hero_b: "./assets/hero_run_b.png",
-  hero_jump: "./assets/hero_jump.png",
-  hero_roll: "./assets/hero_roll.png",
-  chaser: "./assets/chaser.png",
-  train: "./assets/train.png",
-  barrier: "./assets/barrier.png",
-  gantry: "./assets/gantry.png",
-  city: "./assets/city.png",
-  track: "./assets/track.png",
-};
-
-function loadImage(src) {
-  return new Promise((res) => {
-    const im = new Image();
-    im.onload = () => res(im);
-    im.onerror = () => res(null);
-    im.src = src;
-  });
-}
-
-function mirror(img) {
-  if (!img) return null;
-  const c = cv(img.width, img.height), g = c.getContext("2d");
-  g.translate(img.width, 0); g.scale(-1, 1); g.drawImage(img, 0, 0);
-  return c;
-}
-
-// Vertically doubled track tile so any [v, v+dv] window samples without wrapping.
-function doubleTile(img) {
-  if (!img) return null;
-  const c = cv(img.width, img.height * 2), g = c.getContext("2d");
-  g.drawImage(img, 0, 0); g.drawImage(img, 0, img.height);
-  return c;
-}
-
-async function loadAssets() {
-  const keys = Object.keys(ASSETS);
-  const imgs = await Promise.all(keys.map((k) => loadImage(ASSETS[k])));
-  keys.forEach((k, i) => (IMG[k] = imgs[i]));
-  IMG.hero_a_m = mirror(IMG.hero_a);
-  IMG.hero_b_m = mirror(IMG.hero_b);
-  IMG.trackTile = doubleTile(IMG.track);
-  bakeProcedural();
-}
-
-/* ============ 5. Procedural art — STYLE FORMULA v1, blocks 1-5, drawn in code ============
-   Flat cel-shaded cartoon, thick dark-navy outlines, chunky rounded silhouettes,
-   pickups carry the electric yellow-gold signal hue, hazards the warning red-orange. */
-
-const NAVY = "#16223a", GOLD = "#ffd24a", GOLD_D = "#e0a21c", CORAL = "#ff7a4d",
-      TEAL = "#3fc6c0", GREY = "#8d99ac", GREY_D = "#5b6779";
+const COIN_FRAMES = 12, COIN_SIZE = 72;
+const NAVY = "#16223a", GOLD = "#ffd24a", GOLD_D = "#e0a21c";
 
 function cv(w, h) {
   const c = document.createElement("canvas");
@@ -153,25 +104,7 @@ function cv(w, h) {
   return c;
 }
 
-function roundRect(g, x, y, w, h, r) {
-  const rr = Math.min(r, Math.abs(w) / 2, Math.abs(h) / 2);
-  g.beginPath();
-  g.moveTo(x + rr, y);
-  g.arcTo(x + w, y, x + w, y + h, rr);
-  g.arcTo(x + w, y + h, x, y + h, rr);
-  g.arcTo(x, y + h, x, y, rr);
-  g.arcTo(x, y, x + w, y, rr);
-  g.closePath();
-}
-
-function bakeProcedural() {
-  IMG.coin = bakeCoin();
-  IMG.tokens = [bakeToken("magnet"), bakeToken("jet"), bakeToken("x2"), bakeToken("board")];
-  IMG.pylon = bakePylon();
-  IMG.spark = bakeSpark();
-}
-
-const COIN_FRAMES = 12, COIN_SIZE = 72;
+// Spinning-coin atlas — only used for the little icon next to the coin counter.
 function bakeCoin() {
   const c = cv(COIN_SIZE * COIN_FRAMES, COIN_SIZE), g = c.getContext("2d");
   for (let f = 0; f < COIN_FRAMES; f++) {
@@ -185,9 +118,7 @@ function bakeCoin() {
     grd.addColorStop(0, "#fff2bb"); grd.addColorStop(.45, GOLD); grd.addColorStop(1, GOLD_D);
     g.beginPath(); g.ellipse(mx, my, wr, 26, 0, 0, 7); g.fillStyle = grd; g.fill();
     if (wr > 9) {
-      g.beginPath(); g.ellipse(mx, my, wr * .66, 17, 0, 0, 7);
-      g.strokeStyle = "rgba(22,34,58,.5)"; g.lineWidth = 2.2; g.stroke();
-      g.fillStyle = NAVY; g.beginPath();                    // lightning-bolt stamp
+      g.fillStyle = NAVY; g.beginPath();
       g.moveTo(mx + wr * .16, my - 12); g.lineTo(mx - wr * .30, my + 1);
       g.lineTo(mx - wr * .02, my + 1);  g.lineTo(mx - wr * .18, my + 12);
       g.lineTo(mx + wr * .30, my - 2);  g.lineTo(mx + wr * .02, my - 2);
@@ -195,62 +126,6 @@ function bakeCoin() {
     }
     g.restore();
   }
-  return c;
-}
-
-function bakeToken(kind) {
-  const S = 128, c = cv(S, S), g = c.getContext("2d"), m = S / 2;
-  g.save();
-  g.shadowColor = "rgba(255,210,74,.95)"; g.shadowBlur = 22;
-  g.beginPath(); g.arc(m, m, 46, 0, 7); g.fillStyle = GOLD; g.fill();
-  g.shadowBlur = 0;
-  g.beginPath(); g.arc(m, m, 46, 0, 7); g.lineWidth = 6; g.strokeStyle = NAVY; g.stroke();
-  g.beginPath(); g.arc(m, m, 36, 0, 7); g.fillStyle = "#fff6d2"; g.fill();
-  g.lineCap = "round"; g.lineJoin = "round";
-  if (kind === "magnet") {
-    g.lineWidth = 12; g.strokeStyle = CORAL;
-    g.beginPath(); g.arc(m, m + 4, 17, Math.PI, 0); g.stroke();
-    g.lineWidth = 4; g.strokeStyle = NAVY;
-    g.beginPath(); g.arc(m, m + 4, 17, Math.PI, 0); g.stroke();
-    g.fillStyle = NAVY; g.fillRect(m - 23, m + 3, 11, 16); g.fillRect(m + 12, m + 3, 11, 16);
-  } else if (kind === "jet") {
-    g.fillStyle = TEAL; g.strokeStyle = NAVY; g.lineWidth = 3.5;
-    roundRect(g, m - 16, m - 22, 13, 32, 6); g.fill(); g.stroke();
-    roundRect(g, m + 3, m - 22, 13, 32, 6); g.fill(); g.stroke();
-    g.fillStyle = CORAL;
-    g.beginPath(); g.moveTo(m - 15, m + 11); g.lineTo(m - 4, m + 11); g.lineTo(m - 10, m + 25); g.fill();
-    g.beginPath(); g.moveTo(m + 4, m + 11); g.lineTo(m + 15, m + 11); g.lineTo(m + 9, m + 25); g.fill();
-  } else if (kind === "x2") {
-    g.fillStyle = NAVY;
-    g.font = "900 36px system-ui,sans-serif"; g.textAlign = "center"; g.textBaseline = "middle";
-    g.fillText("×2", m, m + 2);
-  } else {
-    g.fillStyle = CORAL; g.strokeStyle = NAVY; g.lineWidth = 3.5;
-    roundRect(g, m - 28, m - 7, 56, 15, 7); g.fill(); g.stroke();
-    g.fillStyle = TEAL; g.globalAlpha = .8;
-    g.beginPath(); g.ellipse(m, m + 15, 25, 6, 0, 0, 7); g.fill();
-  }
-  g.restore();
-  return c;
-}
-
-function bakePylon() {
-  const W = 120, H = 300, c = cv(W, H), g = c.getContext("2d");
-  g.fillStyle = GREY; g.fillRect(20, 34, 80, H - 34);
-  g.fillStyle = GREY_D; g.fillRect(70, 34, 30, H - 34);
-  g.fillStyle = TEAL; roundRect(g, 10, 8, 100, 34, 10); g.fill();
-  g.lineWidth = 7; g.strokeStyle = NAVY;
-  g.strokeRect(20, 34, 80, H - 34); roundRect(g, 10, 8, 100, 34, 10); g.stroke();
-  return c;
-}
-
-function bakeSpark() {
-  const S = 64, c = cv(S, S), g = c.getContext("2d");
-  const grd = g.createRadialGradient(S / 2, S / 2, 0, S / 2, S / 2, S / 2);
-  grd.addColorStop(0, "rgba(255,255,255,1)");
-  grd.addColorStop(.35, "rgba(255,210,74,.85)");
-  grd.addColorStop(1, "rgba(255,210,74,0)");
-  g.fillStyle = grd; g.fillRect(0, 0, S, S);
   return c;
 }
 
@@ -398,51 +273,23 @@ canvasEl.addEventListener("pointerup", (e) => { if (e.pointerType !== "touch") g
 
 function onUserGesture() { SFX.init(); SFX.resume(); }
 
-/* ============================ 8. Canvas, camera, projection ============================ */
+/* ============================ 8. Canvas & renderer ============================ */
 
-const ctx = canvasEl.getContext("2d", { alpha: false });
-const CAM_DEPTH = 1 / Math.tan((CFG.FOV / 2) * Math.PI / 180);
-const cam = { x: 0, z: 0 };
-
-let W = 0, H = 0, CX = 0, HORIZON = 0, CAM_H = 1900, DPR = 1, quality = 1;
-let skyGrad = null, groundGrad = null, fogGrad = null, safeTop = 0;
+const glCanvas = document.getElementById("gl");
+let W = 0, H = 0, DPR = 1, quality = 1, safeTop = 0;
+let R = null;                                        // the 3D renderer (built at boot)
 
 function resize() {
   DPR = Math.min(window.devicePixelRatio || 1, quality ? 1.5 : 1.0);
   W = Math.max(240, innerWidth); H = Math.max(300, innerHeight);
-  canvasEl.width = Math.round(W * DPR); canvasEl.height = Math.round(H * DPR);
-  canvasEl.style.width = W + "px"; canvasEl.style.height = H + "px";
-  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-  CX = W / 2;
-  const portrait = H >= W;
-  HORIZON = H * (portrait ? 0.34 : 0.26);
-  // Derive the camera height so the hero's feet always land at the same screen
-  // fraction — keeps the framing identical in portrait and landscape.
-  const feet = H * (portrait ? 0.74 : 0.80);
-  CAM_H = Math.max(500, Math.min(3200, (feet - HORIZON) / (CAM_DEPTH / CFG.CAM_BACK * CX)));
-  buildGradients();
+  if (R) R.resize(W, H, DPR, safeTop);
 }
 addEventListener("resize", resize);
 addEventListener("orientationchange", () => setTimeout(resize, 150));
 
-function buildGradients() {
-  skyGrad = ctx.createLinearGradient(0, 0, 0, HORIZON + 4);
-  skyGrad.addColorStop(0, "#1d3f76");
-  skyGrad.addColorStop(0.45, "#4a86c4");
-  skyGrad.addColorStop(0.82, "#8fc4e2");
-  skyGrad.addColorStop(1, "#d9e9ef");
-  groundGrad = ctx.createLinearGradient(0, HORIZON, 0, H);
-  groundGrad.addColorStop(0, "#a8bcc0");
-  groundGrad.addColorStop(0.22, "#7b9298");
-  groundGrad.addColorStop(1, "#31424c");
-  fogGrad = ctx.createLinearGradient(0, HORIZON, 0, HORIZON + (H - HORIZON) * 0.22);
-  fogGrad.addColorStop(0, "rgba(226,240,240,.8)");
-  fogGrad.addColorStop(1, "rgba(226,240,240,0)");
+function render(tms) {
+  if (R) R.draw(G, tms, !!SAVE.fx, ST);
 }
-
-const px_ = (wx, sc) => CX + (wx - cam.x) * sc;
-const py_ = (wy, sc) => HORIZON + (CAM_H - wy) * sc;
-const scaleAt = (dz) => (CAM_DEPTH / dz) * CX;
 
 /* ============================ 9. World state ============================ */
 
@@ -474,7 +321,6 @@ function resetRun(seed) {
   G.shake = 0; G.tilt = 0; G.flash = 0; G.chaser = 3400;
   G.obs.length = 0; G.coinArr.length = 0; G.partN = 0;
   G.nextZ = 9000; G.nextPU = 15000; G.lastGrade = 1;
-  cam.x = 0; cam.z = -CFG.CAM_BACK;
   Input.clear();
 }
 
@@ -791,8 +637,6 @@ function update(dt) {                                 // dt in ms, fixed step
   stepParticles(s);
   lookAheadTeach();
 
-  cam.x += (G.x * CFG.CAM_LAG - cam.x) * Math.min(1, s * 9);
-  cam.z = G.z - CFG.CAM_BACK;
   G.runPhase += (G.speed / 2600) * s;
 }
 
@@ -899,430 +743,6 @@ function die() {
   setTimeout(() => showGameOver(isBest), 640);
 }
 
-/* ============================ 13. Rendering ============================ */
-
-// One depth-sorted draw list so coins, obstacles and particles occlude correctly.
-let DRAW = [], drawN = 0;
-function dpush(kind, ref, dz) {
-  let e = DRAW[drawN];
-  if (!e) e = DRAW[drawN] = { k: 0, o: null, dz: 0 };
-  e.k = kind; e.o = ref; e.dz = dz; drawN++;
-}
-const byDepth = (a, b) => b.dz - a.dz;
-
-function drawSky() {
-  ctx.fillStyle = skyGrad;
-  ctx.fillRect(0, 0, W, HORIZON + 2);
-  const city = IMG.city;
-  if (!city) return;
-  const ch = H * 0.30, cw = ch * (city.width / city.height);
-  const span = Math.max(cw, 1);
-  let off = -(((cam.x * 0.05 + cam.z * 0.004) % span + span) % span);
-  const y = HORIZON - ch * 0.92;
-  for (let x = off; x < W; x += span) ctx.drawImage(city, x, y, cw, ch);
-}
-
-function drawGround() {
-  ctx.fillStyle = groundGrad;
-  ctx.fillRect(0, HORIZON, W, H - HORIZON);
-
-  const tile = IMG.trackTile;
-  const bands = quality ? CFG.BANDS : 28;
-  const K = CAM_DEPTH * CAM_H * CX;
-  const span = H - HORIZON;
-  const TILE_LEN = 2600;                              // world units per tile repeat
-
-  if (tile) {
-    const th = tile.height / 2, tw = tile.width;
-    for (let i = 0; i < bands; i++) {
-      const y0 = H - span * (i / bands);
-      const y1 = H - span * ((i + 1) / bands);
-      const d0 = K / Math.max(1, y0 - HORIZON);
-      const d1 = K / Math.max(1, y1 - HORIZON);
-      if (d0 > CFG.DRAW_DIST) break;
-      const sc = scaleAt((d0 + d1) * 0.5);
-      const halfW = CFG.ROAD_HALF * sc;
-      if (halfW < 0.5) break;
-      const cxs = px_(0, sc);
-      let dv = (d1 - d0) / TILE_LEN;
-      if (dv > 0.98) dv = 0.98;
-      let v0 = ((cam.z + d0) / TILE_LEN) % 1; if (v0 < 0) v0 += 1;
-      ctx.drawImage(tile, 0, v0 * th, tw, Math.max(0.7, dv * th),
-        cxs - halfW, y1, halfW * 2, (y0 - y1) + 1.2);
-    }
-  } else {
-    const scN = scaleAt(K / Math.max(1, H - HORIZON));
-    ctx.fillStyle = "#4c5a63";
-    ctx.beginPath();
-    ctx.moveTo(px_(-CFG.ROAD_HALF, scN), H);
-    ctx.lineTo(px_(CFG.ROAD_HALF, scN), H);
-    ctx.lineTo(px_(CFG.ROAD_HALF * .02, 0.002), HORIZON);
-    ctx.lineTo(px_(-CFG.ROAD_HALF * .02, 0.002), HORIZON);
-    ctx.closePath(); ctx.fill();
-  }
-
-  // roadside pylons — the speed cue
-  if (IMG.pylon) {
-    const step = 2600;
-    const first = Math.ceil((cam.z + 500) / step) * step;
-    for (let z = first; z < cam.z + CFG.DRAW_DIST; z += step) {
-      const sc = scaleAt(z - cam.z);
-      const hgt = 900 * sc, wid = 360 * sc;
-      if (hgt < 1.5) continue;
-      const gy = py_(0, sc);
-      for (let k = 0; k < 2; k++) {
-        const x = px_((CFG.ROAD_HALF + 520) * SIDES[k], sc);
-        if (x < -wid || x > W + wid) continue;
-        ctx.drawImage(IMG.pylon, x - wid / 2, gy - hgt, wid, hgt);
-      }
-    }
-  }
-
-  ctx.fillStyle = fogGrad;
-  ctx.fillRect(0, HORIZON, W, (H - HORIZON) * 0.22 + 1);
-}
-
-function shadow(wx, wy, wz, worldW, strength) {
-  const dz = wz - cam.z;
-  if (dz < 150 || dz > CFG.DRAW_DIST * 0.55) return;
-  const sc = scaleAt(dz), rw = worldW * sc * 0.5;
-  if (rw < 1) return;
-  ctx.globalAlpha = 0.3 * strength;
-  ctx.fillStyle = "#0b1220";
-  ctx.beginPath(); ctx.ellipse(px_(wx, sc), py_(wy, sc), rw, rw * 0.3, 0, 0, 7); ctx.fill();
-  ctx.globalAlpha = 1;
-}
-
-// Flat billboard: wy is the sprite's BOTTOM in world space, worldH its height.
-function billboard(img, wx, wy, wz, worldW, worldH, alpha) {
-  const dz = wz - cam.z;
-  if (dz < 110 || dz > CFG.DRAW_DIST) return;
-  const sc = scaleAt(dz), w = worldW * sc, h = worldH * sc;
-  if (w < 1 || h < 1) return;
-  const x = px_(wx, sc), y = py_(wy, sc);
-  if (x + w < -40 || x - w > W + 40) return;
-  if (alpha != null && alpha < 1) {
-    ctx.globalAlpha = alpha; ctx.drawImage(img, x - w / 2, y - h, w, h); ctx.globalAlpha = 1;
-  } else ctx.drawImage(img, x - w / 2, y - h, w, h);
-}
-
-// A train is a real box: the rear face is axis-aligned (constant z), the top and
-// one side are projected quads. That is what sells the depth.
-function drawBox(o) {
-  const zn = Math.max(o.z - o.zl / 2, cam.z + 130);
-  const zf = o.z + o.zl / 2;
-  if (zf - cam.z < 150 || zn - cam.z > CFG.DRAW_DIST) return;
-  const scN = scaleAt(zn - cam.z), scF = scaleAt(zf - cam.z);
-  const hw = o.w / 2;
-  const lN = px_(o.x - hw, scN), rN = px_(o.x + hw, scN);
-  const lF = px_(o.x - hw, scF), rF = px_(o.x + hw, scF);
-  const tN = py_(o.y1, scN), bN = py_(0, scN);
-  const tF = py_(o.y1, scF), bF = py_(0, scF);
-
-  ctx.lineJoin = "round";
-  ctx.strokeStyle = NAVY;
-  ctx.lineWidth = Math.max(1, 1.6 * (W / 400));
-
-  // top face
-  ctx.fillStyle = "#93a9c0";
-  ctx.beginPath(); ctx.moveTo(lN, tN); ctx.lineTo(rN, tN); ctx.lineTo(rF, tF); ctx.lineTo(lF, tF);
-  ctx.closePath(); ctx.fill(); ctx.stroke();
-
-  ctx.strokeStyle = "rgba(22,34,58,.35)";              // roof ribs
-  for (let i = 1; i < 5; i++) {
-    const zr = zn + (zf - zn) * (i / 5);
-    const sr = scaleAt(zr - cam.z), yr = py_(o.y1, sr);
-    ctx.beginPath();
-    ctx.moveTo(px_(o.x - hw, sr), yr); ctx.lineTo(px_(o.x + hw, sr), yr); ctx.stroke();
-  }
-  ctx.strokeStyle = NAVY;
-
-  // the visible side is the one facing the camera
-  const right = o.x - cam.x < 0;
-  const xN = right ? rN : lN, xF = right ? rF : lF;
-  ctx.fillStyle = "#5d7086";
-  ctx.beginPath(); ctx.moveTo(xN, tN); ctx.lineTo(xF, tF); ctx.lineTo(xF, bF); ctx.lineTo(xN, bN);
-  ctx.closePath(); ctx.fill(); ctx.stroke();
-  ctx.fillStyle = CORAL;                              // graffiti stripe
-  const sy = (t0, b0) => t0 + (b0 - t0) * 0.55;
-  ctx.beginPath();
-  ctx.moveTo(xN, sy(tN, bN)); ctx.lineTo(xF, sy(tF, bF));
-  ctx.lineTo(xF, sy(tF, bF) + (bF - tF) * 0.13); ctx.lineTo(xN, sy(tN, bN) + (bN - tN) * 0.13);
-  ctx.closePath(); ctx.fill();
-
-  // rear face — the generated sprite drops straight into the axis-aligned rect
-  const img = IMG[o.img];
-  if (img && o.z - o.zl / 2 - cam.z > 130) {
-    ctx.drawImage(img, lN, tN, rN - lN, bN - tN);
-  } else {
-    ctx.fillStyle = "#6f8296";
-    ctx.fillRect(lN, tN, rN - lN, bN - tN);
-    ctx.strokeRect(lN, tN, rN - lN, bN - tN);
-  }
-}
-
-// A ramp is a wedge: rear edge on the ground, far edge at roof height.
-function drawRamp(o) {
-  const zn = Math.max(o.z - o.zl / 2, cam.z + 130), zf = o.z + o.zl / 2;
-  if (zf - cam.z < 150 || zn - cam.z > CFG.DRAW_DIST) return;
-  const u = Math.min(1, Math.max(0, (zn - (o.z - o.zl / 2)) / o.zl));
-  const scN = scaleAt(zn - cam.z), scF = scaleAt(zf - cam.z);
-  const hw = o.w / 2;
-  const lN = px_(o.x - hw, scN), rN = px_(o.x + hw, scN);
-  const lF = px_(o.x - hw, scF), rF = px_(o.x + hw, scF);
-  const tN = py_(u * o.y1, scN), bN = py_(0, scN);
-  const tF = py_(o.y1, scF), bF = py_(0, scF);
-
-  ctx.lineJoin = "round";
-  ctx.strokeStyle = NAVY; ctx.lineWidth = Math.max(1, 1.6 * (W / 400));
-  ctx.fillStyle = "#9fb0c6";
-  ctx.beginPath(); ctx.moveTo(lN, tN); ctx.lineTo(rN, tN); ctx.lineTo(rF, tF); ctx.lineTo(lF, tF);
-  ctx.closePath(); ctx.fill(); ctx.stroke();
-
-  const right = o.x - cam.x < 0;
-  const xN = right ? rN : lN, xF = right ? rF : lF;
-  ctx.fillStyle = GREY_D;
-  ctx.beginPath(); ctx.moveTo(xN, tN); ctx.lineTo(xF, tF); ctx.lineTo(xF, bF); ctx.lineTo(xN, bN);
-  ctx.closePath(); ctx.fill(); ctx.stroke();
-
-  // warning striping across the lip
-  const segs = 6;
-  for (let i = 0; i < segs; i++) {
-    const a = i / segs, b = (i + 1) / segs;
-    ctx.fillStyle = i % 2 ? "#ffffff" : CORAL;
-    ctx.beginPath();
-    ctx.moveTo(lN + (rN - lN) * a, tN); ctx.lineTo(lN + (rN - lN) * b, tN);
-    ctx.lineTo(lN + (rN - lN) * b, tN + (bN - tN) * 0.10);
-    ctx.lineTo(lN + (rN - lN) * a, tN + (bN - tN) * 0.10);
-    ctx.closePath(); ctx.fill();
-  }
-}
-
-function drawObstacle(o) {
-  if (o.box) { shadow(o.x, 0, o.z - o.zl * 0.25, o.w * 1.15, 1); drawBox(o); return; }
-  if (o.slope) { drawRamp(o); return; }
-  const img = IMG[o.img];
-  if (o.type === "gantry") {
-    if (img) billboard(img, o.x, o.base, o.z, o.w * 1.2, o.y1 - o.base);
-    return;
-  }
-  shadow(o.x, 0, o.z, o.w * 1.1, 1);
-  if (img) billboard(img, o.x, 0, o.z, o.w * 1.3, o.y1 * 1.18);
-}
-
-function drawCoin(c, tms) {
-  const dz = c.z - cam.z;
-  const sc = scaleAt(dz);
-  const bob = Math.sin(tms * 0.004 + c.z * 0.001) * 40;
-  const x = px_(c.x, sc), y = py_(c.y + bob, sc);
-  if (c.pu !== null) {
-    const s = 330 * sc;
-    if (s < 2) return;
-    const pulse = 1 + Math.sin(tms * 0.006) * 0.08;
-    ctx.drawImage(IMG.tokens[c.pu], x - s * pulse / 2, y - s * pulse / 2, s * pulse, s * pulse);
-  } else {
-    const s = 250 * sc;
-    if (s < 1.5) return;
-    const f = ((((tms * 0.012 + c.z * 0.0016) | 0) % COIN_FRAMES) + COIN_FRAMES) % COIN_FRAMES;
-    ctx.drawImage(IMG.coin, f * COIN_SIZE, 0, COIN_SIZE, COIN_SIZE, x - s / 2, y - s / 2, s, s);
-  }
-}
-
-function drawParticle(p) {
-  const sc = scaleAt(p.z - cam.z);
-  const s = p.s * sc * (p.life / p.max);
-  if (s < 1) return;
-  ctx.save();
-  ctx.globalCompositeOperation = "lighter";
-  ctx.globalAlpha = Math.min(1, p.life / p.max) * 0.9;
-  ctx.drawImage(IMG.spark, px_(p.x, sc) - s / 2, py_(p.y, sc) - s / 2, s, s);
-  ctx.restore();
-}
-
-function heroFrame() {
-  if (G.pu[PU.jet] > 0 || !G.grounded) return IMG.hero_jump || IMG.hero_a;
-  if (G.rolling > 0) return IMG.hero_roll || IMG.hero_a;
-  const f = ((G.runPhase | 0) % 4 + 4) % 4;
-  return [IMG.hero_a, IMG.hero_b, IMG.hero_a_m, IMG.hero_b_m][f] || IMG.hero_a;
-}
-
-function drawHero(tms) {
-  const rolling = G.rolling > 0 && G.grounded;
-  const hgt = rolling ? CFG.HERO_ROLL_H * 1.3 : CFG.HERO_H;
-  const wid = rolling ? 720 : 540;
-  const bob = G.grounded && !rolling ? Math.abs(Math.sin(G.runPhase * Math.PI)) * 22 : 0;
-  shadow(G.x, 0, G.z, 470, G.grounded ? 1 : Math.max(0.22, 1 - G.y / 1800));
-
-  const img = heroFrame();
-  if (!img) return;
-  const sc = scaleAt(CFG.CAM_BACK);
-  const x = px_(G.x, sc), y = py_(G.y + bob, sc);
-  const w = wid * sc, h = hgt * sc;
-  const blink = G.invuln > 0 && ((tms * 0.02) | 0) % 2 === 0 ? 0.4 : 1;
-
-  ctx.save();
-  ctx.globalAlpha = blink;
-  ctx.translate(x, y);
-  ctx.rotate(G.tilt * 0.15);
-  if (G.pu[PU.board] > 0) {                            // hoverboard under the feet
-    ctx.fillStyle = CORAL; ctx.strokeStyle = NAVY; ctx.lineWidth = Math.max(1, w * 0.012);
-    roundRect(ctx, -w * 0.34, -h * 0.055, w * 0.68, h * 0.075, h * 0.03);
-    ctx.fill(); ctx.stroke();
-    ctx.globalAlpha = 0.45 * blink; ctx.fillStyle = TEAL;
-    ctx.beginPath(); ctx.ellipse(0, h * 0.035, w * 0.32, h * 0.02, 0, 0, 7); ctx.fill();
-    ctx.globalAlpha = blink;
-  }
-  ctx.drawImage(img, -w / 2, -h, w, h);
-  ctx.restore();
-
-  if (G.pu[PU.jet] > 0) {
-    ctx.save();
-    ctx.globalCompositeOperation = "lighter";
-    const fl = 0.7 + Math.sin(tms * 0.03) * 0.3;
-    ctx.globalAlpha = 0.85;
-    ctx.drawImage(IMG.spark, x - w * 0.32, y - h * 0.10, w * 0.3 * fl, h * 0.42 * fl);
-    ctx.drawImage(IMG.spark, x + w * 0.02, y - h * 0.10, w * 0.3 * fl, h * 0.42 * fl);
-    ctx.restore();
-  }
-}
-
-// Scripted: the inspector starts right on the hero's heels and is shaken off.
-// He is nearer the camera than the hero, so "falling behind" is animated, not simulated.
-function drawChaser(tms) {
-  if (G.chaser <= 0 || !IMG.chaser) return;
-  const dead = G.state === ST.DEAD;
-  const u = Math.min(1, 1 - G.chaser / 3400);
-  const a = dead ? 1 : Math.max(0, 1 - u * u * u);
-  if (a <= 0.03) return;
-  const sc = scaleAt(CFG.CAM_BACK * (0.80 + u * 0.14));
-  const scale = (1 - u * 0.3) * (dead ? 1.35 : 1);
-  const w = 860 * sc * scale, h = 950 * sc * scale;
-  const x = px_(G.x * 0.55 + Math.sin(tms * 0.006) * 70, sc);
-  const y = py_(0, sc) + h * 0.06;
-  ctx.globalAlpha = a;
-  ctx.drawImage(IMG.chaser, x - w / 2, y - h, w, h);
-  ctx.globalAlpha = 1;
-}
-
-function drawSpeedLines(tms) {
-  if (!SAVE.fx) return;
-  const u = (G.speed - CFG.SPEED_MIN) / (CFG.SPEED_MAX - CFG.SPEED_MIN);
-  if (u < 0.3) return;
-  ctx.save();
-  ctx.globalCompositeOperation = "lighter";
-  ctx.strokeStyle = "rgba(255,255,255," + (0.03 + u * 0.07).toFixed(3) + ")";
-  ctx.lineWidth = 2;
-  const R = Math.min(W, H), n = 12;
-  for (let i = 0; i < n; i++) {
-    const a = (i / n) * Math.PI * 2 + tms * 0.0012;
-    const r0 = R * (0.32 + (((i * 37 + ((tms * 0.22) | 0)) % 300) / 640));
-    const r1 = r0 + R * (0.07 + u * 0.11);
-    const y0 = HORIZON + Math.sin(a) * r0;
-    if (y0 < HORIZON * 0.55) continue;               // keep the sky clean
-    ctx.beginPath();
-    ctx.moveTo(CX + Math.cos(a) * r0, y0);
-    ctx.lineTo(CX + Math.cos(a) * r1, HORIZON + Math.sin(a) * r1);
-    ctx.stroke();
-  }
-  ctx.restore();
-}
-
-function outlineText(txt, x, y, fill) {
-  ctx.strokeStyle = "rgba(10,15,24,.85)";
-  ctx.lineWidth = 5;
-  ctx.strokeText(txt, x, y);
-  ctx.fillStyle = fill;
-  ctx.fillText(txt, x, y);
-}
-
-function drawHUD() {
-  const pad = 14, topPad = pad + safeTop;
-  ctx.save();
-  ctx.textBaseline = "top"; ctx.lineJoin = "round";
-
-  const big = Math.round(Math.min(42, W * 0.1));
-  ctx.font = "900 " + big + "px system-ui,sans-serif";
-  ctx.textAlign = "left";
-  outlineText(String(Math.floor(G.score)), pad, topPad, "#ffffff");
-  ctx.font = "700 " + Math.round(Math.min(15, W * 0.037)) + "px system-ui,sans-serif";
-  outlineText(Math.floor(G.m) + " " + t("meters"), pad + 2, topPad + big + 2, "rgba(255,255,255,.75)");
-
-  // coins sit under the pause button so the two never collide
-  const cs = Math.round(Math.min(30, W * 0.072));
-  const cy = topPad + 48;
-  ctx.textAlign = "right";
-  ctx.font = "900 " + cs + "px system-ui,sans-serif";
-  outlineText(String(G.coins), W - pad - cs - 8, cy, GOLD);
-  ctx.drawImage(IMG.coin, 0, 0, COIN_SIZE, COIN_SIZE, W - pad - cs - 2, cy, cs, cs);
-
-  let by = cy + cs + 12;
-  for (let i = 0; i < 4; i++) {
-    if (G.pu[i] <= 0) continue;
-    const bw = Math.min(120, W * 0.3), bh = 8, bx = W - pad - bw;
-    ctx.fillStyle = "rgba(10,16,26,.55)";
-    roundRect(ctx, bx - 2, by - 2, bw + 4, bh + 4, 6); ctx.fill();
-    ctx.fillStyle = PU_COLORS[i];
-    roundRect(ctx, bx, by, Math.max(3, bw * (G.pu[i] / PU_MS[i])), bh, 4); ctx.fill();
-    by += bh + 8;
-  }
-
-  if (G.pu[PU.x2] > 0) {
-    ctx.textAlign = "center";
-    ctx.font = "900 " + Math.round(Math.min(26, W * 0.062)) + "px system-ui,sans-serif";
-    outlineText("×2", CX, topPad + 4, GOLD);
-  }
-  ctx.restore();
-}
-
-function render(tms) {
-  let sx = 0, sy = 0;
-  if (G.shake > 0 && SAVE.fx) {
-    const k = G.shake / 420;
-    sx = (Math.random() - .5) * 26 * k; sy = (Math.random() - .5) * 26 * k;
-  }
-  ctx.save();
-  if (sx || sy) ctx.translate(sx, sy);
-
-  drawSky();
-  drawGround();
-
-  drawN = 0;
-  for (let i = 0; i < G.obs.length; i++) {
-    const o = G.obs[i], dz = o.z - cam.z;
-    if (dz + o.zl / 2 < 130 || dz - o.zl / 2 > CFG.DRAW_DIST) continue;
-    dpush(0, o, dz);
-  }
-  for (let i = 0; i < G.coinArr.length; i++) {
-    const c = G.coinArr[i], dz = c.z - cam.z;
-    if (dz < 140 || dz > CFG.DRAW_DIST * 0.75) continue;
-    dpush(1, c, dz);
-  }
-  for (let i = 0; i < G.partN; i++) {
-    const p = G.parts[i], dz = p.z - cam.z;
-    if (dz < 120 || dz > 16000) continue;
-    dpush(2, p, dz);
-  }
-  DRAW.length = drawN;
-  DRAW.sort(byDepth);
-  for (let i = 0; i < drawN; i++) {
-    const e = DRAW[i];
-    if (e.k === 0) drawObstacle(e.o);
-    else if (e.k === 1) drawCoin(e.o, tms);
-    else drawParticle(e.o);
-  }
-
-  drawHero(tms);
-  drawChaser(tms);
-  ctx.restore();
-
-  drawSpeedLines(tms);
-  if (G.flash > 0 && SAVE.fx) {
-    ctx.fillStyle = "rgba(255,255,255," + (G.flash / 220 * 0.38).toFixed(3) + ")";
-    ctx.fillRect(0, 0, W, H);
-  }
-  if (G.state === ST.RUN || G.state === ST.PAUSE || G.state === ST.DEAD) drawHUD();
-}
-
 /* ============================ 14. UI plumbing ============================ */
 
 const $ = (id) => document.getElementById(id);
@@ -1398,7 +818,6 @@ function startRun() {
     G.z = Math.max(0, parseFloat(url.get("start")) || 0) * CFG.U_PER_M;
     G.m = G.z / CFG.U_PER_M;
     G.nextZ = G.z + 9000; G.nextPU = G.z + 12000;
-    cam.z = G.z - CFG.CAM_BACK;
   }
   G.state = ST.RUN;
   hideAll();
@@ -1412,7 +831,6 @@ function goTitle() {
   G.demo = true; SFX.muted = true; G.chaser = 0;
   G.z = 300000; G.m = G.z / CFG.U_PER_M;      // attract mode shows the richer patterns
   G.nextZ = G.z + 9000; G.nextPU = G.z + 12000;
-  cam.z = G.z - CFG.CAM_BACK;
   spawnAhead();                                // a live demo run behind the title screen
   G.state = ST.TITLE;
   refreshTitle();
@@ -1519,8 +937,9 @@ function frame(now) {
     fps = Math.round(frames * 1000 / (now - fpsAt)); frames = 0; fpsAt = now;
     if (devOn) {
       $("dev").textContent =
-        fps + " fps  dpr " + DPR.toFixed(2) + "\nobs " + G.obs.length + "  coins " + G.coinArr.length +
-        "\nparts " + G.partN + "  draw " + drawN + "\nspd " + Math.round(G.speed) + "  seed " + G.seed;
+        fps + " fps  dpr " + DPR.toFixed(2) + "\n" + (R ? R.info() : "") +
+        "\nobs " + G.obs.length + "  coins " + G.coinArr.length +
+        "\nparts " + G.partN + "  spd " + Math.round(G.speed) + "\nseed " + G.seed;
     }
     if (G.state === ST.RUN && fps < 46 && quality) {
       if (++slowFor >= 2) { quality = 0; resize(); slowFor = 0; }
@@ -1545,10 +964,11 @@ addEventListener("resize", checkOrientation);
 
 (async function boot() {
   measureSafeArea();
+  IMG.coin = bakeCoin();
+  R = new Renderer(glCanvas, canvasEl, CFG, PU, PU_MS, PU_COLORS, IMG.coin, t);
   resize();
   applyStrings();
   checkOrientation();
-  await loadAssets();
   goTitle();
   requestAnimationFrame(frame);
 })();
